@@ -5,15 +5,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>管理页面</title>
-</head>
-
-<body>
-    <div id="container"><button id="xxx">上传</button></div>
+    <title>网易云音乐</title>
+    <link rel="icon" href="./img/cloudmusic.png" type="image/png">
+    <script src="//at.alicdn.com/t/font_809243_djgbv2k0w76.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="./vendors/moxie.min.js"></script>
     <script src="../node_modules/plupload/js/plupload.min.js"></script>
     <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-music"></use>
+            </svg>
+            <p>网易云音乐</p>
+        </div>
+    </header>
+    <div class="wrapper">
+        <aside>
+            <ul class="songList">
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li class="active">
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>to be</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手2</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>to be</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="songicon"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-yinle"></use>
+                        </svg>
+                    </div>
+                    <div class="songinfo">
+                        <p>歌曲11111111111111111111</p>
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-geshou"></use>
+                        </svg>
+                        <span>歌手1</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="addSong"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-ttpodicon"></use>
+                </svg><span>新增歌曲</span></div>
+        </aside>
+        <main>
+            <!-- <div class="upload">
+                <div id="dragArea" class="dragArea">请选择文件或将文件拖拽到此区域进行上传</div>
+                <div id="uploadBtn" class="uploadBtn">选择文件</div>
+            </div> -->
+            <div class="edit">
+                <p class="editinfo">请编辑歌曲信息</p>
+                <form>
+                    <div class="row"><span>歌曲：</span><input type="text" name="name"></div>
+                    <div class="row"><span>歌名：</span><input type="text" name="singer"></div>
+                    <div class="row"><span>外链：</span><input type="text" name="url"></div>
+                    <div class="row"><input type="submit" value="保存"></div>
+                </form>
+            </div>
+        </main>
+    </div>
     <script>
         var APP_ID = 'JabLYfnkFz8eqvqhPBQpMNPD-gzGzoHsz';
         var APP_KEY = 'NzpEN2DaL81dcov6bE5mXo0S';
@@ -36,7 +200,7 @@
         var upload = Qiniu.uploader({
             disable_statistics_report: false,   // 禁止自动发送上传统计信息到七牛，默认允许发送
             runtimes: 'html5',      // 上传模式,依次退化
-            browse_button: 'xxx',         // 上传选择的点选按钮，**必需**
+            browse_button: 'uploadBtn',         // 上传选择的点选按钮，**必需**
             // 在初始化时，uptoken, uptoken_url, uptoken_func 三个参数中必须有一个被设置
             // 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
             // 其中 uptoken 是直接提供上传凭证，uptoken_url 是提供了获取上传凭证的地址，如果需要定制获取 uptoken 的过程则可以设置 uptoken_func
@@ -52,11 +216,11 @@
             // unique_names: true,              // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
             // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `save_key`，则开启，SDK在前端将不对key进行任何处理
             domain: 'http://pe20rmk2n.bkt.clouddn.com',     // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
-            container: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
+            container: 'dragArea',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
             max_file_size: '8mb',             // 最大文件体积限制
             max_retries: 1,                     // 上传失败最大重试次数
             dragdrop: true,                     // 开启可拖曳上传
-            drop_element: 'container',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+            drop_element: 'dragArea',          // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
             auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
             //x_vars : {
             //    自定义变量，参考http://developer.qiniu.com/docs/v6/api/overview/up/response/vars.html
