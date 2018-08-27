@@ -77,6 +77,8 @@ border-radius: 10px;margin-right: auto;margin-left: auto;display: flex;
 flex-direction: column;justify-content: space-evenly;align-items: center;}
 form input{border: 1px solid #ddd;border-radius: 5px;width: 200px;
 height: 30px;font-family: "黑体";font-size: 16px;}
-form input[type=submit]{border: 1px solid rgb(200, 50, 50);border-radius: 5px;width: 200px;
-height: 30px;font-family: "黑体";font-size: 16px;color: rgb(200, 50, 50);margin-left: 45px;
-background: #fff;cursor: pointer;}
+form>div:nth-child(4){width: 245px;display: flex;justify-content: space-between;
+align-items: center;}
+form>div:nth-child(4)>button{border: 1px solid rgb(200, 50, 50);border-radius: 5px;
+width: 30%;height: 30px;font-family: "黑体";font-size: 16px;color: rgb(200, 50, 50);
+background: #fff;cursor: pointer;display: flex;justify-content: center;align-items: center;}
