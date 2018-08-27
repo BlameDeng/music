@@ -50,7 +50,6 @@
                 this.data.name = name;
                 this.data.singer = singer;
                 this.data.url = url;
-                console.log(this.data);
                 return response;
             })
         },

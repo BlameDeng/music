@@ -11,10 +11,10 @@
                <svg class="icon" aria-hidden="true">
                    <use xlink:href="#icon-geshou"></use>
                </svg>
-               <span>__url__</span>
+               <span>__singer__</span>
            </div></li>` ,
         render(data) {
-            let songs = data.songs;  //对象数组
+            let songs = data;  //对象数组
             songs.map((song) => {
                 let { id, name, singer, url } = song;
 
@@ -63,15 +63,23 @@
             this.model = model;
 
             this.model.fetch().then(() => {
-                this.view.render(this.model.data);
+                this.view.render(this.model.data.songs);
             })
             // this.view.render(this.model.data);
             this.bindEvents();
+            this.bindEventHub();
         },
 
         bindEvents() {
             $(this.view.el).on('click', '.addSong', () => {
                 window.eventHub.emit('add');  //add事件，用户点击了新建歌曲
+            })
+        },
+        bindEventHub() {
+            window.eventHub.on('save', (data) => {  //data是个对象
+                let array = Array(data);
+                this.view.render(array);
+                $(this.view.el).find(`li[data-song-id='']`).addClass('active');
             })
         },
     }
