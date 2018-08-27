@@ -38,14 +38,22 @@
         save(data) {
             let Song = AV.Object.extend('Song');
             let song = new Song();
-            let { name, singer, url } = data;
+            let {
+                name,
+                singer,
+                url
+            } = data;
             return song.save({
                 name: name,
                 singer: singer,
                 url: url
             }).then((response) => {
                 let id = response.id;
-                let { name, singer, url } = response.attributes;
+                let {
+                    name,
+                    singer,
+                    url
+                } = response.attributes;
                 this.data.id = id;
                 this.data.name = name;
                 this.data.singer = singer;
@@ -72,12 +80,30 @@
                 this.view.deactive();
             });
             window.eventHub.on('new', (data) => {
-                let { name, url } = data;
+                let {
+                    name,
+                    url
+                } = data;
                 this.model.data.name = name;
                 this.model.data.url = url;
 
                 this.view.active();
                 this.view.render(this.model.data);
+            });
+            window.eventHub.on('songlist-click', (data) => {
+                //data是个对象，songs属性是数组，还有一个selectId属性
+                console.log(data);
+                let {
+                    songs,
+                    selectId
+                } = data;
+                let obj = {};
+                songs.map((song) => {
+                    if (song.id === selectId) {
+                        return obj = song;
+                    }
+                });
+                this.view.render(obj);
             });
         },
         bindEvents() {
@@ -91,8 +117,10 @@
                 this.model.data.url = url;
                 let data = JSON.parse(JSON.stringify(this.model.data));
                 this.view.render({});
-                this.model.save(this.model.data);
-                window.eventHub.emit('save', data);  //save事件，用户点击了保存
+                this.model.save(this.model.data).then(() => {
+                    let obj = JSON.parse(JSON.stringify(this.model.data));
+                    window.eventHub.emit('save', obj); //save事件，用户点击了保存
+                })
             })
         },
 
