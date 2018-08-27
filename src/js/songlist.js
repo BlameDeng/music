@@ -1,57 +1,57 @@
 {
     let view = {
         el: 'aside',
-        template: `<ul class="songList">
-       <li>
-           <div class="songicon"><svg class="icon" aria-hidden="true">
+        template: `
+           <li><div class="songicon"><svg class="icon" aria-hidden="true">
                    <use xlink:href="#icon-yinle"></use>
                </svg>
            </div>
            <div class="songinfo">
-               <p>歌曲11111111111111111111</p>
+               <p>__name__</p>
                <svg class="icon" aria-hidden="true">
                    <use xlink:href="#icon-geshou"></use>
                </svg>
-               <span>歌手1</span>
-           </div>
-       </li>
-       <li class="active">
-           <div class="songicon"><svg class="icon" aria-hidden="true">
-                   <use xlink:href="#icon-yinle"></use>
-               </svg>
-           </div>
-           <div class="songinfo">
-               <p>to be</p>
-               <svg class="icon" aria-hidden="true">
-                   <use xlink:href="#icon-geshou"></use>
-               </svg>
-               <span>歌手2</span>
-           </div>
-       </li>
-       <li>
-           <div class="songicon"><svg class="icon" aria-hidden="true">
-                   <use xlink:href="#icon-yinle"></use>
-               </svg>
-           </div>
-           <div class="songinfo">
-               <p>to be</p>
-               <svg class="icon" aria-hidden="true">
-                   <use xlink:href="#icon-geshou"></use>
-               </svg>
-               <span>歌手1</span>
-           </div>
-       </li>
-   </ul>
-   <div class="addSong"><svg class="icon" aria-hidden="true">
-           <use xlink:href="#icon-ttpodicon"></use>
-       </svg><span>新增歌曲</span></div>` ,
+               <span>__url__</span>
+           </div></li>` ,
         render(data) {
-            $(this.el).html(this.template);
+            let songs = data.songs;  //对象数组
+            songs.map((song) => {
+                let { id, name, singer, url } = song;
+
+                html = this.template.replace(`__name__`, name).replace('__singer__', singer);
+                let domli = $(html);
+                domli.attr('data-song-id', id);
+                $(this.el).find('ul').append(domli);
+            })
         }
     };
 
     let model = {
-        data: {}
+        data: {
+            songs: []
+        },
+        fetch() {
+            let query = new AV.Query('Song');
+            return query.find().then((songs) => {
+                let array = [];
+                songs.map((song) => {
+                    let id = song.id;
+                    let { name, singer, url } = song.attributes;
+                    let obj = {
+                        'id': id,
+                        'name': name,
+                        'singer': singer,
+                        'url': url
+                    }
+                    array.push(obj);
+                });
+                this.data.songs = array
+            }).then((songs) => {
+                //成功处理
+            }, function (error) {
+                // 异常处理
+            });
+        },
     };
 
     let controller = {
@@ -62,7 +62,10 @@
             this.view = view;
             this.model = model;
 
-            this.view.render(this.model.data);
+            this.model.fetch().then(() => {
+                this.view.render(this.model.data);
+            })
+            // this.view.render(this.model.data);
             this.bindEvents();
         },
 
