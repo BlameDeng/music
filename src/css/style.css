@@ -27,7 +27,7 @@ font-family: "微软雅黑", sans-serif}
 .songList::-webkit-scrollbar {width: 5px;height: 5px;}
 .songList::-webkit-scrollbar-thumb {background-color: rgba(0,0,0,.08);
 border-radius: 10px;-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
-ul>li{display: flex;cursor: pointer;}
+ul>li{display: flex;cursor: pointer;position: relative;}
 ul>li:nth-child(2n-1){background: rgba(0,0,0,.06);}
 ul>li::before{content:'';display: block;height: 36px;width: 5px;
     margin:2px 0;border-radius: 2px;}   
