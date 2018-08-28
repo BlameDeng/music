@@ -82,3 +82,4 @@ align-items: center;}
 form>div:nth-child(4)>button{border: 1px solid rgb(200, 50, 50);border-radius: 5px;
 width: 30%;height: 30px;font-family: "黑体";font-size: 16px;color: rgb(200, 50, 50);
 background: #fff;cursor: pointer;display: flex;justify-content: center;align-items: center;}
+form>div:nth-child(4)>button.disabled{border: 1px solid #ddd;color: #ddd;}

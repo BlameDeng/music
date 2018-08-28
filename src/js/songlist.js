@@ -25,7 +25,6 @@
                 .replace('__singer__',singer).replace('__url__',url);
                 let domli=$(html).attr('data-song-id',id);
                 $(this.el).find('ul').append(domli);
-                $(this.el).find('ul>li:last-child>.add').addClass('active');
             })
         }
     };
@@ -44,13 +43,11 @@
               return AV.Object.saveAll(responses);
             }).then((responses)=> {
                 // 更新成功
-                console.log(responses)
                 responses.map((response)=>{
                     let song=response.attributes;
                     song['id']=response.id;
                     this.data.songs.push(song);
                 });
-                console.log(this.data)
               }, function (error) {
                 // 异常处理
               });
@@ -72,11 +69,21 @@
         bindEvents() {
             $(this.view.el).on('click', '.addSong', (e) => {
                 window.eventHub.emit('click-add');
+            });
+            $(this.view.el).find('ul').on('click','li',(e)=>{
+             this.model.data.selectId = e.currentTarget.getAttribute('data-song-id');
+            $(e.currentTarget).addClass('active').siblings().removeClass('active');
+             let data=JSON.parse(JSON.stringify(this.model.data));
+             window.eventHub.emit('click-songlist',data);
             })
         },
         bindEventHub(){
             window.eventHub.on('save-done',(data)=>{
                 this.view.render(data);  //渲染页面
+                $(this.view.el).find('ul>li:last-child>.add').addClass('active');
+            });
+            window.eventHub.on('click-change',(data)=>{
+                
             })
         }
     };

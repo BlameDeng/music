@@ -11,11 +11,11 @@
         render(data) {
             let songs = data.songs;  //对象组成的数组
             songs.map((song) => {
-                let { name='', singer = '', url='' } = song;
-                this.template = this.template.replace('__name__', name)
+                let { name = '', singer = '', url = '' } = song;
+                let html = this.template.replace('__name__', name)
                     .replace('__singer__', singer).replace('__url__', url);
+                $(this.el).html(html);
             })
-            $(this.el).html(this.template);
         },
         active() {
             $(this.el).addClass('active');
@@ -41,17 +41,32 @@
             song.set('url', obj.url);
             // 设置优先级
             song.set('priority', 1);
-            return song.save().then((response)=> {
-                let obj=response.attributes;
-                obj['id']=response.id;
+            return song.save().then((response) => {
+                let obj = response.attributes;
+                obj['id'] = response.id;
                 this.data.songs.push(obj);  //将回应的数据加到data的songs里
                 //这里传数据只应该传这次保存生成的
-                let emitdata={songs: [],selectId: null};
+                let emitdata = { songs: [], selectId: null };
                 emitdata.songs.push(obj);
-                window.eventHub.emit('save-done',emitdata);
+                window.eventHub.emit('save-done', emitdata);
             }, function (error) {
                 console.error(error);
             });
+        },
+        update(data) {
+            let songs=data.songs;
+            let id=data.selectId;
+            // 第一个参数是 className，第二个参数是 objectId
+            var song = AV.Object.createWithoutData('Song', id);
+            songs.map((item)=>{
+                let {name,singer,url}=item;
+                            // 修改属性
+            song.set('name', name);
+            song.set('singer', singer);
+            song.set('url', url);
+            // 保存到云端
+            song.save();
+            })
         }
     };
 
@@ -72,6 +87,24 @@
             window.eventHub.on('upload-done', (data) => {
                 this.view.active();
                 this.view.render(data);  //渲染页面
+                $(this.view.el).find(`.change`).attr('disabled', true)
+                    .addClass('disabled');
+            });
+            window.eventHub.on('click-songlist', (data) => {
+                this.view.active();
+                this.model.data.selectId=data.selectId;  //点击歌曲列表，会把当前选中的ID赋值到model的data
+                let selectId = data.selectId;
+                let songs = data.songs;
+                let selectData = { 'songs': [], 'selectId': null };
+                selectData.selectId = selectId;
+                songs.map((song) => {
+                    if (song.id === selectId) {
+                        selectData.songs.push(song);
+                    }
+                });
+                this.view.render(selectData);
+                $(this.view.el).find(`button[type=submit]`).attr('disabled', true)
+                    .addClass('disabled');
             })
         },
         bindEvents() {
@@ -82,10 +115,20 @@
                 let url = $(this.view.el).find(`input[name=url]`).val();
                 let obj = { 'name': name, 'singer': singer, 'url': url };
                 this.model.save(obj);
-                this.view.render({songs:[{}]});
+                this.view.render({ songs: [{}] });
+            });
+            $(this.view.el).on('click','.change',()=>{
+                let name = $(this.view.el).find(`input[name=name]`).val();
+                let singer = $(this.view.el).find(`input[name=singer]`).val();
+                let url = $(this.view.el).find(`input[name=url]`).val();
+                let obj = { 'name': name, 'singer': singer, 'url': url };
+                let data={'songs':[],'selectId':this.model.data.selectId};
+                data.songs.push(obj);
+                this.model.update(data);
+                this.view.render(data);
+                window.eventHub.emit('click-change',data);
             })
         }
     };
     controller.init(view, model);
-
 }

@@ -37,6 +37,9 @@
             });
             window.eventHub.on('upload-done',()=>{
                 this.view.deactive();
+            });
+            window.eventHub.on('click-songlist',()=>{
+                this.view.deactive();
             })
         },
         upload() {
