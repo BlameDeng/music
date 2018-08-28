@@ -117,6 +117,8 @@
             });
             window.eventHub.on('click-change',(data)=>{
                 this.view.update(data);
+                this.model.data={songs: [],selectId: null};  //重置数据库
+                this.model.fetch();  //更新数据库
             });
             window.eventHub.on('click-delete',(data)=>{
                 this.view.delete(data);

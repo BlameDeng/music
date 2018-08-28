@@ -119,6 +119,12 @@
                 this.view.disableSubmit();
             })
         },
+        // getFormVal(){
+        //     let name = $(this.view.el).find(`input[name=name]`).val();
+        //     let singer = $(this.view.el).find(`input[name=singer]`).val();
+        //     let url = $(this.view.el).find(`input[name=url]`).val();
+        //     return obj = { 'name': name, 'singer': singer, 'url': url };
+        // },
         bindEvents() {
             $(this.view.el).on('submit', 'form', (e) => {
                 e.preventDefault();
@@ -126,6 +132,7 @@
                 let singer = $(this.view.el).find(`input[name=singer]`).val();
                 let url = $(this.view.el).find(`input[name=url]`).val();
                 let obj = { 'name': name, 'singer': singer, 'url': url };
+                // let obj=this.getFormVal();
                 this.model.save(obj);
                 this.view.render({ songs: [{}] });
             });
@@ -134,6 +141,7 @@
                 let singer = $(this.view.el).find(`input[name=singer]`).val();
                 let url = $(this.view.el).find(`input[name=url]`).val();
                 let obj = { 'name': name, 'singer': singer, 'url': url };
+                // let obj=this.getFormVal();
                 let data = { 'songs': [], 'selectId': this.model.data.selectId };
                 data.songs.push(obj);
                 this.model.update(data);
@@ -146,6 +154,7 @@
                 let singer = $(this.view.el).find(`input[name=singer]`).val();
                 let url = $(this.view.el).find(`input[name=url]`).val();
                 let obj = { 'name': name, 'singer': singer, 'url': url };
+                // let obj=this.getFormVal();
                 let data = { 'songs': [], 'selectId': this.model.data.selectId };
                 data.songs.push(obj);
                 this.model.delete(data);
