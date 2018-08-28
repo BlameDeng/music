@@ -137,7 +137,8 @@
                 this.view.disableSubmit();
             });
             window.eventHub.on('click-change',()=>{
-                this.model.fetch();
+                this.model.data={songs: [],selectId: null};  //重置数据库
+                this.model.fetch();  //更新数据库
             })
         },
         // getFormVal(){
