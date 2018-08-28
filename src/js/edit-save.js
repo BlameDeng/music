@@ -22,6 +22,10 @@
         },
         deactive() {
             $(this.el).removeClass('active');
+        },
+        disableSubmit() {
+            $(this.el).find(`button[type=submit]`).attr('disabled', true)
+                .addClass('disabled');
         }
     };
 
@@ -54,19 +58,28 @@
             });
         },
         update(data) {
-            let songs=data.songs;
-            let id=data.selectId;
+            let songs = data.songs;
+            let id = data.selectId;
             // 第一个参数是 className，第二个参数是 objectId
             var song = AV.Object.createWithoutData('Song', id);
-            songs.map((item)=>{
-                let {name,singer,url}=item;
-                            // 修改属性
-            song.set('name', name);
-            song.set('singer', singer);
-            song.set('url', url);
-            // 保存到云端
-            song.save();
+            songs.map((item) => {
+                let { name, singer, url } = item;
+                // 修改属性
+                song.set('name', name);
+                song.set('singer', singer);
+                song.set('url', url);
+                // 保存到云端
+                song.save();
             })
+        },
+        delete(data) {
+            let deleteId=data.selectId;
+            var song = AV.Object.createWithoutData('Song', deleteId);
+            return song.destroy().then(function (success) {
+                // 删除成功
+            }, function (error) {
+                // 删除失败
+            });
         }
     };
 
@@ -92,7 +105,7 @@
             });
             window.eventHub.on('click-songlist', (data) => {
                 this.view.active();
-                this.model.data.selectId=data.selectId;  //点击歌曲列表，会把当前选中的ID赋值到model的data
+                this.model.data.selectId = data.selectId;  //点击歌曲列表，会把当前选中的ID赋值到model的data
                 let selectId = data.selectId;
                 let songs = data.songs;
                 let selectData = { 'songs': [], 'selectId': null };
@@ -103,8 +116,7 @@
                     }
                 });
                 this.view.render(selectData);
-                $(this.view.el).find(`button[type=submit]`).attr('disabled', true)
-                    .addClass('disabled');
+                this.view.disableSubmit();
             })
         },
         bindEvents() {
@@ -117,16 +129,28 @@
                 this.model.save(obj);
                 this.view.render({ songs: [{}] });
             });
-            $(this.view.el).on('click','.change',()=>{
+            $(this.view.el).on('click', '.change', () => {
                 let name = $(this.view.el).find(`input[name=name]`).val();
                 let singer = $(this.view.el).find(`input[name=singer]`).val();
                 let url = $(this.view.el).find(`input[name=url]`).val();
                 let obj = { 'name': name, 'singer': singer, 'url': url };
-                let data={'songs':[],'selectId':this.model.data.selectId};
+                let data = { 'songs': [], 'selectId': this.model.data.selectId };
                 data.songs.push(obj);
                 this.model.update(data);
                 this.view.render(data);
-                window.eventHub.emit('click-change',data);
+                this.view.disableSubmit();
+                window.eventHub.emit('click-change', data);
+            });
+            $(this.view.el).on('click','.delete',()=>{
+                let name = $(this.view.el).find(`input[name=name]`).val();
+                let singer = $(this.view.el).find(`input[name=singer]`).val();
+                let url = $(this.view.el).find(`input[name=url]`).val();
+                let obj = { 'name': name, 'singer': singer, 'url': url };
+                let data = { 'songs': [], 'selectId': this.model.data.selectId };
+                data.songs.push(obj);
+                this.model.delete(data);
+                this.view.render({ songs: [{}] });
+                window.eventHub.emit('click-delete', data);
             })
         }
     };

@@ -52,6 +52,10 @@
             .replace('__singer__',singer).replace('__url__',url);
             $(this.el).find(`[data-song-id=${selectId}]`).html(html);
         })
+        },
+        delete(data){
+            let deleteID=data.selectId;
+            $(this.el).find(`[data-song-id=${deleteID}]`).remove();
         }
     };
 
@@ -110,6 +114,9 @@
             });
             window.eventHub.on('click-change',(data)=>{
                 this.view.update(data);
+            });
+            window.eventHub.on('click-delete',(data)=>{
+                this.view.delete(data);
             })
         }
     };
