@@ -26,6 +26,32 @@
                 let domli=$(html).attr('data-song-id',id);
                 $(this.el).find('ul').append(domli);
             })
+        },
+        update(data){
+            let selectId=data.selectId;
+            let songs=data.songs;
+            let template=`<div class="songicon">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yinle"></use>
+            </svg>
+        </div>
+        <div class="songinfo">
+            <p>__name__</p>
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-geshou"></use>
+            </svg>
+            <span>__singer__</span>
+        </div>
+        <div class="add">
+            <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-chenggongtianjia-"></use></svg>
+        </div>`;
+        songs.map((song)=>{
+            let {name,singer,url,id}=song;
+            let html=template.replace('__name__',name)
+            .replace('__singer__',singer).replace('__url__',url);
+            $(this.el).find(`[data-song-id=${selectId}]`).html(html);
+        })
         }
     };
 
@@ -83,7 +109,7 @@
                 $(this.view.el).find('ul>li:last-child>.add').addClass('active');
             });
             window.eventHub.on('click-change',(data)=>{
-                
+                this.view.update(data);
             })
         }
     };
