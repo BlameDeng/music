@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>网易云音乐</title>
     <link rel="icon" href="./img/cloudmusic.png" type="image/png">
-    <script src="//at.alicdn.com/t/font_809243_70q6y3d1or4.js"></script>
+    <script src="//at.alicdn.com/t/font_809243_2gwrrmd5lmf.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="./vendors/moxie.min.js"></script>
     <script src="./vendors/jquery.js"></script>
@@ -17,34 +17,38 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-music"></use>
-            </svg>
-            <p>网易云音乐</p>
-        </div>
-    </header>
-    <div class="wrapper">
-        <aside>
-            <ul class="songList">
-            </ul>
-            <div class="addSong">
+    <div class="page">
+        <header>
+            <div class="logo">
                 <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-ttpodicon"></use>
+                    <use xlink:href="#icon-music"></use>
                 </svg>
-                <span>新增歌曲</span>
+                <p>网易云音乐</p>
             </div>
-        </aside>
-        <main>
-            <div class="upload">
-            </div>
-            <div class="edit active">
-            </div>
-        </main>
+        </header>
+        <div class="wrapper">
+            <aside>
+                <ul class="songList">
+                </ul>
+                <div class="addSong">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-ttpodicon"></use>
+                    </svg>
+                    <span>新增歌曲</span>
+                </div>
+            </aside>
+            <main>
+                <div class="upload">
+                </div>
+                <div class="edit active">
+                </div>
+            </main>
+        </div>
     </div>
+    <div class="mask"></div>
     <script src="./js/inits/avinit.js"></script>
     <script src="./js/event-hub.js"></script>
+    <script src="./js/mask.js"></script>
     <script src="./js/songlist.js"></script>
     <script src="./js/upload.js"></script>
     <script src="./js/edit-save.js"></script>
