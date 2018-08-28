@@ -110,6 +110,9 @@
         bindEventHub(){
             window.eventHub.on('save-done',(data)=>{
                 this.view.render(data);  //渲染页面
+                data.songs.map((song)=>{
+                    this.model.data.songs.push(song);  //上传完毕后把数据加到model的data里，这样点击新建的标签才能渲染form
+                })
                 $(this.view.el).find('ul>li:last-child>.add').addClass('active');
             });
             window.eventHub.on('click-change',(data)=>{
