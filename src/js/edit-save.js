@@ -34,6 +34,24 @@
             songs: [],
             selectId: null
         },
+        fetch(){
+            var query = new AV.Query('Song');
+           return query.find().then((responses)=>{  //数组
+            responses.forEach(function(response) {
+                response.set('status', 1);
+              });
+              return AV.Object.saveAll(responses);
+            }).then((responses)=> {
+                // 更新成功
+                responses.map((response)=>{
+                    let song=response.attributes;
+                    song['id']=response.id;
+                    this.data.songs.push(song);
+                });
+              }, function (error) {
+                // 异常处理
+              });
+        },
         save(obj) {
             // 声明类型
             var Song = AV.Object.extend('Song');
@@ -89,7 +107,7 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.view.render(this.model.data);
+            this.model.fetch();
             this.bindEventHub();
             this.bindEvents();
         },
@@ -107,7 +125,7 @@
                 this.view.active();
                 this.model.data.selectId = data.selectId;  //点击歌曲列表，会把当前选中的ID赋值到model的data
                 let selectId = data.selectId;
-                let songs = data.songs;
+                let songs = this.model.data.songs;
                 let selectData = { 'songs': [], 'selectId': null };
                 selectData.selectId = selectId;
                 songs.map((song) => {
@@ -117,6 +135,9 @@
                 });
                 this.view.render(selectData);
                 this.view.disableSubmit();
+            });
+            window.eventHub.on('click-change',()=>{
+                this.model.fetch();
             })
         },
         // getFormVal(){
