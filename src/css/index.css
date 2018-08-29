@@ -14,7 +14,7 @@ align-items: center;}
 .logo{display: flex;justify-content: flex-start;}
 .logo>.icon {width: 30px; height: 30px;margin: 0 3px 0 10px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-.logo>p{color: #fff;font-family:"幼圆",sans-serif;font-size: 20px;line-height: 30px;
+.logo>p{color: #fff;font-size: 20px;line-height: 30px;
 font-weight: bold;}
 header>div:nth-child(2){height: 24px;color: #fff;border: 1px solid #fff;
 line-height: 22px;margin-right: 15px;padding: 0 5px;border-radius: 15px;
@@ -30,8 +30,12 @@ ul>li.active::after{background: rgb(200, 50, 50);}
 nav>hr{background: #ddd;border: none;height: 1px;}
 
 /* .page1 */
-.page1 .slides{width: 100%;margin-top: 5px;}
-.page1 .slides>.slide>img{width: 70%;margin: 0 auto;}
+.page1 .slides{width: 100%;margin-top: 5px;display: flex;
+justify-content: space-between;}
+.page1 .slides>div.left{width: 35%;}
+.page1 .slides>div.middle{width: 50%;}
+.page1 .slides>div.right{width: 35%;}
+.page1 .slides>div>img{width: 100%;margin: 0 auto;}
 .page1 .recommendation{width: 100%;display: flex;justify-content: space-between;
 margin-top: 5px;}
 .page1 .recommendation>div{width: 24%;}
