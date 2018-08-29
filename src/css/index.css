@@ -30,11 +30,12 @@ ul>li.active::after{background: rgb(200, 50, 50);}
 nav>hr{background: #ddd;border: none;height: 1px;}
 
 /* .page1 */
-.page1 .slides{width: 100%;margin-top: 5px;display: flex;
-justify-content: space-between;}
-.page1 .slides>div.left{width: 35%;}
-.page1 .slides>div.middle{width: 50%;}
-.page1 .slides>div.right{width: 35%;}
+.page1 .slides{width: 100%;margin-top: 5px;position: relative;}
+.page1 .slides>div{transition: all 0.3s;}
+.page1 .slides>div.left{width: 50%;position: absolute;top: 0;left: 0;}
+.page1 .slides>div.middle{width: 50%;margin: 0 auto;position: relative;
+z-index: 1;transform: scale(1.2);}
+.page1 .slides>div.right{width: 50%;position: absolute;top: 0;right: 0;}
 .page1 .slides>div>img{width: 100%;margin: 0 auto;}
 .page1 .recommendation{width: 100%;display: flex;justify-content: space-between;
 margin-top: 5px;}
