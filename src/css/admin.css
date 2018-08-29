@@ -1,6 +1,7 @@
 *{margin: 0;padding: 0;box-sizing: border-box;}
 *::before,*::after{box-sizing: border-box;}
-body{font-size: 14px;min-width: 1000px;height: 100%;}
+body{font-size: 14px;min-width: 1000px;height: 100%;
+font-family: Helvetica,sans-serif;}
 ul,ol{list-style: none;}
 a{color: inherit;text-decoration: none;}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;
@@ -18,11 +19,10 @@ border-top-right-radius: 5px;}
 .logo{display: flex;justify-content: flex-start;}
 .logo>.icon {width: 20px; height: 20px;margin: 0 5px 0 16px;vertical-align: top;
     fill: currentColor;overflow: hidden;}
- .logo>p{color: #fff;font-family:"幼圆",sans-serif;font-size: 16px;line-height: 20px;
+ .logo>p{color: #fff;font-size: 16px;line-height: 20px;
 font-weight: bold;}
 /* aside */
-aside{display: flex;flex-direction: column;justify-content: space-between;
-font-family: "微软雅黑", sans-serif}
+aside{display: flex;flex-direction: column;justify-content: space-between;}
 
 .songList{flex-grow: 1;overflow: auto;}
 .songList::-webkit-scrollbar {width: 5px;height: 5px;}
@@ -77,11 +77,11 @@ main>.edit>form{width: 80%;height: 80%;border: 1px dashed #ddd;
 border-radius: 10px;margin-right: auto;margin-left: auto;display: flex;
 flex-direction: column;justify-content: space-evenly;align-items: center;}
 form input{border: 1px solid #ddd;border-radius: 5px;width: 200px;
-height: 30px;font-size: 14px;}
+height: 30px;font-size: 14px;padding-left: 5px;}
 form>div:nth-child(4){width: 245px;display: flex;justify-content: space-between;
 align-items: center;}
 form>div:nth-child(4)>button{border: 1px solid rgb(200, 50, 50);border-radius: 5px;
-width: 30%;height: 30px;font-family: "黑体";font-size: 16px;color: rgb(200, 50, 50);
+width: 30%;height: 30px;font-size: 16px;color: rgb(200, 50, 50);
 background: #fff;cursor: pointer;display: flex;justify-content: center;align-items: center;}
 form>div:nth-child(4)>button.disabled{border: 1px solid #ddd;color: #ddd;}
 
@@ -94,4 +94,4 @@ top: 50%;left: 50%;margin-top: -50px;margin-left: -50px;
 ;animation: loading 2.5s linear infinite;}
 @keyframes loading{from{transform: rotateZ(0);}to{transform: rotateZ(360deg);}}
 .loading>.icon {width: 100px; height: 100px;vertical-align: -0.15em;
-    fill: currentColor;overflow: hidden;}
+fill: currentColor;overflow: hidden;}
