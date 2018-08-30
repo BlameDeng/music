@@ -73,6 +73,16 @@ $('.btn').on('click', 'span.stop', (e) => {
     $('span.pause').removeClass('active')
     $('div.pointer').removeClass('active');
 })
+$('.btn').on('click', 'span.mutedT', (e) => {
+    $(e.currentTarget).removeClass('active');
+    $('span.mutedF').addClass('active');
+    audio.volume=0;
+})
+$('.btn').on('click', 'span.mutedF', (e) => {
+    $(e.currentTarget).removeClass('active');
+    $('span.mutedT').addClass('active');
+    audio.volume=1;
+})
 
 let currentTime, fullTime;
 let progress;

@@ -44,9 +44,9 @@ div.progress{width: 80%;height: 4px;margin: 0 auto;background: #fff;border-radiu
 
 
 
-div.btn{width: 30%;margin-bottom: 10px;display: flex;justify-content: space-between;
+div.btn{width: 30%;margin-bottom: 10px;display: flex;justify-content: center;align-items: center;
 position: fixed;bottom: 0;left: 0;margin-left: 35%;}
-div.btn>span.play,div.btn>span.pause{display: none;}
-div.btn>span.active{display: inline;}
-div.btn .icon {width: 30px; height: 30px;vertical-align: -0.15em;
+div.btn span.play,div.btn span.pause{display: none;}
+div.btn span.active{display: inline;}
+div.btn .icon {width: 30px; height: 30px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
