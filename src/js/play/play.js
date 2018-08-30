@@ -20,7 +20,6 @@
             this.model = model;
             this.fetch().then(() => {
                 this.view.render(this.model.data);
-                
             })
         },
         getId() {
