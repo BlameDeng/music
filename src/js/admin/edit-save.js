@@ -6,14 +6,16 @@
             <div class="row"><span>歌曲：</span><input type="text" name="name" value="__name__"></div>
             <div class="row"><span>歌手：</span><input type="text" name="singer" value="__singer__"></div>
             <div class="row"><span>外链：</span><input type="text" name="url" value="__url__"></div>
+            <div class="row"><span>封面：</span><input type="text" name="cover" value="__cover__"></div>            
             <div class="row"><button type="submit" class="submit">保存</button><button type="button" class="change">修改</button><button type="button" class="delete">删除</button></div>
         </form>`,
         render(data) {
             let songs = data.songs;  //对象组成的数组
             songs.map((song) => {
-                let { name = '', singer = '', url = '' } = song;
+                let { name = '', singer = '', url = '', cover=''} = song;
                 let html = this.template.replace('__name__', name)
-                    .replace('__singer__', singer).replace('__url__', url);
+                    .replace('__singer__', singer).replace('__url__', url)
+                    .replace('__cover__',cover);
                 $(this.el).html(html);
             })
         },
@@ -61,6 +63,7 @@
             song.set('name', obj.name);
             song.set('singer', obj.singer);
             song.set('url', obj.url);
+            song.set('cover',obj.cover);
             // 设置优先级
             song.set('priority', 1);
             return song.save().then((response) => {
@@ -81,11 +84,12 @@
             // 第一个参数是 className，第二个参数是 objectId
             var song = AV.Object.createWithoutData('Song', id);
             songs.map((item) => {
-                let { name, singer, url } = item;
+                let { name, singer, url, cover } = item;
                 // 修改属性
                 song.set('name', name);
                 song.set('singer', singer);
                 song.set('url', url);
+                song.set('cover',cover)
                 // 保存到云端
                 song.save();
             })
@@ -145,7 +149,8 @@
             let name = $(this.view.el).find(`input[name=name]`).val();
             let singer = $(this.view.el).find(`input[name=singer]`).val();
             let url = $(this.view.el).find(`input[name=url]`).val();
-            return obj = { 'name': name, 'singer': singer, 'url': url };
+            let cover=$(this.view.el).find(`input[name=cover]`).val();
+            return obj = { 'name': name, 'singer': singer, 'url': url,'cover':cover };
         },
         bindEvents() {
             $(this.view.el).on('submit', 'form', (e) => {
