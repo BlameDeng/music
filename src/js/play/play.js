@@ -3,6 +3,7 @@
         el: '.app',
         // template: `<audio src="__url__"></audio>`,
         render(data) {
+            let lrc = data.attributes.lrc;
             let url = data.attributes.url;
             $(this.el).find('audio').attr('src', url);
         }
