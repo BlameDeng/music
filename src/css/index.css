@@ -17,7 +17,7 @@ fill: currentColor;overflow: hidden;}
 .logo>p{color: #fff;font-size: 20px;line-height: 30px;
 font-weight: bold;}
 header>div:nth-child(2){height: 24px;color: #fff;border: 1px solid #fff;
-line-height: 22px;margin-right: 15px;padding: 0 5px;border-radius: 15px;
+line-height: 24px;margin-right: 15px;padding: 0 5px;border-radius: 15px;
 font-size: 12px;}
 
 /* nav */
@@ -38,7 +38,7 @@ z-index: 1;transform: scale(1.2);}
 .page1 .slides>div.right{width: 50%;position: absolute;top: 0;right: 0;}
 .page1 .slides>div>img{width: 100%;margin: 0 auto;}
 .page1 .recommendation{width: 100%;display: flex;margin-top: 5px;}
-.page1 .recommendation.active{animation: scroll 8s linear infinite;}
+.page1 .recommendation.active{animation: scroll 10s linear infinite;}
 @keyframes scroll{from{transform: translateX(0);}to{transform: translate(-100%)}}
 .recommendation>div{width: 100%;display: flex;justify-content: space-between;
 flex-shrink: 0;}
@@ -70,6 +70,6 @@ padding-left: 2px;}
 .newSong>ol>li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
 fill: currentColor;overflow: hidden;margin: 3px 0;}
 .newSong>ol>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
-.newSong>ol>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 0;}
+.newSong>ol>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
 .newSong>ol>li>.play>a>.icon{width: 30px; height: 30px;vertical-align: top;
 fill: currentColor;overflow: hidden;margin: 5px;}
