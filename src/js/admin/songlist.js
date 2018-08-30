@@ -20,7 +20,7 @@
         render(data) {
             let songs=data.songs;  //是个对象数组
             songs.map((song)=>{
-                let {name,singer,url,id,cover}=song;
+                let {name,singer,url,id,cover,lrc}=song;
                 let html=this.template.replace('__name__',name)
                 .replace('__singer__',singer).replace('__url__',url).replace('__cover__',cover);
                 let domli=$(html).attr('data-song-id',id);
