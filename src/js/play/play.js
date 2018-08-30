@@ -1,12 +1,10 @@
 {
     let view = {
         el: '.app',
-        template: `<audio controls src="__url__"></audio>`,
+        // template: `<audio src="__url__"></audio>`,
         render(data) {
-            console.log(data)
-            let url=data.attributes.url;
-            let html=this.template.replace('__url__',url);
-            // $(this.el).html(html);
+            let url = data.attributes.url;
+            $(this.el).find('audio').attr('src', url);
         }
     };
     let model = {
@@ -20,7 +18,7 @@
             this.model = model;
             this.fetch().then(() => {
                 this.view.render(this.model.data);
-            })
+            });
         },
         getId() {
             let search = window.location.search;
@@ -44,7 +42,7 @@
         fetch() {
             let query = new AV.Query('Song');
             let id = this.getId();
-            return query.get(id).then((song)=> {
+            return query.get(id).then((song) => {
                 // song 就是 id 对象实例 attributes,id
                 this.model.data = song;
             }, function (error) {
@@ -53,4 +51,31 @@
         }
     };
     controller.init(view, model);
+}
+
+let audio = $('audio')[0];
+$('.btn').on('click', 'span.play', (e) => {
+    $(e.currentTarget).removeClass('active');
+    $('span.pause').addClass('active');
+    $('audio')[0].play();
+})
+$('.btn').on('click', 'span.pause', (e) => {
+    $(e.currentTarget).removeClass('active');
+    $('span.play').addClass('active');
+    $('audio')[0].pause();
+})
+$('.btn').on('click', 'span.stop', (e) => {
+    $('audio')[0].currentTime = 0;
+    $('audio')[0].pause();
+    $('span.play').addClass('active');
+    $('span.pause').removeClass('active')
+})
+
+let currentTime, fullTime;
+let progress;
+$('audio')[0].ontimeupdate = () => {
+    currentTime = parseInt(audio.currentTime);
+    fullTime = audio.duration;
+    progress = `${parseInt(currentTime / fullTime * 100)}%`
+    $('.current').css('width', progress);
 }

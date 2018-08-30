@@ -12,24 +12,39 @@ div.wrapper{width: 100%;background-image: url(../img/playwall.jpg);
 background-position: center center;background-size: cover;position: relative;
 height: 100vh;}
 
-header{padding: 10px 0;border-top-left-radius: 5px;
+header{padding: 5px 0;border-top-left-radius: 5px;position: absolute;top: 0;left: 0;
 border-top-right-radius: 5px;display: flex;justify-content: space-between;
 align-items: center;}
 .logo{display: flex;justify-content: flex-start;}
-.logo>.icon {width: 30px; height: 30px;margin: 0 3px 0 10px;vertical-align: top;
+.logo>div{background: #fff;margin: 0 3px 0 6px;border-radius: 50%;}
+.logo .icon {width: 18px; height: 18px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-.logo>p{color: #fff;font-size: 20px;line-height: 30px;
+.logo>p{color: #fff;font-size: 12px;line-height: 18px;
 font-weight: bold;}
 
 /* dist */
-.distwrapper{width: 100%;position: relative;}
-.pointer{width: 60%;z-index: 1;}
+.distwrapper{width: 100%;}
+.pointer{width: 20%;z-index: 1;position: relative;left: 45%;}
 .pointer>img{width: 100%;}
-.dist{width: 60%;position: absolute;left: 20%;}
+.dist{width: 60%;margin-top: -12%;margin-left: auto;margin-right: auto;position: relative;}
 .dist img{width: 100%;}
-.dist-light{width: 60%;position: absolute;left: 20%;top: 10%;}
+.dist-light{width: 60%;margin-top: -60%;margin-left: auto;margin-right: auto;}
 .dist-light img{width: 100%;}
-/* .distwrapper{border:1px solid white;width: 60%;margin: 0 auto;position: relative;}
-.distwrapper>.dist{width: 100%;}
-.distwrapper>.dist-light{width: 100%;position: absolute;top: 0;left: 0;}
-.distwrapper img{width: 100%;} */
+.cover{width: 40%;border-radius: 50%;overflow: hidden;margin-left: auto;
+margin-right: auto;margin-top: -50%;}
+.cover.active{animation: circle 12s linear infinite;}
+@keyframes circle{from{transform: rotateZ(0);}to{transform: rotateZ(360deg);}}
+.cover>img{width: 100%;}
+
+div.progress{width: 80%;height: 4px;margin: 0 auto;background: #fff;border-radius: 2px;}
+.progress>p{width: 0;height: 4px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
+
+
+
+
+div.btn{width: 30%;margin-bottom: 10px;display: flex;justify-content: space-between;
+position: fixed;bottom: 0;left: 0;margin-left: 35%;}
+div.btn>span.play,div.btn>span.pause{display: none;}
+div.btn>span.active{display: inline;}
+div.btn .icon {width: 30px; height: 30px;vertical-align: -0.15em;
+fill: currentColor;overflow: hidden;}
