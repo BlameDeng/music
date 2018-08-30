@@ -49,7 +49,7 @@
     </div>
     <div class="play">
         <a href="./play.html?id=__id__"> <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-Symbols4"></use>
+                <use xlink:href="#icon-bofang1"></use>
             </svg></a>
     </div>
 </li>`,

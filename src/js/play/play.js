@@ -19,6 +19,7 @@
             this.fetch().then(() => {
                 this.view.render(this.model.data);
             });
+            this.bindEvents();
         },
         getId() {
             let search = window.location.search;
@@ -48,47 +49,51 @@
             }, function (error) {
                 // 异常处理
             });
+        },
+        bindEvents() {
+            let audio = $('audio')[0];
+            $('.btn').on('click', 'span.play', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('span.pause').addClass('active');
+                $('div.pointer').addClass('active');
+                $('div.cover').addClass('active').removeClass('pause');
+                audio.play();
+            })
+            $('.btn').on('click', 'span.pause', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('div.pointer').removeClass('active');
+                $('div.cover').addClass('pause');
+                $('span.play').addClass('active');
+                audio.pause();
+            })
+            $('.btn').on('click', 'span.stop', (e) => {
+                audio.currentTime = 0;
+                audio.pause();
+                $('span.play').addClass('active');
+                $('span.pause').removeClass('active')
+                $('div.pointer').removeClass('active');
+                $('div.cover').removeClass('active');
+            })
+            $('.btn').on('click', 'span.volumeT', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('span.volumeF').addClass('active');
+                audio.volume = 0;
+            })
+            $('.btn').on('click', 'span.volumeF', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('span.volumeT').addClass('active');
+                audio.volume = 1;
+            })
+
+            let currentTime, fullTime;
+            let progress;
+            audio.ontimeupdate = () => {
+                currentTime = audio.currentTime;
+                fullTime = audio.duration;
+                progress = `${currentTime / fullTime * 100}%`
+                $('.current').css('width', progress);
+            }
         }
     };
     controller.init(view, model);
-}
-
-let audio = $('audio')[0];
-$('.btn').on('click', 'span.play', (e) => {
-    $(e.currentTarget).removeClass('active');
-    $('span.pause').addClass('active');
-    $('div.pointer').addClass('active');
-    $('audio')[0].play();
-})
-$('.btn').on('click', 'span.pause', (e) => {
-    $(e.currentTarget).removeClass('active');
-    $('div.pointer').removeClass('active');
-    $('span.play').addClass('active');
-    $('audio')[0].pause();
-})
-$('.btn').on('click', 'span.stop', (e) => {
-    $('audio')[0].currentTime = 0;
-    $('audio')[0].pause();
-    $('span.play').addClass('active');
-    $('span.pause').removeClass('active')
-    $('div.pointer').removeClass('active');
-})
-$('.btn').on('click', 'span.mutedT', (e) => {
-    $(e.currentTarget).removeClass('active');
-    $('span.mutedF').addClass('active');
-    audio.volume=0;
-})
-$('.btn').on('click', 'span.mutedF', (e) => {
-    $(e.currentTarget).removeClass('active');
-    $('span.mutedT').addClass('active');
-    audio.volume=1;
-})
-
-let currentTime, fullTime;
-let progress;
-$('audio')[0].ontimeupdate = () => {
-    currentTime = audio.currentTime;
-    fullTime = audio.duration;
-    progress = `${currentTime / fullTime * 100}%`
-    $('.current').css('width', progress);
 }
