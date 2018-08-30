@@ -57,10 +57,12 @@ let audio = $('audio')[0];
 $('.btn').on('click', 'span.play', (e) => {
     $(e.currentTarget).removeClass('active');
     $('span.pause').addClass('active');
+    $('div.pointer').addClass('active');
     $('audio')[0].play();
 })
 $('.btn').on('click', 'span.pause', (e) => {
     $(e.currentTarget).removeClass('active');
+    $('div.pointer').removeClass('active');
     $('span.play').addClass('active');
     $('audio')[0].pause();
 })
@@ -69,13 +71,14 @@ $('.btn').on('click', 'span.stop', (e) => {
     $('audio')[0].pause();
     $('span.play').addClass('active');
     $('span.pause').removeClass('active')
+    $('div.pointer').removeClass('active');
 })
 
 let currentTime, fullTime;
 let progress;
 $('audio')[0].ontimeupdate = () => {
-    currentTime = parseInt(audio.currentTime);
+    currentTime = audio.currentTime;
     fullTime = audio.duration;
-    progress = `${parseInt(currentTime / fullTime * 100)}%`
+    progress = `${currentTime / fullTime * 100}%`
     $('.current').css('width', progress);
 }

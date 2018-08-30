@@ -24,7 +24,9 @@ font-weight: bold;}
 
 /* dist */
 .distwrapper{width: 100%;}
-.pointer{width: 20%;z-index: 1;position: relative;left: 45%;}
+.pointer{width: 20%;z-index: 1;position: relative;left: 45%;transition: all 0.5s;
+transform-origin: 0 0;transform: rotateZ(-25deg);}
+.pointer.active{transform: rotateZ(0);}
 .pointer>img{width: 100%;}
 .dist{width: 60%;margin-top: -12%;margin-left: auto;margin-right: auto;position: relative;}
 .dist img{width: 100%;}
