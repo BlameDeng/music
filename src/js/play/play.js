@@ -6,7 +6,7 @@
             console.log(data)
             let url=data.attributes.url;
             let html=this.template.replace('__url__',url);
-            $(this.el).html(html);
+            // $(this.el).html(html);
         }
     };
     let model = {

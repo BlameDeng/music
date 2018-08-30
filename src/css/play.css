@@ -8,7 +8,11 @@ img{vertical-align: middle;}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;
 fill: currentColor;overflow: hidden;}
 
-header{background: rgb(200, 50, 50);padding: 10px 0;border-top-left-radius: 5px;
+div.wrapper{width: 100%;background-image: url(../img/playwall.jpg);
+background-position: center center;background-size: cover;position: relative;
+height: 100vh;}
+
+header{padding: 10px 0;border-top-left-radius: 5px;
 border-top-right-radius: 5px;display: flex;justify-content: space-between;
 align-items: center;}
 .logo{display: flex;justify-content: flex-start;}
@@ -16,6 +20,16 @@ align-items: center;}
 fill: currentColor;overflow: hidden;}
 .logo>p{color: #fff;font-size: 20px;line-height: 30px;
 font-weight: bold;}
-header>div:nth-child(2){height: 24px;color: #fff;border: 1px solid #fff;
-line-height: 24px;margin-right: 15px;padding: 0 5px;border-radius: 15px;
-font-size: 12px;}
+
+/* dist */
+.distwrapper{width: 100%;position: relative;}
+.pointer{width: 60%;z-index: 1;}
+.pointer>img{width: 100%;}
+.dist{width: 60%;position: absolute;left: 20%;}
+.dist img{width: 100%;}
+.dist-light{width: 60%;position: absolute;left: 20%;top: 10%;}
+.dist-light img{width: 100%;}
+/* .distwrapper{border:1px solid white;width: 60%;margin: 0 auto;position: relative;}
+.distwrapper>.dist{width: 100%;}
+.distwrapper>.dist-light{width: 100%;position: absolute;top: 0;left: 0;}
+.distwrapper img{width: 100%;} */
