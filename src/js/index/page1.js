@@ -12,7 +12,8 @@
                     <div class="swiper-slide"><img src="./img/slide.png" alt=""></div>
                 </div>
             </div>
-            <div class="recommendation active">
+            <div class="recomWrapper">    
+            <div class="recommendation clearfix active">
                 <div class="true">
                     <div><img src="./img/art1.jpg" alt=""></div>
                     <div><img src="./img/art2.png" alt=""></div>
@@ -25,6 +26,7 @@
                     <div><img src="./img/art1.jpg" alt=""></div>
                     <div><img src="./img/art2.png" alt=""></div>
                 </div>
+            </div>
             </div>
         </div>
     </section>
