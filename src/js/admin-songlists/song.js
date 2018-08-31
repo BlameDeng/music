@@ -24,7 +24,6 @@
             }
             ).then((songs) => {
                 // 更新成功
-                console.log(songs)
                 songs.map((item) => {
 
                     let { name, singer } = item.attributes;
@@ -32,7 +31,6 @@
                     let song = { name, singer, id };
                     this.data.songs.push(song);
                 });
-                console.log(this.data)
             }, function (error) {
                 // 异常处理
             });

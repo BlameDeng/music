@@ -16,6 +16,7 @@
     let model = {
         data: { lists: [] },
         fetch() {
+            this.data.lists = [];
             var query = new AV.Query('SongList');
             return query.find().then((songlists) => {
                 return AV.Object.saveAll(songlists);
@@ -42,6 +43,28 @@
             this.model.fetch().then(() => {
                 this.view.render(this.model.data)
             });
+            this.bindEvents();
+            this.bindEventHub();
+        },
+        bindEventHub() {
+            window.eventHub.on('addnewlist', () => {
+                this.model.fetch().then(() => {
+                    this.view.render(this.model.data)
+                });
+            })
+        },
+        bindEvents() {
+            $(this.view.el).on('click', 'li', (e) => {
+                let id = e.currentTarget.getAttribute('data-list-id');
+                let obj = {};
+                let lists = this.model.data.lists;
+                lists.map((list) => {
+                    if (list.id === id) {
+                        obj = JSON.parse(JSON.stringify(list));
+                    }
+                })
+                window.eventHub.emit('click-list', obj);
+            })
         }
     };
     controller.init(view, model);

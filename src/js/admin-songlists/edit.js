@@ -9,11 +9,14 @@
                     <div class="row"><button type="submit" class="submit">保存</button><button type="button" class="change">修改</button></div>
                 </form>`,
                 render(data) {
-                        $(this.el).html(this.template);
+                        let { name = '', listcover = '', summary = '' } = data.selectlist;
+                        let html = this.template.replace('__name__', name).replace('__listcover__', listcover)
+                                .replace('__summary__', summary);
+                        $(this.el).html(html);
                 }
         };
         let model = {
-                data: {},
+                data: { selectlist: '' },
                 save(name, listcover, summary) {
                         // 声明类型
                         var SongList = AV.Object.extend('SongList');
@@ -40,6 +43,7 @@
                         this.model = model;
                         this.view.render(this.model.data);
                         this.bindEvents();
+                        this.bindEventHub();
                 },
                 bindEvents() {
                         $(this.view.el).on('submit', 'form', (e) => {
@@ -49,6 +53,12 @@
                                 let summary = $(this.view.el).find(`textarea`).val();
                                 this.model.save(name, listcover, summary);
                                 window.eventHub.emit('addnewlist');
+                        })
+                },
+                bindEventHub() {
+                        window.eventHub.on('click-list', (obj) => {
+                                this.model.data.selectlist = obj;
+                                this.view.render(this.model.data)
                         })
                 }
         };
