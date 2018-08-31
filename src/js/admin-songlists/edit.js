@@ -48,6 +48,7 @@
                                 let listcover = $(this.view.el).find(`input[name='listcover']`).val();
                                 let summary = $(this.view.el).find(`textarea`).val();
                                 this.model.save(name, listcover, summary);
+                                window.eventHub.emit('addnewlist');
                         })
                 }
         };
