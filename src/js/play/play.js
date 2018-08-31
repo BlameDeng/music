@@ -1,15 +1,28 @@
 {
     let view = {
-        el: '.app',
-        // template: `<audio src="__url__"></audio>`,
+        el: '#el',
+        template: `<header>
+        <p>{{name}}</p>
+        <p>{{singer}}</p>
+    </header>
+    <div class="distwrapper">
+        <div class="pointer"><img src="./img/pointer.png" alt=""></div>
+        <div class="dist"><img src="./img/dist.png" alt=""></div>
+        <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
+        <div class="cover"><img src="{{cover}}" alt=""></div>
+    </div>`,
         render(data) {
             let name = data.name;
             let singer = data.singer;
             let url = data.url;
+            let cover = data.cover;
             let wordarr = data.wordarr;
             let timearr = data.timearr;
+            let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer)
+                .replace('{{cover}}', cover);
+            $(this.el).html(html);
 
-            $(this.el).find('audio').attr('src', url);
+            $('audio').attr('src', url);
 
             for (let i = 0; i < wordarr.length; i++) {
                 let word = wordarr[i];
@@ -61,6 +74,7 @@
                 let lrc = song.attributes.lrc;
                 let url = song.attributes.url;
                 let name = song.attributes.name;
+                let cover = song.attributes.cover;
                 let singer = song.attributes.singer;
 
                 // $(this.el).find('audio').attr('src', url);
@@ -80,7 +94,7 @@
                     let time = (+arr[1]) * 60 + (+arr[2]) + (+arr[3]) / 100
                     timearr.push(time)
                 })
-                this.model.data = { wordarr, timearr, url, name, singer }
+                this.model.data = { wordarr, timearr, url, name, singer, cover };
             }, function (error) {
                 // 异常处理
             });
@@ -123,13 +137,13 @@
                 $(e.currentTarget).removeClass('active');
                 $('span.lrcF').addClass('active');
                 $('.lrc').removeClass('active');
-                
+
             })
             $('.btn').on('click', 'span.lrcF', (e) => {
                 $(e.currentTarget).removeClass('active');
                 $('span.lrcT').addClass('active');
                 $('.lrc').addClass('active');
-            })            
+            })
 
             $('audio').on('timeupdate', (e) => {
                 let timearr = this.model.data.timearr;
