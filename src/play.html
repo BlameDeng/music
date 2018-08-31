@@ -8,12 +8,15 @@
     <title>网易云音乐</title>
     <link rel="icon" href="./img/cloudmusic.png" type="image/png">
     <link rel="stylesheet" href="./css/play.css">
-    <script src="//at.alicdn.com/t/font_809243_b7c0f12yh3.js"></script>
+    <script src="//at.alicdn.com/t/font_809243_0526exj9td78.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
     <script src="./vendors/jquery.js"></script>
 </head>
 
 <body>
+    <div class="app">
+        <audio src=""></audio>
+    </div>
     <div class="wrapper">
         <header>
             <div class="logo">
@@ -28,9 +31,6 @@
             <div class="dist"><img src="./img/dist.png" alt=""></div>
             <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
             <div class="cover"><img src="./img/hikki.jpg" alt=""></div>
-        </div>
-        <div class="app">
-            <audio src=""></audio>
         </div>
         <div class="lrc"></div>
         <div class="progress">
@@ -51,6 +51,12 @@
                 </svg></span>
             <span class="volumeF"><svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-yinliang1-copy"></use>
+                </svg></span>
+            <span class="lrcT"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-zhuomiangeci1"></use>
+                </svg></span>
+            <span class="lrcF active"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-zhuomiangeci1-copy"></use>
                 </svg></span>
         </div>
     </div>

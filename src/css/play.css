@@ -8,10 +8,8 @@ img{vertical-align: middle;}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;
 fill: currentColor;overflow: hidden;}
 
-div.wrapper{width: 100%;background-image: url(../img/playwall.jpg);
-background-position: center center;background-size: cover;position: relative;
-height: 100vh;}
-
+div.wrapper{width: 100%;position: relative;background-image: url(../img/playwall.jpg);
+background-position: center center;background-size: cover;height: 100vh;}
 header{padding: 5px 0;border-top-left-radius: 5px;position: absolute;top: 0;left: 0;
 border-top-right-radius: 5px;display: flex;justify-content: space-between;
 align-items: center;}
@@ -19,7 +17,7 @@ align-items: center;}
 .logo>div{background: #fff;margin: 0 3px 0 6px;border-radius: 50%;}
 .logo .icon {width: 22px; height: 22px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-.logo>p{color: #fff;font-size: 14px;line-height: 22px;
+.logo>p{color: #fff;font-size: 16px;line-height: 22px;
 font-weight: bold;}
 
 /* dist */
@@ -39,16 +37,19 @@ margin-right: auto;margin-top: -50%;}
 @keyframes circle{from{transform: rotateZ(0);}to{transform: rotateZ(360deg);}}
 .cover>img{width: 100%;}
 
-.lrc{width: 100%;height: 60px;overflow: hidden;outline:1px solid #fff;margin: 20% 0;}
-.lrc p{color: #fff;font-size: 16px;text-align: center;transition: all 0.3s;
-height: 20px;line-height: 20px;}
+.lrc{width: 100%;height: 120px;overflow: hidden;margin: 20% 0;display: none;}
+.lrc.active{display: block;}
+.lrc p{color: #eee;font-size: 16px;text-align: center;transition: all 0.3s;
+height: 30px;line-height: 30px;}
 
-div.progress{width: 80%;height: 4px;margin: 0 auto;background: #fff;border-radius: 2px;}
-.progress>p{width: 0;height: 4px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
+div.progress{width: 80%;height: 5px;margin: 0 auto;background: #eee;border-radius: 2px;
+position: absolute;bottom: 8%;left: 10%;}
+.progress>p{width: 0;height: 5px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
 
-div.btn{width: 30%;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;
-position: fixed;bottom: 0;left: 0;margin-left: 35%;}
-div.btn span.play,div.btn span.pause,div.btn span.volumeT,div.btn span.volumeF{display: none;}
+div.btn{width: 50%;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;
+position: fixed;bottom: 0;left: 0;margin-left: 25%;}
+div.btn span.play,div.btn span.pause,div.btn span.volumeT,div.btn span.volumeF,
+div.btn span.lrcT,div.btn span.lrcF{display: none;}
 div.btn span.active{display: inline;}
 div.btn .icon {width: 30px; height: 30px;vertical-align: top;
 fill: currentColor;overflow: hidden;}

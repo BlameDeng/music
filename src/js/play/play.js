@@ -3,37 +3,25 @@
         el: '.app',
         // template: `<audio src="__url__"></audio>`,
         render(data) {
-            let lrc = data.attributes.lrc;
-            let url = data.attributes.url;
+            let name = data.name;
+            let singer = data.singer;
+            let url = data.url;
+            let wordarr = data.wordarr;
+            let timearr = data.timearr;
+
             $(this.el).find('audio').attr('src', url);
-            let lrcarr = [];
-            let reg = /\[([\d]{2}):([\d]{2})\.([\d]{2})\](.*)/;
-            lrc.split('\n').map((item) => {
-                let arr = item.match(reg);
-                if (arr !== null) {
-                    lrcarr.push(arr);
-                }
-            });
-            lrcarr.map((arr) => {
-                let word = arr[4];
+
+            for (let i = 0; i < wordarr.length; i++) {
+                let word = wordarr[i];
                 let domp = $(`<p>${word}</p>`);
-                let time = (+arr[1]) * 60 + (+arr[2]) + (+arr[3]) / 100;
+                let time = timearr[i];
                 domp.attr('data-song-time', time);
                 $('.lrc').append(domp);
-            });
-            // setTimeout(() => {
-            //     $('.lrc').find(`[data-song-time='2.14']`).css('margin-top','-16px')
-            // }, 5000);
-            let n=0;
-            setInterval(() => {
-                n++;
-                console.log(n)
-                $(`p`).css('transform', `translateY(${-20*n})px`)
-            }, 2000)
+            }
         }
     };
     let model = {
-        data: {},
+        data: {}
     };
     let controller = {
         view: null,
@@ -70,7 +58,29 @@
             let id = this.getId();
             return query.get(id).then((song) => {
                 // song 就是 id 对象实例 attributes,id
-                this.model.data = song;
+                let lrc = song.attributes.lrc;
+                let url = song.attributes.url;
+                let name = song.attributes.name;
+                let singer = song.attributes.singer;
+
+                // $(this.el).find('audio').attr('src', url);
+
+                let lrcarr = [];
+                let reg = /\[([\d]{2}):([\d]{2})\.([\d]{2})\](.*)/;
+                let templrcarr = lrc.split('\n');
+                templrcarr.map((item) => {
+                    let arr = item.match(reg);
+                    if (arr !== null) {
+                        lrcarr.push(arr);
+                    }
+                });
+                let wordarr = [], timearr = [];
+                lrcarr.map((arr) => {
+                    wordarr.push(arr[4]);
+                    let time = (+arr[1]) * 60 + (+arr[2]) + (+arr[3]) / 100
+                    timearr.push(time)
+                })
+                this.model.data = { wordarr, timearr, url, name, singer }
             }, function (error) {
                 // 异常处理
             });
@@ -109,15 +119,30 @@
                 $('span.volumeT').addClass('active');
                 audio.volume = 1;
             })
+            $('.btn').on('click', 'span.lrcT', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('span.lrcF').addClass('active');
+                $('.lrc').removeClass('active');
+                
+            })
+            $('.btn').on('click', 'span.lrcF', (e) => {
+                $(e.currentTarget).removeClass('active');
+                $('span.lrcT').addClass('active');
+                $('.lrc').addClass('active');
+            })            
 
-            let currentTime, fullTime;
-            let progress;
-            audio.ontimeupdate = () => {
-                currentTime = audio.currentTime;
-                fullTime = audio.duration;
-                progress = `${currentTime / fullTime * 100}%`
+            $('audio').on('timeupdate', (e) => {
+                let timearr = this.model.data.timearr;
+                let currentTime = e.target.currentTime;
+                let fullTime = e.target.duration;
+                let progress = `${currentTime / fullTime * 100}%`
                 $('.current').css('width', progress);
-            }
+                for (let i = 0; i < timearr.length - 1; i++) {
+                    if (currentTime >= timearr[i] && currentTime < timearr[i + 1]) {
+                        $(`.lrc>p`).css('transform', `translateY(${-20 * i}px)`)
+                    }
+                }
+            })
         }
     };
     controller.init(view, model);

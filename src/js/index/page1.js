@@ -63,7 +63,7 @@
                 let html=this.templateLi.replace('__name__',name).replace('__singer__',singer)
                 .replace('__id__',id);
                 let domLi=$(html);
-                $(this.el).find('ol').append(domLi);
+                $(this.el).find('ol').prepend(domLi);
             });
         }
     };
