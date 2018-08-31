@@ -13,6 +13,7 @@
     </div>`,
         render(data) {
             let { name, singer, url, cover, wordarr, timearr } = data;
+            if(cover===''){cover=`./img/default-cover.jpg`};
             let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer)
                 .replace('{{cover}}', cover);
             $(this.el).html(html);
