@@ -12,12 +12,7 @@
         <div class="cover"><img src="{{cover}}" alt=""></div>
     </div>`,
         render(data) {
-            let name = data.name;
-            let singer = data.singer;
-            let url = data.url;
-            let cover = data.cover;
-            let wordarr = data.wordarr;
-            let timearr = data.timearr;
+            let { name, singer, url, cover, wordarr, timearr } = data;
             let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer)
                 .replace('{{cover}}', cover);
             $(this.el).html(html);
@@ -30,6 +25,16 @@
                 let time = timearr[i];
                 domp.attr('data-song-time', time);
                 $('.lrc').append(domp);
+            }
+        },
+        active(...els) {
+            for (let i = 0; i < els.length; i++) {
+                $(els[i]).addClass('active');
+            }
+        },
+        deactive(...els) {
+            for (let i = 0; i < els.length; i++) {
+                $(els[i]).removeClass('active');
             }
         }
     };
@@ -71,19 +76,12 @@
             let id = this.getId();
             return query.get(id).then((song) => {
                 // song 就是 id 对象实例 attributes,id
-                let lrc = song.attributes.lrc;
-                let url = song.attributes.url;
-                let name = song.attributes.name;
-                let cover = song.attributes.cover;
-                let singer = song.attributes.singer;
-
-                // $(this.el).find('audio').attr('src', url);
-
+                let { lrc, url, name, cover, singer } = song.attributes;
                 let lrcarr = [];
-                let reg = /\[([\d]{2}):([\d]{2})\.([\d]{2})\](.*)/;
+                let regexp = /\[([\d]{2}):([\d]{2})\.([\d]{2})\](.*)/;
                 let templrcarr = lrc.split('\n');
                 templrcarr.map((item) => {
-                    let arr = item.match(reg);
+                    let arr = item.match(regexp);
                     if (arr !== null) {
                         lrcarr.push(arr);
                     }
@@ -103,15 +101,14 @@
             let audio = $('audio')[0];
             $('.btn').on('click', 'span.play', (e) => {
                 $(e.currentTarget).removeClass('active');
-                $('span.pause').addClass('active');
-                $('div.pointer').addClass('active');
+                this.view.active('span.pause', 'div.pointer');
                 $('div.cover').addClass('active').removeClass('pause');
                 audio.play();
             })
             $('.btn').on('click', 'span.pause', (e) => {
                 $(e.currentTarget).removeClass('active');
-                $('div.pointer').removeClass('active');
                 $('div.cover').addClass('pause');
+                $('div.pointer').removeClass('active');
                 $('span.play').addClass('active');
                 audio.pause();
             })
@@ -119,9 +116,7 @@
                 audio.currentTime = 0;
                 audio.pause();
                 $('span.play').addClass('active');
-                $('span.pause').removeClass('active')
-                $('div.pointer').removeClass('active');
-                $('div.cover').removeClass('active');
+                this.view.deactive('span.pause', 'div.pointer', 'div.cover');
             })
             $('.btn').on('click', 'span.volumeT', (e) => {
                 $(e.currentTarget).removeClass('active');
@@ -137,14 +132,11 @@
                 $(e.currentTarget).removeClass('active');
                 $('span.lrcF').addClass('active');
                 $('.lrc').removeClass('active');
-
             })
             $('.btn').on('click', 'span.lrcF', (e) => {
                 $(e.currentTarget).removeClass('active');
-                $('span.lrcT').addClass('active');
-                $('.lrc').addClass('active');
+                this.view.active('span.lrcT', '.lrc')
             })
-
             $('audio').on('timeupdate', (e) => {
                 let timearr = this.model.data.timearr;
                 let currentTime = e.target.currentTime;
