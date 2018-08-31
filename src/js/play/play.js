@@ -6,6 +6,30 @@
             let lrc = data.attributes.lrc;
             let url = data.attributes.url;
             $(this.el).find('audio').attr('src', url);
+            let lrcarr = [];
+            let reg = /\[([\d]{2}):([\d]{2})\.([\d]{2})\](.*)/;
+            lrc.split('\n').map((item) => {
+                let arr = item.match(reg);
+                if (arr !== null) {
+                    lrcarr.push(arr);
+                }
+            });
+            lrcarr.map((arr) => {
+                let word = arr[4];
+                let domp = $(`<p>${word}</p>`);
+                let time = (+arr[1]) * 60 + (+arr[2]) + (+arr[3]) / 100;
+                domp.attr('data-song-time', time);
+                $('.lrc').append(domp);
+            });
+            // setTimeout(() => {
+            //     $('.lrc').find(`[data-song-time='2.14']`).css('margin-top','-16px')
+            // }, 5000);
+            let n=0;
+            setInterval(() => {
+                n++;
+                console.log(n)
+                $(`p`).css('transform', `translateY(${-20*n})px`)
+            }, 2000)
         }
     };
     let model = {

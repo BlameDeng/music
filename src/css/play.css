@@ -39,6 +39,10 @@ margin-right: auto;margin-top: -50%;}
 @keyframes circle{from{transform: rotateZ(0);}to{transform: rotateZ(360deg);}}
 .cover>img{width: 100%;}
 
+.lrc{width: 100%;height: 60px;overflow: hidden;outline:1px solid #fff;margin: 20% 0;}
+.lrc p{color: #fff;font-size: 16px;text-align: center;transition: all 0.3s;
+height: 20px;line-height: 20px;}
+
 div.progress{width: 80%;height: 4px;margin: 0 auto;background: #fff;border-radius: 2px;}
 .progress>p{width: 0;height: 4px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
 
