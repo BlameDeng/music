@@ -24,6 +24,7 @@
             }
             ).then((songs) => {
                 // 更新成功
+                console.log(songs)
                 songs.map((item) => {
 
                     let { name, singer } = item.attributes;

@@ -51,6 +51,39 @@
     <script src="./js/admin-songlists/edit.js"></script>
     <script src="./js/admin-songlists/songlist.js"></script>
     <script src="./js/admin-songlists/song.js"></script>
+    <script>
+        // 假设 GuangDong 的 objectId 为 56545c5b00b09f857a603632
+
+        // var GuangDong = AV.Object.createWithoutData('SongList', '5b8959a49f5454003134f77d');
+        // var song = AV.Object.createWithoutData('Song', '5b85ecd367f356003453055a');
+        // song.set('dependent', GuangDong);
+        // song.save();
+
+
+        var GuangDong = AV.Object.createWithoutData('SongList', '5b8959a49f5454003134f77d');
+        var query = new AV.Query('Song');
+        query.equalTo('dependent', GuangDong);
+        query.find().then(function (songs) {
+                console.log(songs);
+            });
+
+
+
+        // let songs = data.songs;
+        // let id = data.selectId;
+        // // 第一个参数是 className，第二个参数是 objectId
+        // var song = AV.Object.createWithoutData('Song', id);
+        // songs.map((item) => {
+        //     let { name, singer, url, cover, lrc } = item;
+        //     // 修改属性
+        //     song.set('name', name);
+        //     song.set('singer', singer);
+        //     song.set('url', url);
+        //     song.set('cover', cover);
+        //     song.set('lrc', lrc);
+        //     // 保存到云端
+        //     song.save();
+    </script>
 </body>
 
 </html>

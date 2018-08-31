@@ -23,6 +23,7 @@
             }
             ).then((songlists) => {
                 // 更新成功
+                console.log(songlists)
                 songlists.map((songlist) => {
                     let { name, summary, listcover } = songlist.attributes;
                     let id = songlist.id;
