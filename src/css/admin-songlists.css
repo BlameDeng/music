@@ -1,0 +1,30 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+*::before,*::after{box-sizing: border-box;}
+body{font-size: 14px;min-width: 1000px;height: 100%;
+font-family: Helvetica,sans-serif;}
+ul,ol{list-style: none;}
+a{color: inherit;text-decoration: none;}
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;
+fill: currentColor;overflow: hidden;}
+ /* layout */
+ .page{width: 100%;height: 100%;padding-top: 80px;}
+ header{width: 60%;margin-left: auto;margin-right: auto;}
+ .wrapper{width: 60%;margin-left: auto;margin-right: auto;display: flex;
+height: 60vh;box-shadow: 1px 0 4px #ddd;}
+ aside{width: 200px;}
+ main{flex-grow: 1;}
+ /* header */
+ header{background: rgb(200, 50, 50);padding: 20px 0;border-top-left-radius: 5px;
+border-top-right-radius: 5px;}
+.logo{display: flex;justify-content: flex-start;}
+.logo>.icon {width: 20px; height: 20px;margin: 0 5px 0 16px;vertical-align: top;
+    fill: currentColor;overflow: hidden;}
+ .logo>p{color: #fff;font-size: 16px;line-height: 20px;
+font-weight: bold;}
+
+
+.addSong{width: 200px;height: 60px;display: flex;justify-content: center;
+    align-items: center;background: rgba(0,0,0,0.03);}
+    .addSong>.icon{width: 20px; height: 20px;vertical-align: top;
+    fill: currentColor;overflow: hidden;margin-right: 5px;}
+    .addSong>span{font-size: 16px;font-weight: bold;cursor: pointer;}
