@@ -24,7 +24,7 @@ transform-origin: 0 0;transform: rotateZ(-18deg);}
 .pointer>img{width: 100%;}
 
 div.innerdist{width: 100%;transform-origin: 50% 40%;}
-.innerdist.active{animation: circle 12s linear infinite;}
+.innerdist.active{animation: circle 16s linear infinite;}
 .innerdist.pause{animation-play-state:paused;}
 
 .dist{width: 60%;margin-top: -50%;margin-left: auto;margin-right: auto;}
@@ -44,12 +44,13 @@ margin-right: auto;margin-top: 0%;}
 .lrc p{color: #eee;font-size: 16px;text-align: center;transition: all 0.3s;
 height: 30px;line-height: 30px;}
 
-div.progress{width: 80%;height: 5px;margin: 0 auto;background: #eee;border-radius: 2px;
-position: absolute;bottom: 12%;left: 10%;}
+footer{position: fixed;bottom: 2%;left: 0;width: 100%;}
+div.progress{width: 80%;height: 5px;margin: 0 auto;background: #ddd;border-radius: 2px;
+margin-bottom: 10px;}
 .progress>p{width: 0;height: 5px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
 
 div.btn{width: 70%;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;
-position: fixed;bottom: 2%;left: 0;margin-left: 15%;}
+margin-left: 15%;}
 div.btn span.play,div.btn span.pause,div.btn span.volumeT,div.btn span.volumeF,
 div.btn span.lrcT,div.btn span.lrcF{display: none;}
 div.btn span.active{display: inline;}

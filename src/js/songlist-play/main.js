@@ -1,28 +1,22 @@
 {
     let view = {
         el: '.page',
-        template: `<header>
-        <div class="pre"></div>
-        <div>
-            <p>歌单</p>
-            <span>编辑推荐：</span>
-        </div>
-    </header>
-    <div class="info">
-    </div>
-    <div class="list">
-        <ul class="songlist">
-        </ul>
-        <div class="play">
-            <div><img src="" alt="" id="song-cover"><p>歌名</p>
-                <div><span class="play" id="play">播放</span>
-                    <span class="pause" id="pause">暂停</span>
-                    <span class="stop" id="stop">停止</span></div>
-            </div>
-        </div>
-    </div>`,
+        template: `<header><div class="pre"></div><p>歌单</p></header>
+    <div class="info"><div class="list-cover"><img src="__listcover__" alt="">
+    </div><div class="des"><h3>__name__</h3><p class="summary">__summary__</p>
+    </div></div><div class="list"><div><div><p>歌曲列表</p><span>共XX首</span></div>
+    <div>喜欢</div></div><ul class="songlist"></ul><div class="play">
+    <div><img src="" alt="" id="song-cover"><p>歌名</p>
+    <div><span class="play" id="play">播放</span>
+    <span class="pause" id="pause">暂停</span>
+    <span class="stop" id="stop">停止</span></div>
+    </div></div></div>`,
         render(data) {
-            $(this.el).html(this.template);
+            console.log(data)
+            let { name, listcover, summary } = data.list;
+            let html = this.template.replace('__name__', name).replace('__listcover__', listcover)
+                .replace('__summary__', summary);
+            $(this.el).html(html);
             let songs = data.songs;
             songs.map((song) => {
                 let { name, singer, url, cover } = song;
@@ -34,7 +28,7 @@
     };
     let model = {
         data: {
-            listId: null,
+            list: { listId: null },
             songs: []
         }
     };
@@ -44,13 +38,13 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.getListId();
+            this.getList();
             this.getSongs().then(() => {
                 this.view.render(this.model.data);
             });
             this.bindEvents();
         },
-        getListId() {
+        getList() {
             let string = window.location.search;
             if (string.indexOf('?') === 0) {
                 string = string.substring(1);
@@ -63,10 +57,17 @@
                     listId = arr[1];
                 }
             });
-            this.model.data.listId = listId;
+            this.model.data.list.listId = listId;
+
+            var query = new AV.Query('SongList');
+            return query.get(listId).then((songlist) => {
+                this.model.data.list = Object.assign(this.model.data.list, songlist.attributes);
+            }, function (error) {
+                // 异常处理
+            });
         },
         getSongs() {
-            let listId = this.model.data.listId
+            let listId = this.model.data.list.listId
             var list = AV.Object.createWithoutData('SongList', listId);
             var query = new AV.Query('Song');
             query.equalTo('dependent', list);
@@ -80,22 +81,22 @@
             });
         },
         bindEvents() {
-            let audio=$('audio').get(0);
+            let audio = $('audio').get(0);
             $(this.view.el).on('click', 'li', (e) => {
                 let url = $(e.currentTarget).attr('data-song-url');
                 let cover = $(e.currentTarget).attr('data-song-cover');
                 $('audio').attr('src', url);
-                $('#song-cover').attr('src',cover);
+                $('#song-cover').attr('src', cover);
             });
-            $(this.view.el).on('click','#play',()=>{
+            $(this.view.el).on('click', '#play', () => {
                 audio.play();
             })
-            $(this.view.el).on('click','#pause',()=>{
+            $(this.view.el).on('click', '#pause', () => {
                 audio.pause();
             })
-            $(this.view.el).on('click','#stop',()=>{
+            $(this.view.el).on('click', '#stop', () => {
                 audio.pause();
-                audio.currentTime=0;
+                audio.currentTime = 0;
             })
         }
     };
