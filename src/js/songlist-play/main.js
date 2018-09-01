@@ -4,24 +4,28 @@
         template: `<header><div class="pre"></div><p>歌单</p></header>
     <div class="info"><div class="list-cover"><img src="__listcover__" alt="">
     </div><div class="des"><h3>__name__</h3><p class="summary">__summary__</p>
-    </div></div><div class="list"><div><div><p>歌曲列表</p><span>共XX首</span></div>
+    </div></div><div class="list"><div><div><p>歌曲列表</p><span>共__length__首</span></div>
     <div>喜欢</div></div><ul class="songlist"></ul><div class="play">
-    <div><img src="" alt="" id="song-cover"><p>歌名</p>
+    <div><img src="" alt="" id="song-cover"><p></p>
     <div><span class="play" id="play">播放</span>
     <span class="pause" id="pause">暂停</span>
     <span class="stop" id="stop">停止</span></div>
     </div></div></div>`,
         render(data) {
-            console.log(data)
+            let length=data.songs.length;
             let { name, listcover, summary } = data.list;
             let html = this.template.replace('__name__', name).replace('__listcover__', listcover)
-                .replace('__summary__', summary);
+                .replace('__summary__', summary).replace('__length__',length);
             $(this.el).html(html);
             let songs = data.songs;
             songs.map((song) => {
                 let { name, singer, url, cover } = song;
+                if (cover==='') {
+                    cover=`./img/default-cover.jpg`;
+                }
                 let domLi = $(`<li>${name}--${singer}</li>`);
-                domLi.attr('data-song-url', url).attr('data-song-cover', cover);
+                domLi.attr('data-song-url', url).attr('data-song-cover', cover)
+                .attr('data-song-name',name);
                 $('ul.songlist').append(domLi);
             })
         }
@@ -85,8 +89,10 @@
             $(this.view.el).on('click', 'li', (e) => {
                 let url = $(e.currentTarget).attr('data-song-url');
                 let cover = $(e.currentTarget).attr('data-song-cover');
+                let name=$(e.currentTarget).attr('data-song-name');
                 $('audio').attr('src', url);
                 $('#song-cover').attr('src', cover);
+                $('.play>div>p').text(name);
             });
             $(this.view.el).on('click', '#play', () => {
                 audio.play();
