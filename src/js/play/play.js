@@ -7,9 +7,11 @@
     </header>
     <div class="distwrapper">
         <div class="pointer"><img src="./img/pointer.png" alt=""></div>
+        <div class="innerdist">
+        <div class="cover"><img src="{{cover}}" alt=""></div>
         <div class="dist"><img src="./img/dist.png" alt=""></div>
         <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
-        <div class="cover"><img src="{{cover}}" alt=""></div>
+        </div>
     </div>`,
         render(data) {
             let { name, singer, url, cover, wordarr, timearr } = data;
@@ -103,12 +105,12 @@
             $('.btn').on('click', 'span.play', (e) => {
                 $(e.currentTarget).removeClass('active');
                 this.view.active('span.pause', 'div.pointer');
-                $('div.cover').addClass('active').removeClass('pause');
+                $('.innerdist').addClass('active').removeClass('pause');
                 audio.play();
             })
             $('.btn').on('click', 'span.pause', (e) => {
                 $(e.currentTarget).removeClass('active');
-                $('div.cover').addClass('pause');
+                $('.innerdist').addClass('pause');
                 $('div.pointer').removeClass('active');
                 $('span.play').addClass('active');
                 audio.pause();
@@ -117,7 +119,7 @@
                 audio.currentTime = 0;
                 audio.pause();
                 $('span.play').addClass('active');
-                this.view.deactive('span.pause', 'div.pointer', 'div.cover');
+                this.view.deactive('span.pause', 'div.pointer', '.innerdist');
             })
             $('.btn').on('click', 'span.volumeT', (e) => {
                 $(e.currentTarget).removeClass('active');
