@@ -13,7 +13,6 @@
     <nav>
         <ul class="topnav">
             <li class="active">推荐</li>
-            <li class="">歌单</li>
             <li class="">排行榜</li>
             <li class="">搜索</li>
         </ul>

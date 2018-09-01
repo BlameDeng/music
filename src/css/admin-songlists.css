@@ -47,7 +47,7 @@ form>div{margin: 10px auto;}
 form div:nth-child(4){text-align: center;}
 form div:nth-child(4)>button{margin: 0 10px;width: 60px;height: 30px;border-radius: 5px;}
 
-.songwrapper{flex-grow: 1;margin: 10px;}
+.songwrapper{flex-grow: 1;margin: 10px;overflow: auto;padding-right: 10px;}
 .songwrapper>p{text-align: center;color: #aaa;}
 ul{width: 100%;}
 ul>li{width: 100%;display: flex;justify-content: space-between;margin: 3px auto;}

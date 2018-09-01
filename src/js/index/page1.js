@@ -58,6 +58,8 @@
         },
         addLi(data){
             let songs=data.songs;
+            let len=songs.length;
+            songs=songs.slice(len-10,len)
             songs.map((song)=>{
                 let {name,id,singer,url}=song;
                 let html=this.templateLi.replace('__name__',name).replace('__singer__',singer)

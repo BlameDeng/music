@@ -9,7 +9,7 @@
                 let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer);
                 let domli = $(html);
                 domli.attr('data-song-id', id);
-                $(this.el).append(domli);
+                $(this.el).prepend(domli);
             })
         }
     };
