@@ -45,7 +45,7 @@ li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
 fill: currentColor;overflow: hidden;margin: 3px 0;}
 li>div.songinfo>span{line-height: 20px;font-size: 12px;}
 li>.add{width: 40px; height: 40px;position: absolute;top: 0;right: 0;
-opacity: 0;}
+opacity: 0;} 
 li>.add.active{animation: add 1s linear forwards}
 @keyframes add{from{opacity: 1;}to{opacity: 0;}}
 li>.add>.icon{width: 30px; height: 30px;vertical-align: top;

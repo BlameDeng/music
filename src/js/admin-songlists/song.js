@@ -1,7 +1,7 @@
 {
     let view = {
         el: '.song',
-        template: `<li><p>{{name}}</p><p>{{singer}}</p><p class="add">添加</p></li>`,
+        template: `<li><p>{{name}}</p><p>{{singer}}</p><p class="add">添加</p><p class="remove">移除</p></li>`,
         render(data) {
             let songs = data.songs;
             songs.map((song) => {
@@ -55,14 +55,19 @@
                 let songId = $(e.currentTarget).parent().attr('data-song-id');
                 let listId = this.model.data.listId;
                 $(e.currentTarget).addClass(' disable');
-
                 //添加dependent
                 var songlist = AV.Object.createWithoutData('SongList', listId);
                 var song = AV.Object.createWithoutData('Song', songId);
                 song.set('dependent', songlist);
                 song.save();
-
-            })
+            });
+            $(this.view.el).on('click', '.remove', (e) => {
+                let songId = $(e.currentTarget).parent().attr('data-song-id');
+                //添加dependent===null
+                var song = AV.Object.createWithoutData('Song', songId);
+                song.set('dependent', null);
+                song.save();
+            });
         },
         bindEventHub() {
             window.eventHub.on('click-list', (obj) => {

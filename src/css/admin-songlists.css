@@ -52,6 +52,7 @@ form div:nth-child(4)>button{margin: 0 10px;width: 60px;height: 30px;border-radi
 ul{width: 100%;}
 ul>li{width: 100%;display: flex;justify-content: space-between;margin: 3px auto;}
 ul>li>p{width: 30%;cursor: pointer;}
-ul>li>p:nth-child(3){border: 1px solid #000;width: 60px;display: flex;justify-content: center;
+ul>li>p:nth-child(3),ul>li>p:nth-child(4){border: 1px solid #000;width: 60px;display: flex;justify-content: center;
 align-items: center;border-radius: 5px;}
-ul>li>p:nth-child(3).disable{border: 1px solid #aaa;color: #aaa;}
+ul>li>p:nth-child(3).disable{border: 1px solid #aaa;color: #aaa;
+background: #ddd;}

@@ -24,7 +24,7 @@
                 let html=this.template.replace('__name__',name)
                 .replace('__singer__',singer).replace('__url__',url).replace('__cover__',cover);
                 let domli=$(html).attr('data-song-id',id);
-                $(this.el).find('ul').append(domli);
+                $(this.el).find('ul').prepend(domli);
             })
         },
         update(data){
