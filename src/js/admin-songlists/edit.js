@@ -29,14 +29,13 @@
                         // 设置优先级
                         songlist.set('priority', 1);
                         return songlist.save().then(function (songlist) {
-                                console.log(songlist);
+                                
                         }, function (error) {
                                 console.error(error);
                         });
                 },
                 update(name, listcover, summary, id) {
                         // 第一个参数是 className，第二个参数是 objectId
-                        console.log(arguments)
                         var songlist = AV.Object.createWithoutData('SongList', id);
                         songlist.set('name', name);
                         songlist.set('listcover', listcover);

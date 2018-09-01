@@ -1,7 +1,7 @@
 {
     let view = {
         el: '.song',
-        template: `<li><p>{{name}}</p><p>{{singer}}</p><p class="disable">添加</p></li>`,
+        template: `<li><p>{{name}}</p><p>{{singer}}</p><p class="add">添加</p></li>`,
         render(data) {
             let songs = data.songs;
             songs.map((song) => {
@@ -15,7 +15,9 @@
     };
     let model = {
         data: {
-            songs: []
+            songs: [],
+            listName: null,
+            listId: null
         },
         fetch() {
             var query = new AV.Query('Song');
@@ -24,7 +26,6 @@
             }
             ).then((songs) => {
                 // 更新成功
-                console.log(songs)
                 songs.map((item) => {
 
                     let { name, singer } = item.attributes;
@@ -35,7 +36,7 @@
             }, function (error) {
                 // 异常处理
             });
-        }
+        },
     };
     let controller = {
         view: null,
@@ -46,6 +47,28 @@
             this.model.fetch().then(() => {
                 this.view.render(this.model.data)
             });
+            this.bindEvents();
+            this.bindEventHub();
+        },
+        bindEvents() {
+            $(this.view.el).on('click', '.add', (e) => {
+                let songId = $(e.currentTarget).parent().attr('data-song-id');
+                let listId = this.model.data.listId;
+                $(e.currentTarget).addClass(' disable');
+
+                //添加dependent
+                var songlist = AV.Object.createWithoutData('SongList', listId);
+                var song = AV.Object.createWithoutData('Song', songId);
+                song.set('dependent', songlist);
+                song.save();
+
+            })
+        },
+        bindEventHub() {
+            window.eventHub.on('click-list', (obj) => {
+                this.model.data.listName = obj.name;
+                this.model.data.listId = obj.id;
+            })
         }
     };
     controller.init(view, model);

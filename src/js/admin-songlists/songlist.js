@@ -14,7 +14,7 @@
         }
     };
     let model = {
-        data: { lists: [] },
+        data: { lists: [], songs: [] },
         fetch() {
             this.data.lists = [];
             var query = new AV.Query('SongList');
@@ -23,7 +23,6 @@
             }
             ).then((songlists) => {
                 // 更新成功
-                console.log(songlists)
                 songlists.map((songlist) => {
                     let { name, summary, listcover } = songlist.attributes;
                     let id = songlist.id;
@@ -32,6 +31,22 @@
                 });
             }, function (error) {
                 // 异常处理
+            });
+        },
+        search(listId) {
+            this.data.songs=[];  //重置songs
+            var songlist = AV.Object.createWithoutData('SongList', listId);
+            var query = new AV.Query('Song');
+            query.equalTo('dependent', songlist);
+            return query.find().then((objs) => {
+                objs.map((obj)=>{
+                    let songId=obj.id;
+                    let {name,singer,dependent}=obj.attributes;
+                    let dependentId=dependent.id;
+                    let song={name,singer,songId,dependentId};
+                    this.data.songs.push(song);
+                });
+                console.log(this.data)
             });
         }
     };
@@ -55,7 +70,7 @@
             })
         },
         bindEvents() {
-            $(this.view.el).on('click', 'li', (e) => {
+            $('ul.list').on('click', 'li', (e) => {
                 let id = e.currentTarget.getAttribute('data-list-id');
                 let obj = {};
                 let lists = this.model.data.lists;
@@ -63,10 +78,11 @@
                     if (list.id === id) {
                         obj = JSON.parse(JSON.stringify(list));
                     }
-                })
-                window.eventHub.emit('click-list', obj);
+                    window.eventHub.emit('click-list', obj);
+                });
+                this.model.search(id);
             })
-        }
+        },
     };
     controller.init(view, model);
 }

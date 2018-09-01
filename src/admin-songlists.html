@@ -39,7 +39,7 @@
             </aside>
             <div class="edit"></div>
             <div class="songwrapper">
-                <p>点击添加将歌曲添加到所选歌单</p>
+                <p>点击"添加"将歌曲添加到所选歌单</p>
                 <ul class="song">
                 </ul>
             </div>
@@ -58,13 +58,13 @@
         // song.set('dependent', GuangDong);
         // song.save();
 
-
-        var GuangDong = AV.Object.createWithoutData('SongList', '5b8959a49f5454003134f77d');
-        var query = new AV.Query('Song');
-        query.equalTo('dependent', GuangDong);
-        query.find().then(function (songs) {
-            console.log(songs);
-        });
+//查询
+        // var GuangDong = AV.Object.createWithoutData('SongList', '5b8959a49f5454003134f77d');
+        // var query = new AV.Query('Song');
+        // query.equalTo('dependent', GuangDong);
+        // query.find().then(function (songs) {
+        //     console.log(songs);
+        // });
 
 
 

@@ -23,7 +23,8 @@ font-weight: bold;}
 
 aside{width: 200px;}
 
-aside>ul>li{margin: 5px;font-size: 14px;padding: 5px;border-radius: 5px;}
+aside>ul>li{margin: 5px;font-size: 14px;padding: 5px;border-radius: 5px;
+cursor: pointer;}
 aside>ul>li.active{background: #ddd;}
 
 
