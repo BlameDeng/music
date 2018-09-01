@@ -4,10 +4,10 @@
         template: `<section class="banner"><div class="recomWrapper">
         <h2>推荐歌单</h2>
         <div class="recommendation clearfix active"><div class="true">
-        <div><img src="__cover0__" alt=""><p>__name0__</p></div>
-        <div><img src="__cover1__" alt=""><p>__name1__</p></div>
-        <div><img src="__cover2__" alt=""><p>__name2__</p></div>
-        <div><img src="__cover3__" alt=""><p>__name3__</p></div>
+        <div><img class="listcover" src="__cover0__" alt=""><p class="listname">__name0__</p></div>
+        <div><img class="listcover" src="__cover1__" alt=""><p class="listname">__name1__</p></div>
+        <div><img class="listcover" src="__cover2__" alt=""><p class="listname">__name2__</p></div>
+        <div><img class="listcover" src="__cover3__" alt=""><p class="listname">__name3__</p></div>
         </div></div></div></section>
         <section class="newSong"><h2>最新音乐</h2><ol></ol></section>`,
         templateLi: `<li><div class="songicon"><svg class="icon" aria-hidden="true">
@@ -18,21 +18,21 @@
         <use xlink:href="#icon-bofang1"></use></svg></a></div></li>`,
         render(data) {
             let lists = data.lists;  //[{},{}]
-            let len=lists.length;
-            lists=lists.slice(len-4,len);
+            let len = lists.length;
+            lists = lists.slice(len - 4, len);
             let names = [], ids = [], covers = [];
             lists.map((list) => {
                 let { name, listId, listcover, summary } = list;
-                names.push(name);ids.push(listId);covers.push(listcover);
+                names.push(name); ids.push(listId); covers.push(listcover);
             })
-            let html=this.template;
+            let html = this.template;
             for (let i = 0; i < names.length; i++) {
-                html=html.replace(`__cover${i}__`,covers[i]).replace(`__name${i}__`,names[i])
+                html = html.replace(`__cover${i}__`, covers[i]).replace(`__name${i}__`, names[i])
             }
             $(this.el).html(html);
-            let divs=$('.true>div');
+            let divs = $('.true>div');
             for (let i = 0; i < divs.length; i++) {
-                $(divs[i]).attr('data-list-id',ids[i]);
+                $(divs[i]).attr('data-list-id', ids[i]);
             };
         },
         addLi(data) {
@@ -66,6 +66,7 @@
             this.getList().then(() => {
                 this.view.render(this.model.data);
             });
+            this.bindEvents();
         },
         fetch() {
             var query = new AV.Query('Song');
@@ -98,6 +99,12 @@
             }, function (error) {
                 // 异常处理
             });
+        },
+        bindEvents() {
+            $(this.view.el).on('click', '.listcover,.listname', (e) => {
+                let listId = $(e.currentTarget).parent().attr('data-list-id')
+                window.location.href = `./songlist-play.html?listid=${listId}`;
+            })
         }
     };
     controller.init(view, model);
