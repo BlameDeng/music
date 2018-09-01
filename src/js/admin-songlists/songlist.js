@@ -11,6 +11,14 @@
                 domli.attr('data-list-id', id);
                 $(this.el).append(domli);
             })
+        },
+        showSong(songs) {
+            $('#sym').siblings().remove();
+            songs.map((song) => {
+                let { name, singer } = song;
+                let domp = $(`<p>${name}--${singer}</p>`)
+                $('div.songs').append(domp)
+            })
         }
     };
     let model = {
@@ -34,19 +42,18 @@
             });
         },
         search(listId) {
-            this.data.songs=[];  //重置songs
+            this.data.songs = [];  //重置songs
             var songlist = AV.Object.createWithoutData('SongList', listId);
             var query = new AV.Query('Song');
             query.equalTo('dependent', songlist);
             return query.find().then((objs) => {
-                objs.map((obj)=>{
-                    let songId=obj.id;
-                    let {name,singer,dependent}=obj.attributes;
-                    let dependentId=dependent.id;
-                    let song={name,singer,songId,dependentId};
+                objs.map((obj) => {
+                    let songId = obj.id;
+                    let { name, singer, dependent } = obj.attributes;
+                    let dependentId = dependent.id;
+                    let song = { name, singer, songId, dependentId };
                     this.data.songs.push(song);
                 });
-                console.log(this.data)
             });
         }
     };
@@ -80,7 +87,11 @@
                     }
                     window.eventHub.emit('click-list', obj);
                 });
-                this.model.search(id);
+                this.model.search(id).then(() => {
+                    let songs = JSON.parse(JSON.stringify(this.model.data.songs));
+                    this.view.showSong(songs)
+                    window.eventHub.emit('get-list-song', songs);
+                })
             })
         },
     };

@@ -21,12 +21,14 @@ fill: currentColor;overflow: hidden;}
 .logo>p{color: #fff;font-size: 16px;line-height: 20px;
 font-weight: bold;}
 
-aside{width: 200px;}
+aside{width: 200px;position: relative;}
 
 aside>ul>li{margin: 5px;font-size: 14px;padding: 5px;border-radius: 5px;
 cursor: pointer;}
 aside>ul>li.active{background: #ddd;}
 
+aside>div.songs{position: absolute;left: 0;bottom: 0;padding: 5px;}
+aside>div.songs>p:nth-child(1){color: #aaa;border-bottom: 1px solid #aaa;}
 
 .addList{width: 200px;height: 30px;display: flex;justify-content: center;
 align-items: center;}
@@ -50,6 +52,6 @@ form div:nth-child(4)>button{margin: 0 10px;width: 60px;height: 30px;border-radi
 ul{width: 100%;}
 ul>li{width: 100%;display: flex;justify-content: space-between;margin: 3px auto;}
 ul>li>p{width: 30%;cursor: pointer;}
-ul>li>p:nth-child(3){border: 1px solid #000;width: 60px;text-align: center;
-border-radius: 5px;}
+ul>li>p:nth-child(3){border: 1px solid #000;width: 60px;display: flex;justify-content: center;
+align-items: center;border-radius: 5px;}
 ul>li>p:nth-child(3).disable{border: 1px solid #aaa;color: #aaa;}

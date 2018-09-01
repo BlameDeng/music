@@ -68,7 +68,15 @@
             window.eventHub.on('click-list', (obj) => {
                 this.model.data.listName = obj.name;
                 this.model.data.listId = obj.id;
-            })
+            }),
+                window.eventHub.on('get-list-song', (songs) => {
+                    //songs [{},{}]
+                    $('.song>li>p').removeClass('disable');
+                    songs.map((song) => {
+                        let id = song.songId;
+                        $('.song').find(`[data-song-id='${id}']>p.add`).addClass('disable');
+                    })
+                })
         }
     };
     controller.init(view, model);
