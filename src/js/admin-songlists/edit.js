@@ -6,7 +6,7 @@
                     <div class="row"><span>歌单名称：</span><input type="text" name="name" value="__name__"></div>
                     <div class="row"><span>封面链接：</span><input type="text" name="listcover" value="__listcover__"></div>
                     <div class="row"><span>歌单描述：</span><textarea>__summary__</textarea></div>
-                    <div class="row"><button type="submit" class="submit">保存</button><button type="button" class="change">修改</button></div>
+                    <div class="row"><button type="submit" class="submit">新建</button><button type="button" class="change">修改</button></div>
                 </form>`,
                 render(data) {
                         let { name = '', listcover = '', summary = '' } = data.selectlist;
@@ -33,7 +33,16 @@
                         }, function (error) {
                                 console.error(error);
                         });
-                }
+                },
+                update(name, listcover, summary, id) {
+                        // 第一个参数是 className，第二个参数是 objectId
+                        console.log(arguments)
+                        var songlist = AV.Object.createWithoutData('SongList', id);
+                        songlist.set('name', name);
+                        songlist.set('listcover', listcover);
+                        songlist.set('summary', summary);
+                        songlist.save();
+                },
         }
         let controller = {
                 view: null,
@@ -53,12 +62,20 @@
                                 let summary = $(this.view.el).find(`textarea`).val();
                                 this.model.save(name, listcover, summary);
                                 window.eventHub.emit('addnewlist');
+                        });
+                        $(this.view.el).on('click', '.change', () => {
+                                let name = $(this.view.el).find(`input[name='name']`).val();
+                                let listcover = $(this.view.el).find(`input[name='listcover']`).val();
+                                let summary = $(this.view.el).find(`textarea`).val();
+                                let id = this.model.data.selectlist.id;
+                                this.model.update(name, listcover, summary, id);
                         })
                 },
                 bindEventHub() {
                         window.eventHub.on('click-list', (obj) => {
                                 this.model.data.selectlist = obj;
-                                this.view.render(this.model.data)
+                                this.view.render(this.model.data);
+                                $(this.view.el).find(`[type='submit']`).attr('disabled', true);
                         })
                 }
         };
