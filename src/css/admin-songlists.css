@@ -7,24 +7,48 @@ a{color: inherit;text-decoration: none;}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;
 fill: currentColor;overflow: hidden;}
  /* layout */
- .page{width: 100%;height: 100%;padding-top: 80px;}
+.page{width: 100%;height: 100%;padding-top: 80px;}
  header{width: 60%;margin-left: auto;margin-right: auto;}
- .wrapper{width: 60%;margin-left: auto;margin-right: auto;display: flex;
+.wrapper{width: 60%;margin-left: auto;margin-right: auto;display: flex;
 height: 60vh;box-shadow: 1px 0 4px #ddd;}
- aside{width: 200px;}
- main{flex-grow: 1;}
+
  /* header */
- header{background: rgb(200, 50, 50);padding: 20px 0;border-top-left-radius: 5px;
+header{background: rgb(200, 50, 50);padding: 20px 0;border-top-left-radius: 5px;
 border-top-right-radius: 5px;}
 .logo{display: flex;justify-content: flex-start;}
 .logo>.icon {width: 20px; height: 20px;margin: 0 5px 0 16px;vertical-align: top;
-    fill: currentColor;overflow: hidden;}
- .logo>p{color: #fff;font-size: 16px;line-height: 20px;
+fill: currentColor;overflow: hidden;}
+.logo>p{color: #fff;font-size: 16px;line-height: 20px;
 font-weight: bold;}
 
+aside{width: 200px;}
 
-.addSong{width: 200px;height: 60px;display: flex;justify-content: center;
-    align-items: center;background: rgba(0,0,0,0.03);}
-    .addSong>.icon{width: 20px; height: 20px;vertical-align: top;
-    fill: currentColor;overflow: hidden;margin-right: 5px;}
-    .addSong>span{font-size: 16px;font-weight: bold;cursor: pointer;}
+aside>ul>li{margin: 5px;font-size: 14px;padding: 5px;border-radius: 5px;}
+aside>ul>li.active{background: #ddd;}
+
+
+.addList{width: 200px;height: 30px;display: flex;justify-content: center;
+align-items: center;}
+.addList>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin-right: 5px;}
+.addList>span{font-size: 16px;font-weight: bold;cursor: pointer;}
+
+.edit{width: 200px;display: flex;flex-direction: column;justify-content: center;
+margin: 0 30px;}
+.edit>p{text-align: center;margin-bottom: 30px;}
+.edit>form{width: 100%;display: flex;flex-direction: column;justify-content: space-around;}
+form input{height: 30px;}
+form input,form textarea{width: 200px;border-radius: 2px;padding-left: 3px;}
+textarea{height: 120px;}
+form>div{margin: 10px auto;}
+form div:nth-child(4){text-align: center;}
+form div:nth-child(4)>button{margin: 0 10px;width: 60px;height: 30px;border-radius: 5px;}
+
+.songwrapper{flex-grow: 1;margin: 10px;}
+.songwrapper>p{text-align: center;color: #aaa;}
+ul{width: 100%;}
+ul>li{width: 100%;display: flex;justify-content: space-between;margin: 3px auto;}
+ul>li>p{width: 30%;}
+ul>li>p:nth-child(3){border: 1px solid #000;width: 60px;text-align: center;
+border-radius: 5px;}
+ul>li>p:nth-child(3).disable{border: 1px solid #aaa;color: #aaa;}

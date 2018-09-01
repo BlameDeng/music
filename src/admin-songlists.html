@@ -28,19 +28,18 @@
         </header>
         <div class="wrapper">
             <aside>
-                <ul class="list">
-                </ul>
-                <div class="addSong">
+                <div class="addList">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-ttpodicon"></use>
                     </svg>
-                    <span>新增歌单</span>
+                    <span>歌单列表</span>
                 </div>
+                <ul class="list">
+                </ul>
             </aside>
-            <div>
-                <div class="edit active"></div>
-            </div>
-            <div>
+            <div class="edit"></div>
+            <div class="songwrapper">
+                <p>点击添加将歌曲添加到所选歌单</p>
                 <ul class="song">
                 </ul>
             </div>
@@ -64,8 +63,8 @@
         var query = new AV.Query('Song');
         query.equalTo('dependent', GuangDong);
         query.find().then(function (songs) {
-                console.log(songs);
-            });
+            console.log(songs);
+        });
 
 
 

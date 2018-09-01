@@ -1,7 +1,7 @@
 {
     let view = {
         el: '.song',
-        template: `<li>{{name}}--{{singer}}</li>`,
+        template: `<li><p>{{name}}</p><p>{{singer}}</p><p class="disable">添加</p></li>`,
         render(data) {
             let songs = data.songs;
             songs.map((song) => {

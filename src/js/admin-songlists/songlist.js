@@ -1,7 +1,7 @@
 {
     let view = {
         el: '.list',
-        template: `<li>{{name}}</li>`,
+        template: `<li class="active">{{name}}</li>`,
         render(data) {
             let lists = data.lists;
             lists.map((list) => {
