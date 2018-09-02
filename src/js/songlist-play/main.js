@@ -8,12 +8,8 @@
     </header>
     <div class="info">
         <div class="list-cover"><img src="__listcover__" alt="">
-        </div>
-        <div class="des">
-            <h3>__name__</h3>
-            <p class="summary">__summary__</p>
-        </div>
-    </div>
+        </div><div class="des"><h3>__name__</h3><div class="sumwrapper"><p class="summary">__summary__</p>
+    <div class="full"><p class="full-summary"></p><span>［收起］</span></div></div></div></div>
     <div class="list">
         <div class="top">
             <div><svg class="icon" aria-hidden="true">
@@ -167,6 +163,13 @@
             $('audio').on('timeupdate',()=>{
                 let pro=(audio.currentTime)/(audio.duration)*100;
                 $('.current').css('width',`${pro}%`);
+            });
+            $(this.view.el).on('click','p.summary',(e)=>{
+                let txt=$(e.currentTarget).text();
+                $('div.full').addClass('active').find('p').text(txt);
+            });
+            $(this.view.el).on('click','div.full>span',()=>{
+                $('div.full').removeClass('active')
             })
         }
     };
