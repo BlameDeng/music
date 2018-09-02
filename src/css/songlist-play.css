@@ -11,19 +11,20 @@ fill: currentColor;overflow: hidden;}
 .page{width: 100%;}
 /* header */
 header{position: relative;background: #666;padding: 10px 0;width: 100%;}
-header div{position: absolute;top: 50%;left: 6%;margin-top: -13px;
-margin-left: -13px;}
-header div>.icon{width: 26px; height: 26px;vertical-align: top;
+header div{position: absolute;top: 50%;left: 5%;margin-top: -12px;
+margin-left: -12px;}
+header div>.icon{width: 24px; height: 24px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-header p{color: #eee;font-size: 16px;margin-left: 12%;}
+header p{color: #eee;font-size: 16px;margin-left: 10%;}
 
 /* info */
 div.info{background: #666;color: #eee;display: flex;justify-content: center;
-align-items: center;width: 100%;}
-.info>.list-cover{width: 30%;margin-right: 6%;border-radius: 5px;
+align-items: center;width: 100%;padding-bottom: 10%;}
+.info>.list-cover{width: 40%;border-radius: 5px;
 margin-top: 5%;margin-bottom: 5%;}
 .info>.list-cover>img{width: 100%;border-radius: 5px;}
-.info .des{width: 40%;display: flex;flex-direction: column;justify-content: center;}
+.info .des{width: 35%;display: flex;flex-direction: column;justify-content: center;
+margin-left: 5%;}
 .des>h3{width: 100%;margin-bottom: 5%;}
 .des>div.sumwrapper{width: 100%;position: relative;}
 .des p.summary{width: 100%;display: -webkit-box;-webkit-line-clamp:4;

@@ -57,7 +57,7 @@
                 domLi.attr('data-song-url', url).attr('data-song-cover', cover)
                     .attr('data-song-name', name);
                 $('ul.songlist').append(domLi);
-            })
+            });
         }
     };
     let model = {
