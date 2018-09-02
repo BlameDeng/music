@@ -118,6 +118,7 @@
             })
             $('.btn').on('click', 'span.stop', (e) => {
                 audio.currentTime = 0;
+                $(`.lrc>p`).css('transform', `translateY(0)`);
                 audio.pause();
                 $('span.play').addClass('active');
                 this.view.deactive('span.pause', 'div.pointer', '.innerdist');
@@ -149,7 +150,7 @@
                 $('.current').css('width', progress);
                 for (let i = 0; i < timearr.length - 1; i++) {
                     if (currentTime >= timearr[i] && currentTime < timearr[i + 1]) {
-                        $(`.lrc>p`).css('transform', `translateY(${-20 * i}px)`)
+                        $(`.lrc>p`).css('transform', `translateY(${-20 * i}px)`);
                     }
                 }
             })
