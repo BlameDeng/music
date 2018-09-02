@@ -1,9 +1,51 @@
 {
     let view = {
         el: '.page3',
-        tempalate: ``,
+        tempalate: `<audio id="audio-p3"></audio>
+        <header>
+            <form id="myForm">
+                <div class="input"> <input type="text" name="txt" placeholder="歌曲或歌手名，如晴天，周杰伦">
+                    <button type="submit">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-sousuo"></use></svg>
+                    </button></div>
+            </form>
+        </header>
+        <main id="p3-main">
+            <div class="resultnav"><p class="songbtn">歌曲</p><p class="singerbtn">歌手</p></div>
+            <div class="songs">
+                <ul class="songlist">
+                </ul>
+                <footer class="page3footer">
+                    <div class="progress">
+                        <p class="current" id="current"></p>
+                    </div>
+                    <div class="play">
+                        <div class="coverwrapper">
+                            <img id="footer-songcover" src="./img/default-cover.jpg" alt="" id="song-cover">
+                        </div>
+                        <p id="footer-songname"></p>
+                        <div class="btns">
+                            <span class="play active" id="play"><svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-bofang1"></use>
+                                </svg></span>
+                            <span class="pause" id="pause"><svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-zanting-copy"></use>
+                                </svg></span>
+                            <span class="stop" id="stop"><svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-tingzhi-copy"></use>
+                                </svg></span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <div class="singer">
+                <div class="info"></div>
+            </div>
+        </main>
+        <div class="mask" id="mask">请输入想要搜索的歌曲或歌手名……</div>`,
         render(data) {
-
+            $(this.el).html(this.tempalate);
         },
         showSongs(data) {
             //清空之前的展示
@@ -40,7 +82,6 @@
             } else {
                 //没有匹配，什么也不做
             }
-
         },
     };
     let model = {
@@ -56,6 +97,7 @@
         init(view, model) {
             this.view = view;
             this.model = model;
+            this.view.render();
             this.fetch();
             this.bindEvents();
         },
@@ -135,6 +177,9 @@
                 $('#audio-p3').attr('src', url);
                 $('#footer-songname').text(name);
                 $('#footer-songcover').attr('src', cover);
+                $(this.view.el).find('#current').css('width', `0`);
+                this.deactive('#pause');
+                this.active('#play');
             });
             $(this.view.el).on('click', 'li>div', (e) => {
                 e.stopPropagation();
@@ -172,11 +217,11 @@
                 let pro = ($('#audio-p3').get(0).currentTime) / ($('#audio-p3').get(0).duration) * 100;
                 $(this.view.el).find('#current').css('width', `${pro}%`);
             });
-            $(this.view.el).on('click',`.info>p`,(e)=>{
-                let str=$(e.currentTarget).attr('data-singer-name');
-                str=encodeURIComponent(str);
+            $(this.view.el).on('click', `.info>p`, (e) => {
+                let str = $(e.currentTarget).attr('data-singer-name');
+                str = encodeURIComponent(str);
                 console.log(str)
-                window.location.href=`./singer.html?name=${str}`;
+                window.location.href = `./singer.html?name=${str}`;
             })
         }
     };
