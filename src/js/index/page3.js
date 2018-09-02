@@ -220,7 +220,7 @@
             $(this.view.el).on('click', `.info>p`, (e) => {
                 let str = $(e.currentTarget).attr('data-singer-name');
                 str = encodeURIComponent(str);
-                console.log(str)
+                str=encodeURIComponent(str); //两次转码
                 window.location.href = `./singer.html?name=${str}`;
             })
         }
