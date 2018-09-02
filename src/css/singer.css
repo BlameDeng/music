@@ -8,7 +8,6 @@ a{color: inherit;text-decoration: none;}
 .icon {width: 1em; height: 1em;vertical-align: -0.15em;
 fill: currentColor;overflow: hidden;}
 
-
 /* header */
 header{color: #fff;background: #333;position: relative;}
 header>img{width: 100%;}
@@ -38,7 +37,7 @@ fill: currentColor;overflow: hidden;}
 
 /* footer */
 footer{position: fixed;left: 0;bottom: 0;width: 100%;box-shadow: 0 0 2px #ddd;
-    background: #eee;}
+    background: #eee;display: none;}
 footer.active{display: block;}
     /* play */
 div.play{width: 100%;display: flex;justify-content: space-between;

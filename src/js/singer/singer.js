@@ -2,7 +2,7 @@
     let view = {
         el: '.page',
         template: `<header>
-        <img src="./img/nvdu.png" alt="">
+        <img src="__cover__" alt="">
         <div class="pre"><svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-leftt-2"></use>
             </svg></div>
@@ -41,17 +41,23 @@
         </div>
     </footer>`,
         render(data) {
-            let songs=data.songs;
-            let selectSinger=data.selectSinger;
-            let html=this.template.replace('__singer__',selectSinger);
+            let songs = data.songs;
+            let cover = '';
+            for (let i = 0; i < songs.length; i++) {
+                if (songs[i].cover !== '') { cover = songs[i].cover; break; };
+            };
+            if (cover === '') { cover = './img/default-cover.jpg' };
+            let selectSinger = data.selectSinger;
+            let html = this.template.replace('__cover__',cover)
+            .replace('__singer__', selectSinger);
             $(this.el).html(html);
-            
+
             songs.map((song) => {
-                let { name, singer, url, cover,id } = song;
-                if (cover === '') {cover = `./img/default-cover.jpg`;}
+                let { name, singer, url, cover, id } = song;
+                if (cover === '') { cover = `./img/default-cover.jpg`; }
                 let domLi = $(`<li><p>${name}</p><span>${singer}</span><div><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`);
                 domLi.attr('data-song-url', url).attr('data-song-cover', cover)
-                    .attr('data-song-name', name).attr('data-song-id',id);
+                    .attr('data-song-name', name).attr('data-song-id', id);
                 $('ul.songlist').append(domLi);
             });
         },
@@ -71,7 +77,7 @@
                 this.match();
                 this.view.render(this.model.data);
             });
-            
+            this.bindEvents();
         },
         fetch() {
             var query = new AV.Query('Song');
@@ -112,6 +118,64 @@
                 if (song.singer === selectSinger) {
                     this.model.data.songs.push(song);
                 }
+            })
+        },
+        bindEvents() {
+            $(this.view.el).on('click', '.pre', () => {
+                window.history.go(-1);
+            });
+            let audio = $('audio').get(0);
+            $(this.view.el).on('click', 'li', (e) => {
+                let url = $(e.currentTarget).attr('data-song-url');
+                let cover = $(e.currentTarget).attr('data-song-cover');
+                let name = $(e.currentTarget).attr('data-song-name');
+                $('audio').attr('src', url);
+                $('#song-cover').attr('src', cover);
+                $('.play>p').text(name);
+                $('footer').addClass('active');
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+                $('.current').css('width', `0`);
+            });
+            $(this.view.el).on('click', 'li>div', (e) => {
+                e.stopPropagation();
+                let url = $(e.currentTarget).parent().attr('data-song-url');
+                let cover = $(e.currentTarget).parent().attr('data-song-cover');
+                let name = $(e.currentTarget).parent().attr('data-song-name');
+                $('audio').attr('src', url);
+                $('#song-cover').attr('src', cover);
+                $('.play>p').text(name);
+                $('footer').addClass('active');
+                audio.play();
+                $('#play').removeClass('active');
+                $('#pause').addClass('active');
+            })
+            $(this.view.el).on('click', '#play', () => {
+                audio.play();
+                $('#play').removeClass('active');
+                $('#pause').addClass('active');
+            });
+            $(this.view.el).on('click', '#pause', () => {
+                audio.pause();
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+            });
+            $(this.view.el).on('click', '#stop', () => {
+                audio.pause();
+                audio.currentTime = 0;
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+            });
+            $('audio').on('timeupdate', () => {
+                let pro = (audio.currentTime) / (audio.duration) * 100;
+                $('.current').css('width', `${pro}%`);
+            });
+            $(this.view.el).on('click', 'p.summary', (e) => {
+                let txt = $(e.currentTarget).text();
+                $('div.full').addClass('active').find('p').text(txt);
+            });
+            $(this.view.el).on('click', 'div.full>span', () => {
+                $('div.full').removeClass('active')
             })
         }
     };
