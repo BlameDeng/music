@@ -17,7 +17,7 @@
     <div class="list">
         <div class="top">
             <div><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-bofang1"></use>
+                    <use xlink:href="#icon-yinle"></use>
                 </svg></div>
             <p>歌曲列表</p><span>（共__length__首）</span>
         </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="play">
                 <div class="coverwrapper">
-                    <img src="./img/ayumi.jpg" alt="" id="song-cover">
+                    <img src="./img/default-cover.jpg" alt="" id="song-cover">
                 </div>
                 <p></p>
                 <div class="btns">
@@ -119,6 +119,9 @@
             });
         },
         bindEvents() {
+            $(this.view.el).on('click','.pre',()=>{
+                window.history.go(-1);
+            });
             let audio = $('audio').get(0);
             $(this.view.el).on('click', 'li', (e) => {
                 let url = $(e.currentTarget).attr('data-song-url');
@@ -126,17 +129,44 @@
                 let name = $(e.currentTarget).attr('data-song-name');
                 $('audio').attr('src', url);
                 $('#song-cover').attr('src', cover);
-                $('.play>div>p').text(name);
+                $('.play>p').text(name);
+                $('footer').addClass('active');
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+                $('.current').css('width',`0`);
             });
+            $(this.view.el).on('click','li>div',(e)=>{
+                e.stopPropagation();
+                let url = $(e.currentTarget).parent().attr('data-song-url');
+                let cover = $(e.currentTarget).parent().attr('data-song-cover');
+                let name = $(e.currentTarget).parent().attr('data-song-name');
+                $('audio').attr('src', url);
+                $('#song-cover').attr('src', cover);
+                $('.play>p').text(name);
+                $('footer').addClass('active');
+                audio.play();
+                $('#play').removeClass('active');
+                $('#pause').addClass('active');
+            })
             $(this.view.el).on('click', '#play', () => {
                 audio.play();
-            })
+                $('#play').removeClass('active');
+                $('#pause').addClass('active');
+            });
             $(this.view.el).on('click', '#pause', () => {
                 audio.pause();
-            })
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+            });
             $(this.view.el).on('click', '#stop', () => {
                 audio.pause();
                 audio.currentTime = 0;
+                $('#pause').removeClass('active');
+                $('#play').addClass('active');
+            });
+            $('audio').on('timeupdate',()=>{
+                let pro=(audio.currentTime)/(audio.duration)*100;
+                $('.current').css('width',`${pro}%`);
             })
         }
     };

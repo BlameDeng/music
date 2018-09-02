@@ -11,9 +11,12 @@ fill: currentColor;overflow: hidden;}
 div.wrapper{width: 100%;position: relative;background-image: url(../img/playwall.jpg);
 background-position: center center;background-size: cover;height: 100vh;}
 
-header{position: absolute;top: 0;left: 0;padding-left: 8px;
+div.pre{position: absolute;top: 0;left: 2%;margin-top: 15px;}
+ div.pre>.icon{width: 26px; height: 26px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+header{position: absolute;top: 0;left: 8%;padding-left: 8px;
 padding-top: 10px;}
-header p:nth-child(1){font-size: 16px;color: #ddd;font-weight: bold;}
+header p:nth-child(1){font-size: 15px;color: #ddd;font-weight: bold;}
 header p:nth-child(2){font-size: 12px;color: #aaa;}
 
 /* dist */

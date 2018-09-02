@@ -1,10 +1,8 @@
 {
     let view = {
         el: '#el',
-        template: `<header>
-        <p>{{name}}</p>
-        <p>{{singer}}</p>
-    </header>
+        template: `<div class="pre"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-leftt-2"></use>
+    </svg></div><header><p>{{name}}</p><p>{{singer}}</p></header>
     <div class="distwrapper">
         <div class="pointer"><img src="./img/pointer.png" alt=""></div>
         <div class="innerdist">
@@ -101,6 +99,9 @@
             });
         },
         bindEvents() {
+            $(this.view.el).on('click','.pre',()=>{
+                window.history.go(-1);
+            });
             let audio = $('audio')[0];
             $('.btn').on('click', 'span.play', (e) => {
                 $(e.currentTarget).removeClass('active');
