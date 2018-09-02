@@ -35,10 +35,10 @@
                 };
                 if (coverurl === '') { coverurl = `./img/default-cover.jpg`; };
                 let domSinger = $(`<div><img src="${coverurl}" alt=""></div>
-                <p>${singer}</p>`);
+                <p data-singer-name="${singer}">${singer}</p>`);
                 $('.singer>.info').append(domSinger);
             } else {
-
+                //没有匹配，什么也不做
             }
 
         },
@@ -171,6 +171,12 @@
             $('#audio-p3').on('timeupdate', () => {
                 let pro = ($('#audio-p3').get(0).currentTime) / ($('#audio-p3').get(0).duration) * 100;
                 $(this.view.el).find('#current').css('width', `${pro}%`);
+            });
+            $(this.view.el).on('click',`.info>p`,(e)=>{
+                let str=$(e.currentTarget).attr('data-singer-name');
+                str=encodeURIComponent(str);
+                console.log(str)
+                window.location.href=`./singer.html?name=${str}`;
             })
         }
     };
