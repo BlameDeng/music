@@ -21,21 +21,27 @@
         showSinger(data) {
             //清空之前的展示
             $('main>.singer>.info').empty();
-            //找一个不为空的封面
-            let coverurl = '';
             let songs = data.matchSongs;
-            for (let i = 0; i < songs.length; i++) {
-                coverurl = songs[i].cover;
-                if (coverurl !== '') {
-                    break;
-                }
-            };
             let singer = data.matchSinger;
-            if (coverurl === '') { coverurl = `./img/default-cover.jpg`; };
-            let domSinger = $(`<div><img src="${coverurl}" alt=""></div>
+            //判断是否有匹配，有才更新页面
+            if (singer !== undefined) {
+                //找一个不为空的封面
+                let coverurl = '';
+                for (let i = 0; i < songs.length; i++) {
+                    coverurl = songs[i].cover;
+                    if (coverurl !== '') {
+                        break;
+                    }
+                };
+                if (coverurl === '') { coverurl = `./img/default-cover.jpg`; };
+                let domSinger = $(`<div><img src="${coverurl}" alt=""></div>
                 <p>${singer}</p>`);
-            $('.singer>.info').append(domSinger);
-        }
+                $('.singer>.info').append(domSinger);
+            } else {
+
+            }
+
+        },
     };
     let model = {
         data: {
@@ -72,35 +78,100 @@
         match(txt) {
             //清空之前的匹配结果
             this.model.data.matchSongs = [];
-            this.model.data.matchSinger = [];
+            this.model.data.matchSinger = undefined;
+            txt = txt.toLowerCase();
             let songs = this.model.data.songs;
             songs.map((song) => {
-                if (song.name === txt || song.singer === txt) {
+                if (song.name.toLowerCase() === txt || song.singer.toLowerCase() === txt) {
                     this.model.data.matchSongs.push(song);
                 };
-                if (song.singer === txt) {
+                if (song.singer.toLowerCase() === txt) {
                     this.model.data.matchSinger = txt;
                 };
             });
+        },
+        active(...selectors) {
+            for (let i = 0; i < selectors.length; i++) {
+                $(this.view.el).find(selectors[i]).addClass('active');
+            };
+        },
+        deactive(...selectors) {
+            for (let i = 0; i < selectors.length; i++) {
+                $(this.view.el).find(selectors[i]).removeClass('active');
+            };
         },
         bindEvents() {
             $('.page3').on('submit', 'form', (e) => {
                 e.preventDefault();
                 let txt = $(`input[name='txt']`).val().trim();
-                this.match(txt);
-                this.view.showSongs(this.model.data);
-                this.view.showSinger(this.model.data);
+                if (txt === '') {
+                    this.active('div#mask');
+                    setTimeout(() => {
+                        this.deactive('div#mask');
+                    }, 3500);
+                } else {
+                    this.match(txt);
+                    this.view.showSongs(this.model.data);
+                    this.view.showSinger(this.model.data);
+                    this.active('#p3-main', 'main>div.songs');
+                    this.deactive('main>div.singer');
+                }
             });
             $(this.view.el).on('click', '.songbtn', (e) => {
                 $(e.currentTarget).addClass('active').siblings().removeClass('active');
-                $('main>div.songs').addClass('active');
-                $('main>div.singer').removeClass('active');
+                this.active('main>div.songs');
+                this.deactive('main>div.singer');
             });
             $(this.view.el).on('click', '.singerbtn', (e) => {
                 $(e.currentTarget).addClass('active').siblings().removeClass('active');
-                $('main>div.singer').addClass('active');
-                $('main>div.songs').removeClass('active');
+                this.active('main>div.singer');
+                this.deactive('main>div.songs');
             });
+            $(this.view.el).on('click', 'li', (e) => {
+                this.active('.songs>footer');
+                let name = $(e.currentTarget).attr('data-song-name');
+                let url = $(e.currentTarget).attr('data-song-url');
+                let cover = $(e.currentTarget).attr('data-song-cover');
+                $('#audio-p3').attr('src', url);
+                $('#footer-songname').text(name);
+                $('#footer-songcover').attr('src', cover);
+            });
+            $(this.view.el).on('click', 'li>div', (e) => {
+                e.stopPropagation();
+                this.active('.songs>footer');
+                let name = $(e.currentTarget).parent().attr('data-song-name');
+                let url = $(e.currentTarget).parent().attr('data-song-url');
+                let cover = $(e.currentTarget).parent().attr('data-song-cover');
+                $('#audio-p3').attr('src', url);
+                $('#footer-songname').text(name);
+                $('#footer-songcover').attr('src', cover);
+                $(this.view.el).find('#current').css('width', `0`);
+                $('#audio-p3').get(0).play();
+                this.deactive('#play');
+                this.active('#pause');
+
+            });
+            $(this.view.el).on('click', '#play', () => {
+                $('#audio-p3').get(0).play();
+                this.deactive('#play');
+                this.active('#pause');
+            });
+            $(this.view.el).on('click', '#pause', () => {
+                $('#audio-p3').get(0).pause();
+                this.deactive('#pause');
+                this.active('#play');
+            });
+            $(this.view.el).on('click', '#stop', () => {
+                $('#audio-p3').get(0).pause();
+                this.deactive('#pause');
+                this.active('#play');
+                $('#audio-p3').get(0).currentTime = 0;
+                $(this.view.el).find('#current').css('width', `0`);
+            });
+            $('#audio-p3').on('timeupdate', () => {
+                let pro = ($('#audio-p3').get(0).currentTime) / ($('#audio-p3').get(0).duration) * 100;
+                $(this.view.el).find('#current').css('width', `${pro}%`);
+            })
         }
     };
     controller.init(view, model);
