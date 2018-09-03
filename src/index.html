@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="./css/index/index-page1.css">
     <link rel="stylesheet" href="./css/index/index-page2.css">
     <link rel="stylesheet" href="./css/index/index-page3.css">
-    <link rel="stylesheet" href="./css/play-page.css">
+    <link rel="stylesheet" href="./css/play-out-page.css">
+    <link rel="stylesheet" href="./css/play-in-page.css">
     <link rel="stylesheet" href="../node_modules/swiper/dist/css/swiper.min.css">
     <script src="//at.alicdn.com/t/font_809243_ushbseyx2ck.js"></script>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
@@ -52,48 +53,41 @@
         <div class="page page2">排行榜</div>
         <div class="page page3"></div>
     </div>
-    <!-- 播放模块 -->
-    <div class="play-page">
-        <div class="wrapper">
-            <div id="el">
+    <!-- 跳转播放模块 -->
+    <div class="play-out-page">
+    </div>
+    <!-- 页面内播放模块 -->
+    <div class="play-in-page">
+        <footer>
+            <div class="progress">
+                <p class="current"></p>
             </div>
-            <div class="lrc"></div>
-            <footer>
-                <div class="progress">
-                    <p class="current"></p>
+            <div class="play">
+                <div class="coverwrapper">
+                    <img src="./img/default-cover.jpg" alt="" id="song-cover">
                 </div>
-                <div class="btn">
-                    <span class="stop"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-tingzhi"></use>
+                <p></p>
+                <div class="btns">
+                    <span class="play active" id="play"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-bofang1"></use>
                         </svg></span>
-                    <span class="play active"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-bofang1-copy"></use>
+                    <span class="pause" id="pause"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-zanting-copy"></use>
                         </svg></span>
-                    <span class="pause"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-zanting"></use>
-                        </svg></span>
-                    <span class="volumeT active"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-yinliang1"></use>
-                        </svg></span>
-                    <span class="volumeF"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-yinliang1-copy"></use>
-                        </svg></span>
-                    <span class="lrcT"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-zhuomiangeci1"></use>
-                        </svg></span>
-                    <span class="lrcF active"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-zhuomiangeci1-copy"></use>
+                    <span class="stop" id="stop"><svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-tingzhi-copy"></use>
                         </svg></span>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </div>
     <script src="./js/inits/avinit.js"></script>
     <script src="./js/event-hub.js"></script>
     <script src="./js/index/index.js"></script>
     <script src="./js/index/page1.js"></script>
     <script src="./js/index/page3.js"></script>
-    <script src="./js/play-page.js"></script>
+    <script src="./js/play-out-page.js"></script>
+    <script src="./js/play-in-page.js"></script>
 </body>
 
 </html>
