@@ -115,7 +115,7 @@
             });
         },
         bindEvents() {
-            $(this.view.el).on('click','.pre',()=>{
+            $(this.view.el).on('click', '.pre', () => {
                 window.history.go(-1);
             });
             let audio = $('audio').get(0);
@@ -129,9 +129,9 @@
                 $('footer').addClass('active');
                 $('#pause').removeClass('active');
                 $('#play').addClass('active');
-                $('.current').css('width',`0`);
+                $('.current').css('width', `0`);
             });
-            $(this.view.el).on('click','li>div',(e)=>{
+            $(this.view.el).on('click', 'li>div', (e) => {
                 e.stopPropagation();
                 let url = $(e.currentTarget).parent().attr('data-song-url');
                 let cover = $(e.currentTarget).parent().attr('data-song-cover');
@@ -160,19 +160,19 @@
                 $('#pause').removeClass('active');
                 $('#play').addClass('active');
             });
-            $('audio').on('timeupdate',()=>{
-                let pro=(audio.currentTime)/(audio.duration)*100;
-                $('.current').css('width',`${pro}%`);
+            $('audio').on('timeupdate', () => {
+                let pro = (audio.currentTime) / (audio.duration) * 100;
+                $('.current').css('width', `${pro}%`);
             });
-            $(this.view.el).on('click','p.summary',(e)=>{
+            $(this.view.el).on('click', 'p.summary', (e) => {
                 e.stopPropagation();
-                let txt=$(e.currentTarget).text();
+                let txt = $(e.currentTarget).text();
                 $('div.full').addClass('active').find('p').text(txt);
-                $(document).one('click',()=>{
+                $(document).one('click', () => {
                     $('div.full').removeClass('active');
-                })
+                });
             });
-            $(this.view.el).on('click','div.full>span',()=>{
+            $(this.view.el).on('click', 'div.full>span', () => {
                 $('div.full').removeClass('active');
             })
         }
