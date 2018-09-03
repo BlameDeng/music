@@ -56,16 +56,16 @@
                 bindEvents() {
                         $(this.view.el).on('submit', 'form', (e) => {
                                 e.preventDefault();
-                                let name = $(this.view.el).find(`input[name='name']`).val();
-                                let listcover = $(this.view.el).find(`input[name='listcover']`).val();
-                                let summary = $(this.view.el).find(`textarea`).val();
+                                let name = $(this.view.el).find(`input[name='name']`).val().trim();
+                                let listcover = $(this.view.el).find(`input[name='listcover']`).val().trim();
+                                let summary = $(this.view.el).find(`textarea`).val().trim();
                                 this.model.save(name, listcover, summary);
                                 window.eventHub.emit('addnewlist');
                         });
                         $(this.view.el).on('click', '.change', () => {
-                                let name = $(this.view.el).find(`input[name='name']`).val();
-                                let listcover = $(this.view.el).find(`input[name='listcover']`).val();
-                                let summary = $(this.view.el).find(`textarea`).val();
+                                let name = $(this.view.el).find(`input[name='name']`).val().trim();
+                                let listcover = $(this.view.el).find(`input[name='listcover']`).val().trim();
+                                let summary = $(this.view.el).find(`textarea`).val().trim();
                                 let id = this.model.data.selectlist.id;
                                 this.model.update(name, listcover, summary, id);
                         })

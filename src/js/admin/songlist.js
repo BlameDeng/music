@@ -67,10 +67,7 @@
         fetch(){
             var query = new AV.Query('Song');
            return query.find().then((responses)=>{  //数组
-            responses.forEach(function(response) {
-                response.set('status', 1);
-              });
-              return AV.Object.saveAll(responses);
+              return responses;
             }).then((responses)=> {
                 // 更新成功
                 responses.map((response)=>{

@@ -40,10 +40,7 @@
         fetch(){
             var query = new AV.Query('Song');
            return query.find().then((responses)=>{  //数组
-            responses.forEach(function(response) {
-                response.set('status', 1);
-              });
-              return AV.Object.saveAll(responses);
+              return responses;
             }).then((responses)=> {
                 // 更新成功
                 responses.map((response)=>{
@@ -66,8 +63,6 @@
             song.set('url', obj.url);
             song.set('cover',obj.cover);
             song.set('lrc',obj.lrc);
-            // 设置优先级
-            song.set('priority', 1);
             return song.save().then((response) => {
                 let obj = response.attributes;
                 obj['id'] = response.id;
@@ -149,11 +144,11 @@
             })
         },
         getFormVal(){
-            let name = $(this.view.el).find(`input[name=name]`).val();
-            let singer = $(this.view.el).find(`input[name=singer]`).val();
-            let url = $(this.view.el).find(`input[name=url]`).val();
-            let cover=$(this.view.el).find(`input[name=cover]`).val();
-            let lrc=$(this.view.el).find('textarea').val();
+            let name = $(this.view.el).find(`input[name=name]`).val().trim();
+            let singer = $(this.view.el).find(`input[name=singer]`).val().trim();
+            let url = $(this.view.el).find(`input[name=url]`).val().trim();
+            let cover=$(this.view.el).find(`input[name=cover]`).val().trim();
+            let lrc=$(this.view.el).find('textarea').val().trim();
             return obj = { 'name': name, 'singer': singer, 'url': url,'cover':cover,'lrc':lrc };
         },
         bindEvents() {
