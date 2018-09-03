@@ -16,6 +16,30 @@
         </svg><span>__singer__</span></div><div class="play">
         <a href="./play.html?id=__id__"> <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-bofang1"></use></svg></a></div></li>`,
+        changeSlides(data){
+            let albums=data.albums;
+            let len=albums.length;
+            let ids = [], covers = [];
+            albums.map((album) => {
+                let { listId, listcover} = album;
+                ids.push(listId); covers.push(listcover);
+            });
+            for (let i = 0; i < len; i++) {
+                $(`#img${i}`).attr('src', covers[i]).attr('data-list-id',ids[i]);
+            };
+            var mySwiper = new Swiper('.swiper-container', {
+                // Optional parameters
+                loop: true,
+                autoplay: {
+                    delay: 3000
+                },
+                speed: 1000
+            });
+            $(`.swiper-slide`).on('click', 'img', (e) => {
+                let listId = $(e.currentTarget).attr('data-list-id')
+                window.location.href = `./album.html?listid=${listId}`;
+            });
+        },
         render(data) {
             let lists = data.lists;  //[{},{}]
             let len = lists.length;
@@ -24,7 +48,7 @@
             lists.map((list) => {
                 let { name, listId, listcover, summary } = list;
                 names.push(name); ids.push(listId); covers.push(listcover);
-            })
+            });
             let html = this.template;
             for (let i = 0; i < names.length; i++) {
                 html = html.replace(`__cover${i}__`, covers[i]).replace(`__name${i}__`, names[i])
@@ -51,7 +75,8 @@
     let model = {
         data: {
             songs: [],
-            lists: []
+            lists: [],
+            albums:[]
         },
     };
     let controller = {
@@ -65,6 +90,7 @@
             });
             this.getList().then(() => {
                 this.view.render(this.model.data);
+                this.view.changeSlides(this.model.data);
             });
             this.bindEvents();
         },
@@ -89,10 +115,15 @@
             return query.find().then((songlists) => {
                 songlists.map((songlist) => {
                     let listId = songlist.id;
-                    let { name, listcover, summary } = songlist.attributes;
-                    let obj = { listId, name, listcover, summary };
-                    this.model.data.lists.push(obj);
-                })
+                    let { name, listcover, summary,type } = songlist.attributes;
+                    let obj = { listId, name, listcover, summary ,type};
+                    if (obj.type==='list') {
+                        this.model.data.lists.push(obj);
+                    }
+                    else if(obj.type==='album'){
+                        this.model.data.albums.push(obj);
+                    }
+                });
                 return songlists;
             }).then(function (todos) {
                 // 更新成功
@@ -104,7 +135,7 @@
             $(this.view.el).on('click', '.listcover,.listname', (e) => {
                 let listId = $(e.currentTarget).parent().attr('data-list-id')
                 window.location.href = `./songlist-play.html?listid=${listId}`;
-            })
+            });
         }
     };
     controller.init(view, model);

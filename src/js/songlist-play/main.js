@@ -165,11 +165,15 @@
                 $('.current').css('width',`${pro}%`);
             });
             $(this.view.el).on('click','p.summary',(e)=>{
+                e.stopPropagation();
                 let txt=$(e.currentTarget).text();
                 $('div.full').addClass('active').find('p').text(txt);
+                $(document).one('click',()=>{
+                    $('div.full').removeClass('active');
+                })
             });
             $(this.view.el).on('click','div.full>span',()=>{
-                $('div.full').removeClass('active')
+                $('div.full').removeClass('active');
             })
         }
     };

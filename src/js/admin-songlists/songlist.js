@@ -32,9 +32,9 @@
             ).then((songlists) => {
                 // 更新成功
                 songlists.map((songlist) => {
-                    let { name, summary, listcover } = songlist.attributes;
+                    let { name, summary, listcover ,type} = songlist.attributes;
                     let id = songlist.id;
-                    let list = { name, summary, listcover, id };
+                    let list = { name, summary, listcover, id ,type};
                     this.data.lists.push(list);
                 });
             }, function (error) {
