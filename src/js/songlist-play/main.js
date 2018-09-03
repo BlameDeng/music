@@ -72,10 +72,9 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.getList();
-            this.getSongs().then(() => {
-                this.view.render(this.model.data);
-            });
+            this.getList().then(()=>{
+                return this.getSongs();
+            }).then(()=>{this.view.render(this.model.data);})
             this.bindEvents();
         },
         getList() {

@@ -16,16 +16,16 @@
         </svg><span>__singer__</span></div><div class="play">
         <a href="./play.html?id=__id__"> <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-bofang1"></use></svg></a></div></li>`,
-        changeSlides(data){
-            let albums=data.albums;
-            let len=albums.length;
+        changeSlides(data) {
+            let albums = data.albums;
+            let len = albums.length;
             let ids = [], covers = [];
             albums.map((album) => {
-                let { listId, listcover} = album;
+                let { listId, listcover } = album;
                 ids.push(listId); covers.push(listcover);
             });
             for (let i = 0; i < len; i++) {
-                $(`#img${i}`).attr('src', covers[i]).attr('data-list-id',ids[i]);
+                $(`#img${i}`).attr('src', covers[i]).attr('data-list-id', ids[i]);
             };
             var mySwiper = new Swiper('.swiper-container', {
                 // Optional parameters
@@ -76,7 +76,7 @@
         data: {
             songs: [],
             lists: [],
-            albums:[]
+            albums: []
         },
     };
     let controller = {
@@ -85,13 +85,13 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.fetch().then(() => {
-                this.view.addLi(this.model.data);
-            });
             this.getList().then(() => {
-                this.view.render(this.model.data);
+                return this.fetch();
+            }).then(() => {
                 this.view.changeSlides(this.model.data);
-            });
+                this.view.render(this.model.data);
+                this.view.addLi(this.model.data);
+            })
             this.bindEvents();
         },
         fetch() {
@@ -115,12 +115,12 @@
             return query.find().then((songlists) => {
                 songlists.map((songlist) => {
                     let listId = songlist.id;
-                    let { name, listcover, summary,type } = songlist.attributes;
-                    let obj = { listId, name, listcover, summary ,type};
-                    if (obj.type==='list') {
+                    let { name, listcover, summary, type } = songlist.attributes;
+                    let obj = { listId, name, listcover, summary, type };
+                    if (obj.type === 'list') {
                         this.model.data.lists.push(obj);
                     }
-                    else if(obj.type==='album'){
+                    else if (obj.type === 'album') {
                         this.model.data.albums.push(obj);
                     }
                 });

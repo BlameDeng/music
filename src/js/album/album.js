@@ -53,7 +53,6 @@
         </footer>
         </div>`,
         render(data) {
-            console.log(data);
             let album = data.album;  //对象
             let songs = data.songs;  //数组
             let length = songs.length;
@@ -88,10 +87,8 @@
             this.view = view;
             this.model = model;
             this.fetch().then(() => {
-                this.getSongs().then(() => {
-                    this.view.render(this.model.data);
-                })
-            });
+               return this.getSongs()
+            }).then(()=>{this.view.render(this.model.data);});
             this.bindEvents();
         },
         fetch() {
@@ -114,6 +111,7 @@
                 let { innercover, name, summary, singername, time } = songlist.attributes;
                 let album = { innercover, name, summary, listId, singername, time };
                 this.model.data.album = album;
+                return songlist;
             }, function (error) {
                 // 异常处理
             });
@@ -130,6 +128,7 @@
                     let obj = { songId, name, singer, cover, url };
                     this.model.data.songs.push(obj);
                 });
+                return songs;
             });
         },
         bindEvents() {
