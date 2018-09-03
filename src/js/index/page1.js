@@ -1,7 +1,8 @@
 {
     let view = {
         el: '.page1-inner',
-        template: `<section class="banner"><div class="recomWrapper">
+        template: `<audio id="audio-p3"></audio>
+        <section class="banner"><div class="recomWrapper">
         <h2>推荐歌单</h2>
         <div class="recommendation clearfix active"><div class="true">
         <div><img class="listcover" src="__cover0__" alt=""><p class="listname">__name0__</p></div>
@@ -61,13 +62,12 @@
         },
         addLi(data) {
             let songs = data.songs;
-            let len = songs.length;
-            songs = songs.slice(len - 10, len)
             songs.map((song) => {
                 let { name, id, singer, url } = song;
                 let html = this.templateLi.replace('__name__', name).replace('__singer__', singer)
                     .replace('__id__', id);
                 let domLi = $(html);
+                domLi.attr('data-song-id', id);
                 $(this.el).find('ol').prepend(domLi);
             });
         }
@@ -99,10 +99,13 @@
             return query.find().then((songs) => {
                 songs.map((song) => {
                     let id = song.id;
-                    let { name, url, singer } = song.attributes;
-                    let data = { name, singer, url, id };
+                    let { name, url, singer,lrc,cover } = song.attributes;
+                    let data = { name, singer, url, id ,lrc,cover};
                     this.model.data.songs.push(data);
                 });
+                //只要最新十首
+                let len = this.model.data.songs.length;
+                this.model.data.songs = this.model.data.songs.slice(len - 10, len);
                 return songs;
             }).then(() => {
                 // 更新成功
@@ -136,6 +139,18 @@
                 let listId = $(e.currentTarget).parent().attr('data-list-id')
                 window.location.href = `./songlist-play.html?listid=${listId}`;
             });
+            $(this.view.el).on('click', 'ol>li', (e) => {
+                let songId = $(e.currentTarget).attr('data-song-id');
+                let songs=this.model.data.songs;
+                let obj={};
+                for (let i = 0; i < songs.length; i++) {
+                    if (songs[i].id===songId) {
+                        obj=songs[i];
+                        break;
+                    }
+                };
+                window.eventHub.emit('click-li-play', obj);
+            })
         }
     };
     controller.init(view, model);
