@@ -53,8 +53,6 @@
             this.bindEvents();
         },
         fetch(obj) {
-            console.log(obj);
-
             return new Promise((resolve, reject) => {
                 let { lrc, url, name, cover, singer, id } = obj;
                 let lrcarr = [];
@@ -136,7 +134,11 @@
         bindEventHub() {
             window.eventHub.on('click-li-play', (data) => {
                 this.fetch(data).then(() => {
-                    this.view.render(this.model.data)
+                    this.view.render(this.model.data);
+                    $(`.lrc>p`).css('transform', `translateY(0)`);
+                    $('.current').css('width', 0);
+                    $('span.play').addClass('active');
+                    this.view.deactive('span.pause', 'div.pointer', '.innerdist');
                 });
             });
         }
