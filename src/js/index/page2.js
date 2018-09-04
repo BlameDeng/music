@@ -2,8 +2,8 @@
     let view = {
         el: '.page2',
         tempalate: `<header>官方榜</header>
-        <main><div class="new"><img src="./img/new.png" alt=""><ol></ol>
-        </div><div class="hot"><img src="./img/hot.png" alt=""><ol></ol></div></main>`,
+        <main><div class="new"><img src="http://pedcq5s6m.bkt.clouddn.com/new.png" alt=""><ol></ol>
+        </div><div class="hot"><img src="http://pedcq5s6m.bkt.clouddn.com/hot.png" alt=""><ol></ol></div></main>`,
         render(data) {
             $(this.el).html(this.tempalate);
             let newSongs = data.newSongs;

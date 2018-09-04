@@ -50,7 +50,7 @@
                 get_new_uptoken: false, 
                 domain: 'pe20rmk2n.bkt.clouddn.com', 
                 container: 'dragArea', 
-                max_file_size: '8mb', 
+                max_file_size: '10mb', 
                 max_retries: 1,
                 dragdrop: true, 
                 drop_element: 'dragArea', 

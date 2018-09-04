@@ -10,11 +10,11 @@
                     <p>{{singer}}</p>
                 </header>
                 <div class="distwrapper">
-                    <div class="pointer"><img src="./img/pointer.png" alt=""></div>
+                    <div class="pointer"><img src="http://pe9h96qe0.bkt.clouddn.com/pointer.png" alt=""></div>
                     <div class="innerdist">
                         <div class="cover"><img src="{{cover}}" alt=""></div>
-                        <div class="dist"><img src="./img/dist.png" alt=""></div>
-                        <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
+                        <div class="dist"><img src="http://pe9h96qe0.bkt.clouddn.com/dist.png" alt=""></div>
+                        <div class="dist-light"><img src="http://pe9h96qe0.bkt.clouddn.com/dist-light.png" alt=""></div>
                     </div>
                 </div>
                 <div class="lrc"></div>
@@ -70,7 +70,7 @@
         </div>`,
         render(data) {
             let { name, singer, url, cover, wordarr, timearr } = data;
-            if (cover === '') { cover = `./img/default-cover.jpg` };
+            if (cover === '') { cover = `http://pe9h96qe0.bkt.clouddn.com/default-cover.jpg` };
             let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer)
                 .replace('{{cover}}', cover).replace('__cover__', cover).replace('__name__', name);;
             $(this.el).html(html);

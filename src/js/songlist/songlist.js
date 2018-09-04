@@ -29,7 +29,7 @@
             songs.map((song) => {
                 let { name, singer, url, cover, id, lrc } = song;
                 if (cover === '') {
-                    cover = `./img/default-cover.jpg`;
+                    cover = `http://pe9h96qe0.bkt.clouddn.com/default-cover.jpg`;
                 }
                 let domLi = $(`<li><div class="songicon"><svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
@@ -110,13 +110,13 @@
                 $(this.view.el).find('div.full').removeClass('active')
             });
             $(this.view.el).on('click', 'li', (e) => {
-                let tag = e.target.tagName
+                let tagName = e.target.tagName
                 let id = $(e.currentTarget).attr('data-song-id');
                 let songs = this.model.data.songs;
                 let obj = {};
                 for (let i = 0; i < songs.length; i++) {
                     if (songs[i].id === id) {
-                        obj = Object.assign({ tag }, songs[i]);
+                        obj = Object.assign({ tagName }, songs[i]);
                         break;
                     }
                 };

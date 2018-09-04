@@ -29,8 +29,8 @@
             $(this.el).find('.songs>ul.songlist').empty();
             let songs = data.matchSongs;
             songs.map((song) => {
-                let { name, singer, url, cover,id,lrc } = song;
-                if (cover === '') { cover = `./img/default-cover.jpg`; };
+                let { name, singer, url, cover, id, lrc } = song;
+                if (cover === '') { cover = `http://pe9h96qe0.bkt.clouddn.com/default-cover.jpg`; };
                 let domLi = $(`<li><div class="songicon"><svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
                 <p>${name}</p><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geshou"></use>
@@ -86,8 +86,8 @@
             return query.find().then((songs) => {
                 songs.map((song) => {
                     let id = song.id;
-                    let { name, singer, cover, url ,lrc} = song.attributes;
-                    let obj = { id, name, singer, cover, url ,lrc};
+                    let { name, singer, cover, url, lrc } = song.attributes;
+                    let obj = { id, name, singer, cover, url, lrc };
                     this.model.data.songs.push(obj);
                 });
                 return songs;
@@ -98,19 +98,22 @@
             });
         },
         match(txt) {
-            //清空之前的匹配结果
-            this.model.data.matchSongs = [];
-            this.model.data.matchSinger = undefined;
-            txt = txt.toLowerCase();
-            let songs = this.model.data.songs;
-            songs.map((song) => {
-                if (song.name.toLowerCase() === txt || song.singer.toLowerCase() === txt) {
-                    this.model.data.matchSongs.push(song);
-                };
-                if (song.singer.toLowerCase() === txt) {
-                    this.model.data.matchSinger = txt;
-                };
-            });
+            return new Promise((resolve) => {
+                //清空之前的匹配结果
+                this.model.data.matchSongs = [];
+                this.model.data.matchSinger = undefined;
+                txt = txt.toLowerCase();
+                let songs = this.model.data.songs;
+                songs.map((song) => {
+                    if (song.name.toLowerCase() === txt || song.singer.toLowerCase() === txt) {
+                        this.model.data.matchSongs.push(song);
+                    };
+                    if (song.singer.toLowerCase() === txt) {
+                        this.model.data.matchSinger = txt;
+                    };
+                });
+                resolve();
+            })
         },
         active(...selectors) {
             for (let i = 0; i < selectors.length; i++) {
@@ -132,11 +135,12 @@
                         this.deactive('div#mask');
                     }, 3500);
                 } else {
-                    this.match(txt);
-                    this.view.showSongs(this.model.data);
-                    this.view.showSinger(this.model.data);
-                    this.active('#p3-main', 'main>div.songs');
-                    this.deactive('main>div.singer');
+                    this.match(txt).then(() => {
+                        this.view.showSongs(this.model.data);
+                        this.view.showSinger(this.model.data);
+                        this.active('#p3-main', 'main>div.songs');
+                        this.deactive('main>div.singer');
+                    })
                 }
             });
             $(this.view.el).on('click', '.songbtn', (e) => {
@@ -150,13 +154,13 @@
                 this.deactive('main>div.songs');
             });
             $(this.view.el).on('click', 'li', (e) => {
-                let tag=e.target.tagName;
+                let tagName = e.target.tagName;
                 let id = $(e.currentTarget).attr('data-song-id');
-                let songs=this.model.data.matchSongs;
-                let obj={};
+                let songs = this.model.data.matchSongs;
+                let obj = {};
                 for (let i = 0; i < songs.length; i++) {
-                    if (songs[i].id===id) {
-                        obj=Object.assign({tag},songs[i]);
+                    if (songs[i].id === id) {
+                        obj = Object.assign({ tagName }, songs[i]);
                         break;
                     }
                 };
@@ -165,7 +169,7 @@
             $(this.view.el).on('click', `.info>p`, (e) => {
                 let str = $(e.currentTarget).attr('data-singer-name');
                 str = encodeURIComponent(str);
-                str=encodeURIComponent(str); //两次转码
+                str = encodeURIComponent(str); //两次转码
                 window.location.href = `./singer.html?name=${str}`;
             })
         }

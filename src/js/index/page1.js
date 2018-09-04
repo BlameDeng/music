@@ -136,7 +136,7 @@
         bindEvents() {
             $(this.view.el).on('click', '.listcover,.listname', (e) => {
                 let listId = $(e.currentTarget).parent().attr('data-list-id')
-                window.location.href = `./songlist-play.html?listid=${listId}`;
+                window.location.href = `./songlist.html?listid=${listId}`;
             });
             $(this.view.el).on('click', 'ol>li', (e) => {
                 let tagName=e.target.tagName;

@@ -22,7 +22,7 @@
             for (let i = 0; i < songs.length; i++) {
                 if (songs[i].cover !== '') { cover = songs[i].cover; break; };
             };
-            if (cover === '') { cover = './img/default-cover.jpg' };
+            if (cover === '') { cover = 'http://pe9h96qe0.bkt.clouddn.com/default-cover.jpg' };
             let selectSinger = data.selectSinger;
             let html = this.template.replace('__cover__',cover)
             .replace('__singer__', selectSinger);
@@ -30,7 +30,7 @@
 
             songs.map((song) => {
                 let { name, singer, url, cover, id } = song;
-                if (cover === '') { cover = `./img/default-cover.jpg`; }
+                if (cover === '') { cover = `http://pe9h96qe0.bkt.clouddn.com/default-cover.jpg`; }
                 let domLi = $(`<li><div class="songicon"><svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
                 <p>${name}</p><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geshou"></use>
