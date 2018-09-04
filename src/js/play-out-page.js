@@ -116,22 +116,23 @@
             let audio = $('#audio')[0];
             $(this.view.el).on('click', 'span.play', (e) => {
                 $(e.currentTarget).removeClass('active');
+                this.view.deactive('span.play');
                 this.view.active('span.pause', 'div.pointer');
                 $(this.view.el).find('.innerdist').addClass('active').removeClass('pause');
                 audio.play();
             })
             $(this.view.el).on('click', 'span.pause', (e) => {
                 $(e.currentTarget).removeClass('active');
+                this.view.deactive('span.pause', 'div.pointer');
+                this.view.active('span.play');
                 $(this.view.el).find('.innerdist').addClass('pause');
-                $(this.view.el).find('div.pointer').removeClass('active');
-                $(this.view.el).find('span.play').addClass('active');
                 audio.pause();
             })
             $(this.view.el).on('click', 'span.stop', (e) => {
                 audio.currentTime = 0;
                 $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
                 audio.pause();
-                $(this.view.el).find('span.play').addClass('active');
+                this.view.active('span.play');
                 this.view.deactive('span.pause', 'div.pointer', '.innerdist');
             })
             $(this.view.el).on('click', 'span.volumeT', (e) => {
@@ -168,13 +169,17 @@
         },
         bindEventHub() {
             window.eventHub.on('click-li-play', (data) => {
-                this.fetch(data).then(() => {
-                    this.view.render(this.model.data);
-                    $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
-                    $(this.view.el).find('.current').css('width', 0);
-                    $(this.view.el).find('span.play').addClass('active');
-                    this.view.deactive('span.pause', 'div.pointer', '.innerdist');
-                });
+                let songId = this.model.data.id;
+                if (data.id !== songId) {
+                    this.fetch(data).then(() => {
+                        this.view.render(this.model.data);
+                        $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
+                        $(this.view.el).find('.current').css('width', 0);
+                        this.view.deactive('span.pause', 'div.pointer', '.innerdist');
+                    });
+                }else if(data.id===songId){
+                    $('div.play-out-page').addClass('active');
+                }
             });
         }
     };

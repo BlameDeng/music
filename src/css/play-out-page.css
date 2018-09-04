@@ -46,8 +46,12 @@ div.play-out-page .progress>p{width: 0;height: 5px;background: rgb(200, 50, 50);
 
 div.play-out-page div.btn{width: 70%;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;
 margin-left: 15%;}
-div.play-out-page div.btn span.play,div.btn span.pause,div.btn span.volumeT,div.btn span.volumeF,
-div.play-out-page div.btn span.lrcT,div.btn span.lrcF{display: none;}
+div.play-out-page div.btn span.play,
+div.play-out-page div.btn span.pause,
+div.play-out-page div.btn span.volumeT,
+div.play-out-page div.btn span.volumeF,
+div.play-out-page div.btn span.lrcT,
+div.play-out-page div.btn span.lrcF{display: none;}
 div.play-out-page div.btn span.active{display: inline;}
 div.play-out-page div.btn .icon {width: 40px; height: 40px;vertical-align: top;
 fill: currentColor;overflow: hidden;}

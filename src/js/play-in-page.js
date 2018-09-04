@@ -21,6 +21,16 @@
             };
             let html = this.template.replace('__cover__', cover).replace('__name__', name);
             $(this.el).html(html);
+        },
+        active(...els) {
+            for (let i = 0; i < els.length; i++) {
+                $(els[i]).addClass('active');
+            }
+        },
+        deactive(...els) {
+            for (let i = 0; i < els.length; i++) {
+                $(els[i]).removeClass('active');
+            }
         }
     };
     let model = {
@@ -37,26 +47,30 @@
         },
         bindEventHub() {
             window.eventHub.on('click-li-play', (data) => {
-                this.view.render(data);
+                let songId = this.model.data.id;
+                if (data.id !== songId) {
+                    this.model.data = data;
+                    this.view.render(data);
+                }
             });
         },
         bindEvents() {
-            let audio=$('#audio').get(0);
+            let audio = $('#audio').get(0);
             $(this.view.el).on('click', '#play', () => {
                 audio.play();
-                $(this.view.el).find('#play').removeClass('active');
-                $(this.view.el).find('#pause').addClass('active');
+                this.view.active('span.pause');
+                this.view.deactive('span.play');
             });
             $(this.view.el).on('click', '#pause', () => {
                 audio.pause();
-                $(this.view.el).find('#pause').removeClass('active');
-                $(this.view.el).find('#play').addClass('active');
+                this.view.active('span.play');
+                this.view.deactive('span.pause');
             });
             $(this.view.el).on('click', '#stop', () => {
                 audio.pause();
                 audio.currentTime = 0;
-                $(this.view.el).find('#pause').removeClass('active');
-                $(this.view.el).find('#play').addClass('active');
+                this.view.active('span.play');
+                this.view.deactive('span.pause');
             });
             $('#audio').on('timeupdate', () => {
                 let pro = (audio.currentTime) / (audio.duration) * 100;
