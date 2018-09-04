@@ -1,0 +1,53 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+*::before,*::after{box-sizing: border-box;}
+body{font-size: 14px;width: 100%;height: 100%;
+font-family: Helvetica,sans-serif;background: #eee}
+ul,ol{list-style: none;}
+img{vertical-align: middle;}
+a{color: inherit;text-decoration: none;}
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;
+fill: currentColor;overflow: hidden;}
+
+/* header */
+div.page>header{color: #fff;background: #333;position: relative;width: 100%;}
+div.page>header>.headerinner{position: absolute;top: 0;left: 0;width: 100%;}
+div.page>header>.headerinner>div{width: 100%;padding-left: 10%;}
+div.page>header>.headerinner div.pre{position: absolute;top: 50%;left: 10%;
+margin-top: -13px;margin-left: -30px;}
+div.page>header>.headerinner div.pre>.icon{width: 26px; height: 26px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+div.page>header>.headerinner p{font-size: 16px;margin:10px 0;}
+div.page>header>img{width: 100%;}
+
+/* main */
+main{background: #eee;border-radius: 8px;margin-top: -20%;position: relative;}
+main>div.title{position: relative;padding-left: 10%;border-bottom: 1px solid #aaa;}
+main>div.title>div{position: absolute;top: 50%;left: 10%;margin-top: -13px;
+margin-left: -30px;}
+main>div.title .icon{width: 26px; height: 26px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+main>div.title p{font-size: 15px;padding: 10px 0;}
+
+ul.songlist{overflow:auto;}
+.songList::-webkit-scrollbar {width: 5px;height: 5px;}
+.songList::-webkit-scrollbar-thumb {background-color: rgba(0,0,0,.08);
+border-radius: 10px;-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
+ul.songlist>li{display: flex;cursor: pointer;position: relative;}
+ul.songlist>li:nth-child(2n-1){background: rgba(0,0,0,.06);}
+ul.songlist>li::before{content:'';display: block;height: 36px;width: 5px;
+margin:2px 0;border-radius: 2px;}   
+ul.songlist>li.active{background: #bbb;}
+ul.songlist>li.active::before{background: rgb(200, 50, 50);}
+ul.songlist>li>div.songicon{text-align: center;padding: 7px 0;}
+ul.songlist>li>div>.icon{width: 26px; height: 26px;vertical-align: top;margin-left: 5px;
+fill: currentColor;overflow: hidden;}
+ul.songlist>li>div.songinfo{overflow: hidden;margin-left: 5px;}
+ul.songlist>li>div.songinfo>p{height:20px;line-height: 20px;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis;font-size: 14px;font-weight: bold;
+padding-left: 2px;}
+ul.songlist>li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 3px 0;}
+ul.songlist>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
+ul.songlist>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
+ul.songlist>li>.play>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 10px;}

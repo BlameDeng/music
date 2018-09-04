@@ -1,0 +1,78 @@
+/* out */
+div.play-out-page{display: none;}
+div.play-out-page.active{display: block;position: fixed;top: 0;left: 0;z-index: 1;}
+div.play-out-page div.wrapper{width: 100%;position: relative;background-image: url(http://pe9h96qe0.bkt.clouddn.com/playwall.jpg);
+background-position: center center;background-size: cover;height: 100vh;}
+
+div.play-out-page div.pre{position: absolute;top: 0;left: 2%;margin-top: 15px;}
+ div.pre>.icon{width: 26px; height: 26px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+div.play-out-page header{position: absolute;top: 0;left: 8%;padding-left: 8px;
+padding-top: 10px;}
+div.play-out-page header p:nth-child(1){font-size: 15px;color: #ddd;font-weight: bold;}
+div.play-out-page header p:nth-child(2){font-size: 12px;color: #aaa;}
+
+/* dist */
+div.play-out-page .distwrapper{width: 100%;}
+div.play-out-page .pointer{width: 20%;z-index: 1;position: relative;left: 45%;transition: all 0.5s;
+transform-origin: 0 0;transform: rotateZ(-18deg);}
+div.play-out-page .pointer.active{transform: rotateZ(5deg);}
+div.play-out-page .pointer>img{width: 100%;}
+
+div.play-out-page div.innerdist{width: 100%;transform-origin: 50% 40%;}
+div.play-out-page .innerdist.active{animation: circle 16s linear infinite;}
+div.play-out-page .innerdist.pause{animation-play-state:paused;}
+
+div.play-out-page .dist{width: 60%;margin-top: -50%;margin-left: auto;margin-right: auto;}
+div.play-out-page .dist img{width: 100%;}
+
+div.play-out-page .dist-light{width: 60%;margin-top: -60%;margin-left: auto;margin-right: auto;}
+div.play-out-page .dist-light img{width: 100%;}
+
+div.play-out-page .cover{width: 40%;border-radius: 50%;overflow: hidden;margin-left: auto;
+margin-right: auto;margin-top: 0%;}
+div.play-out-page .cover>img{width: 100%;}
+
+@keyframes circle{from{transform: rotateZ(0);}to{transform: rotateZ(360deg);}}
+
+div.play-out-page .lrc{width: 100%;height: 150px;overflow: hidden;margin-top:25%;display: none;}
+div.play-out-page .lrc.active{display: block;}
+div.play-out-page .lrc p{color: #eee;font-size: 16px;text-align: center;transition: all 0.3s;
+height: 30px;line-height: 30px;}
+
+div.play-out-page footer{position: fixed;bottom: 2%;left: 0;width: 100%;}
+div.play-out-page div.progress{width: 80%;height: 5px;margin: 0 auto;background: #ddd;border-radius: 2px;
+margin-bottom: 10px;}
+div.play-out-page .progress>p{width: 0;height: 5px;background: rgb(200, 50, 50);border-radius: 2px;transition: all 0.3s;}
+
+div.play-out-page div.btn{width: 70%;margin-bottom: 10px;display: flex;justify-content: space-between;align-items: center;
+margin-left: 15%;}
+div.play-out-page div.btn span.play,
+div.play-out-page div.btn span.pause,
+div.play-out-page div.btn span.volumeT,
+div.play-out-page div.btn span.volumeF,
+div.play-out-page div.btn span.lrcT,
+div.play-out-page div.btn span.lrcF{display: none;}
+div.play-out-page div.btn span.active{display: inline;}
+div.play-out-page div.btn .icon {width: 40px; height: 40px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+
+/* in */
+div.play-in-page footer{position: fixed;left: 0;bottom: 0;width: 100%;box-shadow: 0 0 2px #ddd;
+    background: #eee;border-radius: 4px;}
+div.play-in-page footer.active{display: block;}
+/* play */
+div.play-in-page div.play{width: 100%;display: flex;justify-content: space-between;
+    align-content: center;}
+        
+div.play-in-page div.progress{width: 70%;height: 1px;margin-left: 10%;background: #bbb;
+    margin-top: 15px;}
+div.play-in-page .progress>p{width: 0;height:1px;background: rgb(200,50,50);transition: all 0.3s;}
+div.play-in-page div.coverwrapper{width: 10%;}
+div.play-in-page div.coverwrapper>img{width: 70%;margin: 15%;border-radius: 5px;}
+div.play-in-page .play>p{flex-grow: 1;font-size: 16px;color:#333;display: flex;align-items: center;}
+div.play-in-page div.btns{width: 20%;display: flex;justify-content: space-around;align-items: center;}
+div.play-in-page .btns .icon{width: 30px; height: 30px;vertical-align: top;
+    fill: currentColor;overflow: hidden;}
+div.play-in-page span.play,div.play-in-page span.pause{display: none;}
+div.play-in-page span.play.active,div.play-in-page span.pause.active{display: inline;}

@@ -1,0 +1,74 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+*::before,*::after{box-sizing: border-box;}
+body{font-size: 14px;width: 100%;height: 100%;
+font-family: Helvetica,sans-serif;background: #eee;}
+ul,ol{list-style: none;}
+img{vertical-align: middle;}
+a{color: inherit;text-decoration: none;}
+.icon {width: 1em; height: 1em;vertical-align: -0.15em;
+fill: currentColor;overflow: hidden;}
+
+.page{width: 100%;}
+/* header */
+div.page header{position: relative;background: #666;padding: 10px 0;width: 100%;}
+div.page header div{position: absolute;top: 50%;left: 5%;margin-top: -12px;
+margin-left: -12px;}
+header div>.icon{width: 24px; height: 24px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+div.page header p{color: #eee;font-size: 16px;margin-left: 10%;}
+
+/* info */
+div.info{background: #666;color: #eee;display: flex;justify-content: center;
+align-items: center;width: 100%;padding-bottom: 10%;}
+.info>.list-cover{width: 40%;border-radius: 5px;
+margin-top: 5%;margin-bottom: 5%;}
+.info>.list-cover>img{width: 100%;border-radius: 5px;}
+
+.info .des{width: 35%;display: flex;flex-direction: column;justify-content: center;
+margin-left: 5%;}
+.des>h3{width: 100%;margin-bottom: 5%;}
+div.page h5{margin-bottom: 2%;}
+.des>div.sumwrapper{width: 100%;position: relative;}
+.des p.summary{width: 100%;display: -webkit-box;-webkit-line-clamp:4;
+-webkit-box-orient:vertical;overflow: hidden;font-size: 12px;text-indent: 2em;}
+.des div.full{width: 100%;font-size: 12px;padding: 10px 10px 3px 10px;
+position: absolute;top: 0;left: 0;z-index:1;background: #aaa;transform: scale(1.2);
+border-radius: 4px;text-align: right;display: none;}
+.des div.full.active{display: block;}
+.des div.full>p{text-align: left;text-indent: 2em;}
+div.full>span{font-size: 12px;color: #ccc;margin-top: 2px;margin-right: -5px;}
+/* list */
+div.top{display: flex;justify-content: flex-start;align-items: center;
+padding-left: 10%;position: relative;border-bottom: 1px solid #aaa;
+border-top-left-radius: 10px;border-top-right-radius: 10px;margin-top: -6px;
+background: #eee;}
+.top>div{position: absolute;top: 50%;left: 10%;margin-top: -13px;
+margin-left: -30px;}
+.top>div>.icon{width: 26px; height: 26px;vertical-align: top;
+fill: currentColor;overflow: hidden;}
+.top p{font-size: 15px;margin: 10px 0;}
+.top span{font-size: 12px;color: #666;}
+
+ul.songlist{overflow: auto;}
+.songList::-webkit-scrollbar {width: 5px;height: 5px;}
+.songList::-webkit-scrollbar-thumb {background-color: rgba(0,0,0,.08);
+border-radius: 10px;-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
+ul.songlist>li{display: flex;cursor: pointer;position: relative;}
+ul.songlist>li:nth-child(2n-1){background: rgba(0,0,0,.06);}
+ul.songlist>li::before{content:'';display: block;height: 36px;width: 5px;
+margin:2px 0;border-radius: 2px;}   
+ul.songlist>li.active{background: #bbb;}
+ul.songlist>li.active::before{background: rgb(200, 50, 50);}
+ul.songlist>li>div.songicon{text-align: center;padding: 7px 0;}
+ul.songlist>li>div>.icon{width: 26px; height: 26px;vertical-align: top;margin-left: 5px;
+fill: currentColor;overflow: hidden;}
+ul.songlist>li>div.songinfo{overflow: hidden;margin-left: 5px;}
+ul.songlist>li>div.songinfo>p{height:20px;line-height: 20px;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis;font-size: 14px;font-weight: bold;
+padding-left: 2px;}
+ul.songlist>li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 3px 0;}
+ul.songlist>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
+ul.songlist>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
+ul.songlist>li>.play>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 10px;}
