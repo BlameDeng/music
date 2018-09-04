@@ -61,6 +61,8 @@
         },
         addLi(data) {
             let songs = data.songs;
+            let len = songs.length;
+            songs = songs.slice(len - 10, len);
             songs.map((song) => {
                 let { name, id, singer, url } = song;
                 let html = this.templateLi.replace('__name__', name).replace('__singer__', singer)
@@ -98,13 +100,11 @@
             return query.find().then((songs) => {
                 songs.map((song) => {
                     let id = song.id;
-                    let { name, url, singer,lrc,cover } = song.attributes;
-                    let data = { name, singer, url, id ,lrc,cover};
+                    let { name, url, singer,lrc,cover,tag } = song.attributes;
+                    let data = { name, singer, url, id ,lrc,cover,tag};
                     this.model.data.songs.push(data);
                 });
-                //只要最新十首
-                let len = this.model.data.songs.length;
-                this.model.data.songs = this.model.data.songs.slice(len - 10, len);
+                window.eventHub.emit('all-songs-get',this.model.data.songs);
                 return songs;
             }).then(() => {
                 // 更新成功
@@ -139,13 +139,13 @@
                 window.location.href = `./songlist-play.html?listid=${listId}`;
             });
             $(this.view.el).on('click', 'ol>li', (e) => {
-                let tag=e.target.tagName;
+                let tagName=e.target.tagName;
                 let songId = $(e.currentTarget).attr('data-song-id');
                 let songs=this.model.data.songs;
                 let obj={};
                 for (let i = 0; i < songs.length; i++) {
                     if (songs[i].id===songId) {
-                        obj=Object.assign({tag},songs[i]);
+                        obj=Object.assign({tagName},songs[i]);
                         break;
                     }
                 };

@@ -10,7 +10,8 @@ justify-content: space-between;align-items: center;}
 .page2 ol>li:nth-child(2n-1){background: #ddd;}
 .page2 ol>li>span{position: absolute;top: 50%;left: 10%;margin-left: -15px;
 font-size: 16px;margin-top: -8px;}
-.page2 ol>li>span.top3{color: rgb(200,50,50);}
-.page2 ol>li>p.songname{margin-left: 10%;width: 40%;text-align: start;}
-.page2 ol>li>p.singername{margin-right: 5%;width: 40%;text-align: end;
-color: #666;}
+.page2 ol>li.top3>span{color: rgb(200,50,50);}
+.page2 ol>li>p.songname{margin-left: 10%;width: 40%;text-align: start;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis}
+.page2 ol>li>p.singername{margin-right: 5%;width: 40%;text-align: end;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis;color: #666;font-size: 12px;}

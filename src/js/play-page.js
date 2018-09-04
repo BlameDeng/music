@@ -191,8 +191,8 @@
         bindEventHub() {
             window.eventHub.on('click-li-play', (data) => {
                 let songId = this.model.data.id;
-                let tag = data.tag;
-                if (tag === 'LI') {
+                let tagName = data.tagName;
+                if (tagName === 'LI') {
                     if (data.id !== songId) {
                         this.fetch(data).then(() => {
                             this.view.render(this.model.data);
