@@ -195,7 +195,6 @@
                 if (tag === 'LI') {
                     if (data.id !== songId) {
                         this.fetch(data).then(() => {
-                            console.log(2);
                             this.view.render(this.model.data);
                             $(this.view.el).find('div.play-out-page').addClass('active');
                             $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);

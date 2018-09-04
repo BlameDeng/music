@@ -14,30 +14,7 @@
         <main id="p3-main">
             <div class="resultnav"><p class="songbtn">歌曲</p><p class="singerbtn">歌手</p></div>
             <div class="songs">
-                <ul class="songlist">
-                </ul>
-                <footer class="page3footer">
-                    <div class="progress">
-                        <p class="current" id="current"></p>
-                    </div>
-                    <div class="play">
-                        <div class="coverwrapper">
-                            <img id="footer-songcover" src="./img/default-cover.jpg" alt="" id="song-cover">
-                        </div>
-                        <p id="footer-songname"></p>
-                        <div class="btns">
-                            <span class="play active" id="play"><svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-bofang1"></use>
-                                </svg></span>
-                            <span class="pause" id="pause"><svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-zanting-copy"></use>
-                                </svg></span>
-                            <span class="stop" id="stop"><svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-tingzhi-copy"></use>
-                                </svg></span>
-                        </div>
-                    </div>
-                </footer>
+                <ul class="songlist"></ul>
             </div>
             <div class="singer">
                 <div class="info"></div>
@@ -49,14 +26,17 @@
         },
         showSongs(data) {
             //清空之前的展示
-            $('.songs>ul.songlist').empty();
+            $(this.el).find('.songs>ul.songlist').empty();
             let songs = data.matchSongs;
             songs.map((song) => {
-                let { name, singer, url, cover } = song;
+                let { name, singer, url, cover,id,lrc } = song;
                 if (cover === '') { cover = `./img/default-cover.jpg`; };
-                let domLi = $(`<li><p>${name}</p><span>${singer}</span><div><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`);
-                domLi.attr('data-song-url', url).attr('data-song-cover', cover)
-                    .attr('data-song-name', name);
+                let domLi = $(`<li><div class="songicon"><svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
+                <p>${name}</p><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geshou"></use>
+                </svg><span>${singer}</span></div><div class="play">
+                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`);
+                domLi.attr('data-song-id', id);
                 $('.songs>ul.songlist').append(domLi);
             });
         },
@@ -106,8 +86,8 @@
             return query.find().then((songs) => {
                 songs.map((song) => {
                     let id = song.id;
-                    let { name, singer, cover, url } = song.attributes;
-                    let obj = { id, name, singer, cover, url };
+                    let { name, singer, cover, url ,lrc} = song.attributes;
+                    let obj = { id, name, singer, cover, url ,lrc};
                     this.model.data.songs.push(obj);
                 });
                 return songs;
@@ -170,52 +150,17 @@
                 this.deactive('main>div.songs');
             });
             $(this.view.el).on('click', 'li', (e) => {
-                this.active('.songs>footer');
-                let name = $(e.currentTarget).attr('data-song-name');
-                let url = $(e.currentTarget).attr('data-song-url');
-                let cover = $(e.currentTarget).attr('data-song-cover');
-                $('#audio-p3').attr('src', url);
-                $('#footer-songname').text(name);
-                $('#footer-songcover').attr('src', cover);
-                $(this.view.el).find('#current').css('width', `0`);
-                this.deactive('#pause');
-                this.active('#play');
-            });
-            $(this.view.el).on('click', 'li>div', (e) => {
-                e.stopPropagation();
-                this.active('.songs>footer');
-                let name = $(e.currentTarget).parent().attr('data-song-name');
-                let url = $(e.currentTarget).parent().attr('data-song-url');
-                let cover = $(e.currentTarget).parent().attr('data-song-cover');
-                $('#audio-p3').attr('src', url);
-                $('#footer-songname').text(name);
-                $('#footer-songcover').attr('src', cover);
-                $(this.view.el).find('#current').css('width', `0`);
-                $('#audio-p3').get(0).play();
-                this.deactive('#play');
-                this.active('#pause');
-
-            });
-            $(this.view.el).on('click', '#play', () => {
-                $('#audio-p3').get(0).play();
-                this.deactive('#play');
-                this.active('#pause');
-            });
-            $(this.view.el).on('click', '#pause', () => {
-                $('#audio-p3').get(0).pause();
-                this.deactive('#pause');
-                this.active('#play');
-            });
-            $(this.view.el).on('click', '#stop', () => {
-                $('#audio-p3').get(0).pause();
-                this.deactive('#pause');
-                this.active('#play');
-                $('#audio-p3').get(0).currentTime = 0;
-                $(this.view.el).find('#current').css('width', `0`);
-            });
-            $('#audio-p3').on('timeupdate', () => {
-                let pro = ($('#audio-p3').get(0).currentTime) / ($('#audio-p3').get(0).duration) * 100;
-                $(this.view.el).find('#current').css('width', `${pro}%`);
+                let tag=e.target.tagName
+                let id = $(e.currentTarget).attr('data-song-id');
+                let songs=this.model.data.matchSongs;
+                let obj={};
+                for (let i = 0; i < songs.length; i++) {
+                    if (songs[i].id===id) {
+                        obj=Object.assign({tag},songs[i]);
+                        break;
+                    }
+                };
+                window.eventHub.emit('click-li-play', obj);
             });
             $(this.view.el).on('click', `.info>p`, (e) => {
                 let str = $(e.currentTarget).attr('data-singer-name');

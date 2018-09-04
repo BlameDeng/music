@@ -23,13 +23,30 @@ color: #555;width: 25%;text-align: center;}
 
 .page3 main>.songs{display: none;}
 .page3 main>.songs.active{display: block;}
-.page3 .songs>ul.songlist{padding-left: 15%;height: 100%;}
-.page3 li{border-bottom: 1px solid #aaa;padding: 10px 0;position: relative;}
-.page3 li>p{font-size: 14px;margin-bottom: 5px;}
-.page3 li>span{font-size: 12px;color: #666;}
-.page3 li>div{position: absolute;top: 50%;right: 9%;margin-top: -12px;}
-.page3 li>div>.icon{width: 24px; height: 24px;vertical-align: top;
+.page3 ul.songlist{overflow: auto;}
+.page3 .songList::-webkit-scrollbar {width: 5px;height: 5px;}
+.page3 .songList::-webkit-scrollbar-thumb {background-color: rgba(0,0,0,.08);
+border-radius: 10px;-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
+.page3 ul.songlist>li{display: flex;cursor: pointer;position: relative;}
+.page3 ul.songlist>li:nth-child(2n-1){background: rgba(0,0,0,.06);}
+.page3 ul.songlist>li::before{content:'';display: block;height: 36px;width: 5px;
+margin:2px 0;border-radius: 2px;}   
+.page3 ul.songlist>li.active{background: #bbb;}
+.page3 ul.songlist>li.active::before{background: rgb(200, 50, 50);}
+.page3 ul.songlist>li>div.songicon{text-align: center;padding: 7px 0;
+position: absolute;top: 50%;left: 10%;margin-top: -20px;margin-left: -32px;}
+.page3 ul.songlist>li>div>.icon{width: 26px; height: 26px;vertical-align: top;margin-left: 5px;
 fill: currentColor;overflow: hidden;}
+.page3 ul.songlist>li>div.songinfo{overflow: hidden;margin-left: 10%;}
+.page3 ul.songlist>li>div.songinfo>p{height:20px;line-height: 20px;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis;font-size: 14px;font-weight: bold;
+padding-left: 2px;}
+.page3 ul.songlist>li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 3px 0;}
+.page3 ul.songlist>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
+.page3 ul.songlist>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
+.page3 ul.songlist>li>.play>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 10px;}
 
 .page3 main>.singer{width: 100%;padding-top: 10%;display: none;}
 .page3 main>.singer.active{display: block;}
