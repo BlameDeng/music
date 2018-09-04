@@ -127,7 +127,7 @@
                 $(this.view.el).find('div.full').removeClass('active')
             });
             $(this.view.el).on('click', 'li', (e) => {
-                let tag=e.target.tagName
+                let tag=e.target.tagName;
                 let id = $(e.currentTarget).attr('data-song-id');
                 let songs=this.model.data.songs;
                 let obj={};

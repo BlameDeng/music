@@ -150,7 +150,7 @@
                 this.deactive('main>div.songs');
             });
             $(this.view.el).on('click', 'li', (e) => {
-                let tag=e.target.tagName
+                let tag=e.target.tagName;
                 let id = $(e.currentTarget).attr('data-song-id');
                 let songs=this.model.data.matchSongs;
                 let obj={};

@@ -139,7 +139,7 @@
                 window.location.href = `./songlist-play.html?listid=${listId}`;
             });
             $(this.view.el).on('click', 'ol>li', (e) => {
-                let tag=e.target.tagName
+                let tag=e.target.tagName;
                 let songId = $(e.currentTarget).attr('data-song-id');
                 let songs=this.model.data.songs;
                 let obj={};

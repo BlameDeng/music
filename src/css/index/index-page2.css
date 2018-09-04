@@ -1,0 +1,16 @@
+.page2>header{font-size: 16px;padding: 10px 0 15px 5%;width: 100%;}
+.page2>main{display: flex;justify-content: space-between;align-items: center;width: 100%;}
+.page2>main>div{width: 44%;}
+.page2>main>div>img{width: 100%;border-radius: 5px;}
+.page2>main>div.new{margin-left: 5%;}
+.page2>main>div.hot{margin-right: 5%;}
+.page2 ol{margin-top: 10px;}
+.page2 ol>li{position: relative;padding: 8px 0;font-size: 15px;display: flex;
+justify-content: space-between;align-items: center;}
+.page2 ol>li:nth-child(2n-1){background: #ddd;}
+.page2 ol>li>span{position: absolute;top: 50%;left: 10%;margin-left: -15px;
+font-size: 16px;margin-top: -8px;}
+.page2 ol>li>span.top3{color: rgb(200,50,50);}
+.page2 ol>li>p.songname{margin-left: 10%;width: 40%;text-align: start;}
+.page2 ol>li>p.singername{margin-right: 5%;width: 40%;text-align: end;
+color: #666;}
