@@ -18,28 +18,6 @@
             <p>歌曲列表</p><span>（共__length__首）</span>
         </div>
         <ul class="songlist"></ul>
-        <footer>
-            <div class="progress">
-                <p class="current"></p>
-            </div>
-            <div class="play">
-                <div class="coverwrapper">
-                    <img src="./img/default-cover.jpg" alt="" id="song-cover">
-                </div>
-                <p></p>
-                <div class="btns">
-                    <span class="play active" id="play"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-bofang1"></use>
-                        </svg></span>
-                    <span class="pause" id="pause"><svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-zanting-copy"></use>
-                                </svg></span>
-                    <span class="stop" id="stop"><svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-tingzhi-copy"></use>
-                        </svg></span>
-                </div>
-            </div>
-        </footer>
     </div>`,
         render(data) {
             let length = data.songs.length;
@@ -49,13 +27,16 @@
             $(this.el).html(html);
             let songs = data.songs;
             songs.map((song) => {
-                let { name, singer, url, cover } = song;
+                let { name, singer, url, cover, id, lrc } = song;
                 if (cover === '') {
                     cover = `./img/default-cover.jpg`;
                 }
-                let domLi = $(`<li><p>${name}</p><span>${singer}</span><div><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`);
-                domLi.attr('data-song-url', url).attr('data-song-cover', cover)
-                    .attr('data-song-name', name);
+                let domLi = $(`<li><div class="songicon"><svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
+                <p>${name}</p><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geshou"></use>
+                </svg><span>${singer}</span></div><div class="play">
+                <svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`);
+                domLi.attr('data-song-id', id);
                 $('ul.songlist').append(domLi);
             });
         }
@@ -72,9 +53,9 @@
         init(view, model) {
             this.view = view;
             this.model = model;
-            this.getList().then(()=>{
+            this.getList().then(() => {
                 return this.getSongs();
-            }).then(()=>{this.view.render(this.model.data);})
+            }).then(() => { this.view.render(this.model.data); })
             this.bindEvents();
         },
         getList() {
@@ -106,9 +87,9 @@
             query.equalTo('dependent', list);
             return query.find().then((songs) => {
                 songs.map((song) => {
-                    let songId = song.id;
-                    let { name, singer, url, cover } = song.attributes;
-                    let obj = { name, singer, url, cover, songId };
+                    let id = song.id;
+                    let { name, singer, url, cover, lrc } = song.attributes;
+                    let obj = { name, singer, url, cover, id, lrc };
                     this.model.data.songs.push(obj);
                 });
             });
@@ -117,63 +98,30 @@
             $(this.view.el).on('click', '.pre', () => {
                 window.history.go(-1);
             });
-            let audio = $('audio').get(0);
-            $(this.view.el).on('click', 'li', (e) => {
-                let url = $(e.currentTarget).attr('data-song-url');
-                let cover = $(e.currentTarget).attr('data-song-cover');
-                let name = $(e.currentTarget).attr('data-song-name');
-                $('audio').attr('src', url);
-                $('#song-cover').attr('src', cover);
-                $('.play>p').text(name);
-                $('footer').addClass('active');
-                $('#pause').removeClass('active');
-                $('#play').addClass('active');
-                $('.current').css('width', `0`);
-            });
-            $(this.view.el).on('click', 'li>div', (e) => {
-                e.stopPropagation();
-                let url = $(e.currentTarget).parent().attr('data-song-url');
-                let cover = $(e.currentTarget).parent().attr('data-song-cover');
-                let name = $(e.currentTarget).parent().attr('data-song-name');
-                $('audio').attr('src', url);
-                $('#song-cover').attr('src', cover);
-                $('.play>p').text(name);
-                $('footer').addClass('active');
-                audio.play();
-                $('#play').removeClass('active');
-                $('#pause').addClass('active');
-            })
-            $(this.view.el).on('click', '#play', () => {
-                audio.play();
-                $('#play').removeClass('active');
-                $('#pause').addClass('active');
-            });
-            $(this.view.el).on('click', '#pause', () => {
-                audio.pause();
-                $('#pause').removeClass('active');
-                $('#play').addClass('active');
-            });
-            $(this.view.el).on('click', '#stop', () => {
-                audio.pause();
-                audio.currentTime = 0;
-                $('#pause').removeClass('active');
-                $('#play').addClass('active');
-            });
-            $('audio').on('timeupdate', () => {
-                let pro = (audio.currentTime) / (audio.duration) * 100;
-                $('.current').css('width', `${pro}%`);
-            });
             $(this.view.el).on('click', 'p.summary', (e) => {
                 e.stopPropagation();
                 let txt = $(e.currentTarget).text();
-                $('div.full').addClass('active').find('p').text(txt);
+                $(this.view.el).find('div.full').addClass('active').find('p').text(txt);
                 $(document).one('click', () => {
-                    $('div.full').removeClass('active');
+                    $(this.view.el).find('div.full').removeClass('active');
                 });
             });
             $(this.view.el).on('click', 'div.full>span', () => {
-                $('div.full').removeClass('active');
-            })
+                $(this.view.el).find('div.full').removeClass('active')
+            });
+            $(this.view.el).on('click', 'li', (e) => {
+                let tag = e.target.tagName
+                let id = $(e.currentTarget).attr('data-song-id');
+                let songs = this.model.data.songs;
+                let obj = {};
+                for (let i = 0; i < songs.length; i++) {
+                    if (songs[i].id === id) {
+                        obj = Object.assign({ tag }, songs[i]);
+                        break;
+                    }
+                };
+                window.eventHub.emit('click-li-play', obj);
+            });
         }
     };
     controller.init(view, model);

@@ -115,6 +115,17 @@
             $(this.view.el).on('click', '.pre', () => {
                 window.history.go(-1);
             });
+            $(this.view.el).on('click', 'p.summary', (e) => {
+                e.stopPropagation();
+                let txt = $(e.currentTarget).text();
+                $(this.view.el).find('div.full').addClass('active').find('p').text(txt);
+                $(document).one('click', () => {
+                    $(this.view.el).find('div.full').removeClass('active');
+                });
+            });
+            $(this.view.el).on('click', 'div.full>span', () => {
+                $(this.view.el).find('div.full').removeClass('active')
+            });
             $(this.view.el).on('click', 'li', (e) => {
                 let tag=e.target.tagName
                 let id = $(e.currentTarget).attr('data-song-id');

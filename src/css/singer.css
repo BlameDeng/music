@@ -9,48 +9,45 @@ a{color: inherit;text-decoration: none;}
 fill: currentColor;overflow: hidden;}
 
 /* header */
-header{color: #fff;background: #333;position: relative;}
-header>img{width: 100%;}
-header>div{position: absolute;left: 10%;top: 2%;margin-left: -35px;}
-header>div>.icon{width: 30px; height: 30px;vertical-align: top;
+div.page>header{color: #fff;background: #333;position: relative;width: 100%;}
+div.page>header>.headerinner{position: absolute;top: 0;left: 0;width: 100%;}
+div.page>header>.headerinner>div{width: 100%;padding-left: 10%;}
+div.page>header>.headerinner div.pre{position: absolute;top: 50%;left: 10%;
+margin-top: -13px;margin-left: -30px;}
+div.page>header>.headerinner div.pre>.icon{width: 26px; height: 26px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-header>p{position: absolute;left: 10%;top: 2%;font-size: 16px;
-height: 30px;line-height: 30px;}
+div.page>header>.headerinner p{font-size: 16px;margin:10px 0;}
+div.page>header>img{width: 100%;}
 
 /* main */
-main{background: #eee;border-radius: 8px;margin-top: -10%;position: relative;}
-main>div.title{position: relative;}
-main>div.title>div{position: absolute;top: 50%;left: 10%;margin-top: -12px;
-margin-left: -28px;}
-main>div.title .icon{width: 24px; height: 24px;vertical-align: top;
+main{background: #eee;border-radius: 8px;margin-top: -20%;position: relative;}
+main>div.title{position: relative;padding-left: 10%;border-bottom: 1px solid #aaa;}
+main>div.title>div{position: absolute;top: 50%;left: 10%;margin-top: -13px;
+margin-left: -30px;}
+main>div.title .icon{width: 26px; height: 26px;vertical-align: top;
 fill: currentColor;overflow: hidden;}
-main>div.title p{margin-left: 10%;height: 30px;line-height: 30px;
-font-weight: bold;}
+main>div.title p{font-size: 15px;padding: 10px 0;}
 
-ul.songlist{padding-left: 10%;height: 100%;}
-li{border-bottom: 1px solid #aaa;padding: 5px 0;position: relative;}
-li>p{font-size: 14px;margin-bottom: 5px;}
-li>span{font-size: 12px;color: #666;}
-li>div{position: absolute;top: 50%;right: 9%;margin-top: -12px;}
-li>div>.icon{width: 24px; height: 24px;vertical-align: top;
+ul.songlist{overflow:auto;}
+.songList::-webkit-scrollbar {width: 5px;height: 5px;}
+.songList::-webkit-scrollbar-thumb {background-color: rgba(0,0,0,.08);
+border-radius: 10px;-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);}
+ul.songlist>li{display: flex;cursor: pointer;position: relative;}
+ul.songlist>li:nth-child(2n-1){background: rgba(0,0,0,.06);}
+ul.songlist>li::before{content:'';display: block;height: 36px;width: 5px;
+margin:2px 0;border-radius: 2px;}   
+ul.songlist>li.active{background: #bbb;}
+ul.songlist>li.active::before{background: rgb(200, 50, 50);}
+ul.songlist>li>div.songicon{text-align: center;padding: 7px 0;}
+ul.songlist>li>div>.icon{width: 26px; height: 26px;vertical-align: top;margin-left: 5px;
 fill: currentColor;overflow: hidden;}
-
-/* footer */
-footer{position: fixed;left: 0;bottom: 0;width: 100%;box-shadow: 0 0 2px #ddd;
-    background: #eee;display: none;}
-footer.active{display: block;}
-    /* play */
-div.play{width: 100%;display: flex;justify-content: space-between;
-align-content: center;}
-    
-div.progress{width: 70%;height: 1px;margin-left: 10%;background: #bbb;
- margin-top: 15px;}
-.progress>p{width: 0;height:1px;background: rgb(200,50,50);transition: all 0.3s;}
-div.coverwrapper{width: 10%;}
-div.coverwrapper>img{width: 70%;margin: 15%;border-radius: 5px;}
-.play>p{flex-grow: 1;font-size: 16px;color:#333;display: flex;align-items: center;}
-div.btns{width: 20%;display: flex;justify-content: space-around;align-items: center;}
-.btns .icon{width: 30px; height: 30px;vertical-align: top;
-fill: currentColor;overflow: hidden;}
-span.play,span.pause{display: none;}
-span.play.active,span.pause.active{display: inline;}
+ul.songlist>li>div.songinfo{overflow: hidden;margin-left: 5px;}
+ul.songlist>li>div.songinfo>p{height:20px;line-height: 20px;white-space: nowrap;
+overflow: hidden;text-overflow: ellipsis;font-size: 14px;font-weight: bold;
+padding-left: 2px;}
+ul.songlist>li>div.songinfo>.icon{width: 14px; height: 14px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 3px 0;}
+ul.songlist>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
+ul.songlist>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
+ul.songlist>li>.play>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 10px;}
