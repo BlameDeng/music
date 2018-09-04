@@ -1,56 +1,78 @@
 {
     let view = {
-        el: 'div.play-out-page',
-        template: `<div class="wrapper">
-    <div class="pre"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-leftt-2"></use>
-        </svg></div>
-    <header>
-        <p>{{name}}</p>
-        <p>{{singer}}</p>
-    </header>
-    <div class="distwrapper">
-        <div class="pointer"><img src="./img/pointer.png" alt=""></div>
-        <div class="innerdist">
-            <div class="cover"><img src="{{cover}}" alt=""></div>
-            <div class="dist"><img src="./img/dist.png" alt=""></div>
-            <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
+        el: 'div.play-page',
+        template: `<div class="play-out-page">
+            <div class="wrapper">
+                <div class="pre"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-leftt-2"></use>
+                    </svg></div>
+                <header>
+                    <p>{{name}}</p>
+                    <p>{{singer}}</p>
+                </header>
+                <div class="distwrapper">
+                    <div class="pointer"><img src="./img/pointer.png" alt=""></div>
+                    <div class="innerdist">
+                        <div class="cover"><img src="{{cover}}" alt=""></div>
+                        <div class="dist"><img src="./img/dist.png" alt=""></div>
+                        <div class="dist-light"><img src="./img/dist-light.png" alt=""></div>
+                    </div>
+                </div>
+                <div class="lrc"></div>
+                <footer>
+                    <div class="progress">
+                        <p class="current"></p>
+                    </div>
+                    <div class="btn">
+                        <span class="stop"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-tingzhi"></use>
+                            </svg></span>
+                        <span class="play active"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-bofang1-copy"></use>
+                            </svg></span>
+                        <span class="pause"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zanting"></use>
+                            </svg></span>
+                        <span class="volumeT active"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-yinliang1"></use>
+                            </svg></span>
+                        <span class="volumeF"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-yinliang1-copy"></use>
+                            </svg></span>
+                        <span class="lrcT"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zhuomiangeci1"></use>
+                            </svg></span>
+                        <span class="lrcF active"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zhuomiangeci1-copy"></use>
+                            </svg></span>
+                    </div>
+                </footer>
+            </div>
         </div>
-    </div>
-    <div class="lrc"></div>
-    <footer>
-        <div class="progress">
-            <p class="current"></p>
-        </div>
-        <div class="btn">
-            <span class="stop"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-tingzhi"></use>
-                </svg></span>
-            <span class="play active"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-bofang1-copy"></use>
-                </svg></span>
-            <span class="pause"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-zanting"></use>
-                </svg></span>
-            <span class="volumeT active"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-yinliang1"></use>
-                </svg></span>
-            <span class="volumeF"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-yinliang1-copy"></use>
-                </svg></span>
-            <span class="lrcT"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-zhuomiangeci1"></use>
-                </svg></span>
-            <span class="lrcF active"><svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-zhuomiangeci1-copy"></use>
-                </svg></span>
-        </div>
-    </footer>
-</div>`,
+        <div class="play-in-page">
+            <footer>
+                <div class="progress">
+                    <p class="current"></p>
+                </div>
+                <div class="play">
+                    <div class="coverwrapper">
+                        <img src="__cover__" alt=""></div>
+                    <p>__name__</p>
+                    <div class="btns">
+                        <span class="play active"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-bofang1"></use></svg></span>
+                        <span class="pause"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-zanting-copy"></use></svg></span>
+                        <span class="stop"><svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-tingzhi-copy"></use></svg></span>
+                    </div>
+                </div>
+            </footer>
+        </div>`,
         render(data) {
             let { name, singer, url, cover, wordarr, timearr } = data;
             if (cover === '') { cover = `./img/default-cover.jpg` };
             let html = this.template.replace('{{name}}', name).replace('{{singer}}', singer)
-                .replace('{{cover}}', cover);
+                .replace('{{cover}}', cover).replace('__cover__', cover).replace('__name__', name);;
             $(this.el).html(html);
 
             $('#audio').attr('src', url);
