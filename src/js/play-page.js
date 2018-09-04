@@ -84,7 +84,6 @@
                 domp.attr('data-song-time', time);
                 $('.lrc').append(domp);
             };
-            $('div.play-out-page').addClass('active');
         },
         active(...els) {
             for (let i = 0; i < els.length; i++) {
@@ -133,7 +132,7 @@
         },
         bindEvents() {
             $(this.view.el).on('click', '.pre', () => {
-                $('div.play-out-page').removeClass('active');
+                $(this.view.el).find('div.play-out-page').removeClass('active');
             });
             let audio = $('#audio')[0];
             $(this.view.el).on('click', 'span.play', (e) => {
@@ -192,15 +191,29 @@
         bindEventHub() {
             window.eventHub.on('click-li-play', (data) => {
                 let songId = this.model.data.id;
-                if (data.id !== songId) {
-                    this.fetch(data).then(() => {
-                        this.view.render(this.model.data);
-                        $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
-                        $(this.view.el).find('.current').css('width', 0);
-                        this.view.deactive('span.pause', 'div.pointer', '.innerdist');
-                    });
-                }else if(data.id===songId){
-                    $('div.play-out-page').addClass('active');
+                let tag = data.tag;
+                if (tag === 'LI') {
+                    if (data.id !== songId) {
+                        this.fetch(data).then(() => {
+                            console.log(2);
+                            this.view.render(this.model.data);
+                            $(this.view.el).find('div.play-out-page').addClass('active');
+                            $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
+                            $(this.view.el).find('.current').css('width', 0);
+                            this.view.deactive('span.pause', 'div.pointer', '.innerdist');
+                        });
+                    } else if (data.id === songId) {
+                        $(this.view.el).find('div.play-out-page').addClass('active');
+                    }
+                } else {
+                    if (data.id !== songId) {
+                        this.fetch(data).then(() => {
+                            this.view.render(this.model.data);
+                            $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
+                            $(this.view.el).find('.current').css('width', 0);
+                            this.view.deactive('span.pause', 'div.pointer', '.innerdist');
+                        });
+                    }
                 }
             });
         }

@@ -15,8 +15,7 @@
         <use xlink:href="#icon-yinle"></use></svg></div><div class="songinfo">
         <p>__name__</p><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geshou"></use>
         </svg><span>__singer__</span></div><div class="play">
-        <a href="./play.html?id=__id__"> <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-bofang1"></use></svg></a></div></li>`,
+        <svg class="icon" aria-hidden="true"><use xlink:href="#icon-bofang1"></use></svg></div></li>`,
         changeSlides(data) {
             let albums = data.albums;
             let len = albums.length;
@@ -140,12 +139,13 @@
                 window.location.href = `./songlist-play.html?listid=${listId}`;
             });
             $(this.view.el).on('click', 'ol>li', (e) => {
+                let tag=e.target.tagName
                 let songId = $(e.currentTarget).attr('data-song-id');
                 let songs=this.model.data.songs;
                 let obj={};
                 for (let i = 0; i < songs.length; i++) {
                     if (songs[i].id===songId) {
-                        obj=songs[i];
+                        obj=Object.assign({tag},songs[i]);
                         break;
                     }
                 };

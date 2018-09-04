@@ -44,5 +44,5 @@ padding-left: 2px;}
 fill: currentColor;overflow: hidden;margin: 3px 0;}
 .newSong>ol>li>div.songinfo>span{line-height: 20px;font-size: 12px;}
 .newSong>ol>li>.play{width: 40px; height: 40px;position: absolute;top: 0;right: 10px;}
-.newSong>ol>li>.play>a>.icon{width: 30px; height: 30px;vertical-align: top;
-fill: currentColor;overflow: hidden;margin: 5px;}
+.newSong>ol>li>.play>.icon{width: 20px; height: 20px;vertical-align: top;
+fill: currentColor;overflow: hidden;margin: 10px;}
