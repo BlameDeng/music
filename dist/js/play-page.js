@@ -134,7 +134,7 @@
             $(this.view.el).on('click', '.pre', () => {
                 $(this.view.el).find('div.play-out-page').removeClass('active');
             });
-            let audio = $('#audio')[0];
+            let audio = $('#audio').get(0);
             $(this.view.el).on('click', 'span.play', (e) => {
                 $(e.currentTarget).removeClass('active');
                 this.view.deactive('span.play');
@@ -200,7 +200,7 @@
                             $(this.view.el).find(`.lrc>p`).css('transform', `translateY(0)`);
                             $(this.view.el).find('.current').css('width', 0);
                             this.view.deactive('span.pause', 'div.pointer', '.innerdist');
-                        });
+                        })
                     } else if (data.id === songId) {
                         $(this.view.el).find('div.play-out-page').addClass('active');
                     }

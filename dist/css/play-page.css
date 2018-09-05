@@ -1,5 +1,5 @@
 /* out */
-div.play-out-page{display: none;}
+div.play-out-page{display: none;width: 100%;}
 div.play-out-page.active{display: block;position: fixed;top: 0;left: 0;z-index: 1;}
 div.play-out-page div.wrapper{width: 100%;position: relative;background-image: url(http://pe9h96qe0.bkt.clouddn.com/playwall.jpg);
 background-position: center center;background-size: cover;height: 100vh;}
